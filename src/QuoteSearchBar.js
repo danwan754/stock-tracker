@@ -35,24 +35,15 @@ class QuoteSearchBar extends Component {
       });
     }
 
-    if (searchString.length > 0) {
-      return (
-        <div>
-          <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Search" />
-          <ul>
-            { companies.map(function(company){ return <li key={company.symbol}>{company.name} </li> }) }
-          </ul>
-        </div>
-      );
-    }
-    else {
-      return (
-        <div>
-          <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Search" />
-          </div>
-      );
-    }
-  };
+    return (
+      <div>
+      <input list="companies" />
+      <datalist id="companies">
+        { companies.map(function(company){ return <option key={company.symbol} value={company.symbol + ": " + company.name} /> }) }
+      </datalist>
+      </div>
+    );
+  }
 }
 
 export default QuoteSearchBar;
