@@ -6,22 +6,31 @@ class QuoteSearchBar extends Component {
   constructor() {
     super();
     this.state = {
-      searchString: '',
+      searchString: ''
     }
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   // sets state, triggers render method
   handleChange(event) {
     // grab value form input box
     this.setState({searchString:event.target.value});
-    console.log("detected string change");
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  handleClick() {
+    // display quote of the selected Company
+
+
+    this.setState({searchString: ''});
+
+    // this.setState({searchString:event.target.textContent});
   }
+
+  // handleSubmit(event) {
+  //   event.preventDefault();
+  // }
 
   render() {
 
@@ -31,17 +40,27 @@ class QuoteSearchBar extends Component {
     // filter companies list by value from input box
     if(searchString.length > 0){
       companies = companies.filter(function(company){
-        return company.name.toLowerCase().match( '^' + searchString );
+        return company.name.toLowerCase().match(searchString);
       });
+      companies = companies.slice(0,10);
+    }
+    else {
+      companies = [];
     }
 
     return (
-      <div>
-      <input list="companies" />
-      <datalist id="companies">
-        { companies.map(function(company){ return <option key={company.symbol} value={company.symbol + ": " + company.name} /> }) }
-      </datalist>
-      </div>
+        // <div>
+        // <input list="companies" />
+        // <datalist id="companies">
+        //   { companies.map(function(company){ return <option key={company.symbol} value={company.symbol + ": " + company.name} /> }) }
+        // </datalist>
+        // <input type="submit"/>
+        // </div>
+        <div>
+        <input type="text" name="company" value={this.state.searchString} onChange={this.handleChange} placeholder="Company name or ticker symbol"/>
+        <input type="submit"/>
+        { companies.map(company => { return <div key={company.symbol} onClick={this.handleClick}>{company.symbol + ": " + company.name} </div> }) }
+        </div>
     );
   }
 }
