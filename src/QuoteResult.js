@@ -38,13 +38,19 @@ class QuoteResult extends Component {
     else {
       var name = quoteObj.companyName;
       var symbol = quoteObj.symbol;
-      // console.log(name);
-      // console.log(symbol);
+      var latestPrice = quoteObj.latestPrice;
+      var lastestTime = quoteObj.latestTime;
+      var latestSource = quoteObj.latestSource;
+      var exchange = quoteObj.primaryExchange;
 
       return (
         <div>
           <br/>
           <h2>({symbol}): {name}</h2>
+          <h5>Primary exchange: {exchange}</h5>
+          <h3>{latestPrice}</h3>
+          <h4>Last Updated on {lastestTime}</h4>
+          <h4>Source: {latestSource}</h4>
         </div>
       )
     }
