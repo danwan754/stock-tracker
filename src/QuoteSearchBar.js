@@ -6,7 +6,8 @@ class QuoteSearchBar extends Component {
   constructor() {
     super();
     this.state = {
-      searchString: ''
+      searchString: '',
+      selectedCompany: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -19,13 +20,17 @@ class QuoteSearchBar extends Component {
     this.setState({searchString:event.target.value});
   }
 
-  handleClick() {
+  handleClick(event) {
     // display quote of the selected Company
 
 
-    this.setState({searchString: ''});
+    var symbol = event.target.textContent.match(".*:")[0].trim().replace(":", '');
 
-    // this.setState({searchString:event.target.textContent});
+    // clear the search string and store the ticker symbol of the selected company
+    this.setState({ searchString: '',
+                    selectedCompany: symbol});
+    this.props.symbol(symbol);
+    // console.log(this.state.selectedCompany);
   }
 
   // handleSubmit(event) {
@@ -49,17 +54,10 @@ class QuoteSearchBar extends Component {
     }
 
     return (
-        // <div>
-        // <input list="companies" />
-        // <datalist id="companies">
-        //   { companies.map(function(company){ return <option key={company.symbol} value={company.symbol + ": " + company.name} /> }) }
-        // </datalist>
-        // <input type="submit"/>
-        // </div>
         <div>
         <input type="text" name="company" value={this.state.searchString} onChange={this.handleChange} placeholder="Company name or ticker symbol"/>
         <input type="submit"/>
-        { companies.map(company => { return <div key={company.symbol} onClick={this.handleClick}>{company.symbol + ": " + company.name} </div> }) }
+        { companies.map(company => { return <div key={company.symbol} name={company.symbol} onClick={this.handleClick}>{company.symbol + ": " + company.name} </div> }) }
         </div>
     );
   }
