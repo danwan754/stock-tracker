@@ -2,30 +2,6 @@ import React, { Component } from "react";
 
 class QuoteResult extends Component {
 
-  // sets initial state
-  constructor() {
-    super();
-    this.state = {
-      // quoteObj: this.props.symbol
-    }
-    this.fetchQuote = this.fetchQuote.bind(this);
-  }
-
-  fetchQuote() {
-    // if (Object.keys(this.state.quoteObj).length === 0) {
-    //   return;
-    // }
-    // var symbol = this.props.symbol.toLowerCase();
-    // var url = "https://api.iextrading.com/1.0/stock/" + symbol + "/quote"
-    // console.log(url);
-    // // fetch(url)
-    // // .then(response => { return response.json() })
-    // // .then(data => { this.setState({ quoteObj: data });
-    // //   // console.log(data);
-    // // });
-  }
-
-
   render() {
     // console.log(this.props.quoteObj);
     var quoteObj = this.props.quote;
@@ -40,17 +16,21 @@ class QuoteResult extends Component {
       var symbol = quoteObj.symbol;
       var latestPrice = quoteObj.latestPrice;
       var lastestTime = quoteObj.latestTime;
-      var latestSource = quoteObj.latestSource;
       var exchange = quoteObj.primaryExchange;
+      var dayHigh = quoteObj.high;
+      var dayLow = quoteObj.low;
+      var changePrice = quoteObj.change;
+      var changePercent = quoteObj.changePercent;
 
       return (
         <div>
           <br/>
           <h2>({symbol}): {name}</h2>
           <h5>Primary exchange: {exchange}</h5>
-          <h3>{latestPrice}</h3>
+          <h2>{latestPrice} <span>{changePrice}  ({changePercent})</span></h2>
+          <h4>Day High: {dayHigh}</h4>
+          <h4>Day Low: {dayLow}</h4>
           <h4>Last Updated on {lastestTime}</h4>
-          <h4>Source: {latestSource}</h4>
         </div>
       )
     }

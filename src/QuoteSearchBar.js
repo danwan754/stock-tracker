@@ -11,19 +11,14 @@ class QuoteSearchBar extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // sets state, triggers render method
   handleChange(event) {
     // grab value form input box
     this.setState({searchString:event.target.value});
   }
 
   handleClick(event) {
-    // display quote of the selected Company
-
-
     var symbol = event.target.textContent.match(".*:")[0].trim().replace(":", '');
 
     // clear the search string and store the ticker symbol of the selected company
@@ -32,10 +27,6 @@ class QuoteSearchBar extends Component {
     this.props.symbol(symbol);
     // console.log(this.state.selectedCompany);
   }
-
-  // handleSubmit(event) {
-  //   event.preventDefault();
-  // }
 
   render() {
 
