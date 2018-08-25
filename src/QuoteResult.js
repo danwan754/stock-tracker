@@ -2,7 +2,11 @@ import React, { Component } from "react";
 
 class QuoteResult extends Component {
 
+  // shouldComponentUpdate() {
+  // }
+
   render() {
+    // console.log("quoteresult");
     // console.log(this.props.quoteObj);
     var quoteObj = this.props.quote;
     if (Object.keys(quoteObj).length == 0) {
@@ -12,6 +16,10 @@ class QuoteResult extends Component {
       )
     }
     else {
+      var value = "auto";
+      var maxWidth = "100px";
+      var maxHeight = "100px";
+
       var name = quoteObj.companyName;
       var symbol = quoteObj.symbol;
       var latestPrice = quoteObj.latestPrice;
@@ -21,12 +29,25 @@ class QuoteResult extends Component {
       var dayLow = quoteObj.low;
       var changePrice = quoteObj.change;
       var changePercent = quoteObj.changePercent;
+      var logoURL = this.props.logoURL;
+
+      if (changePrice > 0) {
+        changePrice.toString();
+        changePrice = "+" + changePrice;
+      }
+      if (changePercent > 0) {
+        changePercent.toString();
+        changePercent = "+" + changePercent + "%";
+      }
 
       return (
         <div>
           <br/>
-          <h2>({symbol}): {name}</h2>
-          <h5>Primary exchange: {exchange}</h5>
+          <div>
+          <img src={logoURL} style={{width: value, height: value, maxHeight: maxHeight, maxWidth: maxWidth}} />
+          <h2 style={{display: "inline"}}>({symbol}): {name}</h2>
+          </div>
+          <br/>
           <h2>{latestPrice} <span>{changePrice}  ({changePercent})</span></h2>
           <h4>Day High: {dayHigh}</h4>
           <h4>Day Low: {dayLow}</h4>
