@@ -1,39 +1,7 @@
 import React, { Component } from "react";
-import cookie from "react-cookies";
-
-import QuoteSearchBar from "./QuoteSearchBar";
 
 class WatchLists extends Component {
 
-
-  constructor() {
-    super();
-    this.state = {
-      watchlist: cookie.loadAll(),
-      dataObj: {}
-    }
-    this.handleAdd = this.handleAdd.bind(this);
-    this.handleRemove = this.handleRemove.bind(this);
-  }
-
-  componentDidMount() {
-    // create string of the symbols
-    var symbolArr = [];
-    Object.keys(this.state.watchlist).map( (key, value) =>
-      { return ( symbolArr.push(key)) }
-    )
-    var symbols = symbolArr.join(',');
-    // fetch batch quotes
-    var url = "https://api.iextrading.com/1.0/stock/market/batch?symbols=" + symbols + "&types=quote";
-    console.log(url);
-
-
-    Object.keys(this.state.watchlist)
-      .map((symbol, value) => { console.log(symbol) })
-    // get the batch quote
-
-    // update dataObj state
-  }
 
   // shouldComponentUpdate() {
   //   console.log(this.props.toAdd);
@@ -43,43 +11,29 @@ class WatchLists extends Component {
   //   return true;
   // }
 
-  // add stock to watch list
-  handleAdd(symbol) {
-    console.log("handleAdd triggered");
-    var symbol = symbol.toLowerCase();
-    if (this.state.watchlist.hasOwnProperty(symbol)) {
-      // console.log("cookie already has " + symbol);
-      return;
-    }
-    cookie.save(symbol, true, {path: "/"});
-    this.setState( {watchlist: cookie.loadAll()} );
-  }
-
-  // remove stock from watch list
-  handleRemove(symbol) {
-    cookie.remove(symbol);
-    this.setState( {watchlist: cookie.loadAll()} );
-  }
 
   render() {
-    // console.log("cookie content: " + this.state.watchlist);
-    // if (this.props.toAdd) {
-    //   this.handleAdd(this.props.symbol);
-    // }
+    // console.log("batchObj: " + this.props.batchObj);
 
-    if (typeof this.state.watchlist != "undefined") {
+    var batchObj = this.props.batchObj;
+
+    if (typeof batchObj != "undefined") {
+
+      // {Object.keys(batchObj)
+      // .map((symbol, value) => { console.log(batchObj[symbol]["quote"]["symbol"]) }) }
+
       return (
         <div>
           <h2>Watch Lists</h2>
           <p>Search up stocks to track.</p>
-          {Object.keys(this.state.watchlist)
-          .map((symbol, value) => { return
+          {Object.keys(batchObj)
+          .map((symbol, value) => { return (
             <div key={symbol}>
-              <h3>{symbol, value}</h3>
-              <input type="submit" value="X" onClick={this.handleRemove} />
+              <h3>{batchObj[symbol]["quote"]["symbol"]}</h3>
+              <h3>{batchObj[symbol]["quote"]["name"]}</h3>
+              <input type="submit" value="X" onClick={this.props.toRemove(batchObj[symbol]["quote"]["symbol"])} />
             </div>
-          })}
-          {}
+          )})}
         </div>
       )}
     else {

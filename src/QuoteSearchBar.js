@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import NewsResult from "./NewsResult";
+import QuoteResult from "./QuoteResult";
+
 
 class QuoteSearchBar extends Component {
 
@@ -6,25 +9,26 @@ class QuoteSearchBar extends Component {
   constructor() {
     super();
     this.state = {
+      companies: [],
       searchString: '',
-      selectedCompany: ''
+      selectedSymbol: '',
+      quoteObj: {},
+      newsObj: [],
+      logoURL: '',
+
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // componentDidMount() {
-  //   // get list of all companies listed on IEX
-  //   fetch("https://api.iextrading.com/1.0/ref-data/symbols")
-  //   .then(response => { return response.json() })
-  //   .then(data => { this.setState({ companies: data }) });
-  //     // console.log("company 1: " + this.state.companies[1].symbol);
-  // }
+  componentDidMount() {
 
-  handleChange(event) {
-    // grab value form input box
-    this.setState({searchString:event.target.value});
+    // get all the companies listed on IEX
+    fetch("https://api.iextrading.com/1.0/ref-data/symbols")
+    .then(response => { return response.json() })
+    .then(data => { this.setState({ companies: data });
+      // console.log("company 1: " + this.state.companies[1].symbol);
+    })
   }
 
   handleClick(event) {
@@ -32,22 +36,47 @@ class QuoteSearchBar extends Component {
 
     // clear the search string and store the ticker symbol of the selected company
     this.setState({ searchString: '',
-                    selectedCompany: symbol});
+                    selectedSymbol: symbol});
     this.props.symbol(symbol);
-    // console.log(this.state.selectedCompany);
+
+    // fetch quote data
+    var symbol = symbol.toLowerCase();
+    var url = "https://api.iextrading.com/1.0/stock/" + symbol + "/quote";
+    fetch(url)
+    .then(response => { return response.json() })
+    .then(data => { this.setState({ quoteObj: data });
+    });
+    // console.log(data);
+
+    // fetch news about Company
+    var url = "https://api.iextrading.com/1.0/stock/" + symbol + "/news/last/4";
+    fetch(url)
+    .then(response => { return response.json() })
+    .then(data => { this.setState({ newsObj: data })
+    });
+
+    // fetch company logo
+    var url = "https://api.iextrading.com/1.0/stock/" + symbol + "/logo";
+    fetch(url)
+    .then(response => { return response.json() })
+    .then(data => { this.setState({ logoURL: data.url })
+    });
+
+    this.setState({selectedSymbol: symbol});
+    this.props.symbol(symbol);
   }
 
-  // pass stock to watchlist
-  handleSubmit() {
-    // this.props.symbol(this.state.selectedCompany);
-    this.props.toAdd(true);
+  handleChange(event) {
+    // grab value form input box
+    this.setState({searchString:event.target.value});
   }
+
 
   render() {
 
     // console.log("quotesearchbar");
 
-    var companies = this.props.companies;
+    var companies = this.state.companies;
     var searchString = this.state.searchString.trim().toLowerCase();
 
     // filter companies list by value from input box
@@ -64,8 +93,9 @@ class QuoteSearchBar extends Component {
     return (
         <div>
         <input type="text" name="company" value={this.state.searchString} onChange={this.handleChange} placeholder="Company name or ticker symbol"/>
-        <input type="submit" value="Add to watch list" onClick={this.handleSubmit}/>
         { companies.map(company => { return <div key={company.symbol} name={company.symbol} onClick={this.handleClick}>{company.symbol + ": " + company.name} </div> }) }
+        <QuoteResult quote={this.state.quoteObj} logoURL={this.state.logoURL} />
+        <NewsResult newsArray={this.state.newsObj} />
         </div>
     );
   }
