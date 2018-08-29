@@ -1,0 +1,45 @@
+
+div.inline {
+  display: inline-block;
+  width: 50%;
+  /* margin: 0 auto;
+  padding: 0 auto; */
+
+}
+
+img {
+    width: 100%;
+    height: auto;
+    opacity: 0.3;
+}
+
+.container {
+  position: relative;
+}
+
+.topLeft {
+  position: relative;
+  top: 20px;
+  left: 20px;
+}
+
+.topRight {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+}
+
+.submitAdd {
+  width: 100%;
+}
+
+table.quoteTable {
+  text-align: left;
+  width: 100%;
+  border-spacing: 0 1em;
+}
+
+h3.watchList {
+  /* background-color: #66ccff; */
+}
