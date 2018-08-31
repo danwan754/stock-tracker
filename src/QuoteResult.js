@@ -17,46 +17,103 @@ class QuoteResult extends Component {
       var maxWidth = "100px";
       var maxHeight = "100px";
 
-      // include commas for thousands
+      // // include commas for thousands and strip down decimal places to a max of 2
+      // function includeCommasAndTrimDecimalPlaces(number) {
+      //   if (number != null) {
+      //
+      //     var charLength = number.length;
+      //
+      //     /* count the number of digits before a decimal point */
+      //     var count = 0;
+      //     for (var i=0; i<charLength; i++) {
+      //       if (number[i] != ".") {
+      //         count++;
+      //       }
+      //       else {
+      //         break;
+      //       }
+      //     }
+      //
+      //     // include commas
+      //     //// NEGATIVE????????????
+      //     if (count > 3) {
+      //       var wholeNumber = number.slice(0, count);
+      //       var numCommas = (count - 1) / 3
+      //       var newArr = new Array(count);
+      //       var countThree = 0;
+      //       for (var i=count-1; i>0; i--) {
+      //         newArr[i] = number[count - i];
+      //       }
+      //     }
+      //
+      //     var decimalNumber = number.slice(count, count + 2);
+      //     }
+      //
+      //     // number = number.toFixed(2);
+      //     return number.toLocaleString();
+      //   }
+      // }
+
       function includeCommas(number) {
         if (number != null) {
           return number.toLocaleString();
         }
       }
 
-      // var name = quoteObj.companyName;
-      // var symbol = quoteObj.symbol;
-      // var latestPrice = quoteObj.latestPrice.toLocaleString();
-      // var lastestTime = quoteObj.latestTime;
-      // var exchange = quoteObj.primaryExchange;
-      // var dayHigh = quoteObj.high.toLocaleString();
-      // var dayLow = quoteObj.low.toLocaleString();
-      // var changePrice = quoteObj.change;
-      // var changePercent = quoteObj.changePercent;
-      // var marketCap = quoteObj.marketCap.toLocaleString();
-      // var peRatio = quoteObj.peRatio.toLocaleString();
-      // var latestVolume = quoteObj.latestVolume.toLocaleString();
-      // var week52High = quoteObj.week52High.toLocaleString();
-      // var week52Low = quoteObj.week52Low.toLocaleString();
-      // var ytdChange = quoteObj.ytdChange.toLocaleString();
-      // var logoURL = this.props.logoURL;
+      function trimDecimalPlaces(number) {
+        return number.toFixed(2);
+      }
 
       var name = quoteObj.companyName;
       var symbol = quoteObj.symbol;
-      var latestPrice = includeCommas(quoteObj.latestPrice);
+      var latestPrice = trimDecimalPlaces(quoteObj.latestPrice);
       var lastestTime = quoteObj.latestTime;
       var exchange = quoteObj.primaryExchange;
-      var dayHigh = includeCommas(quoteObj.high)
-      var dayLow = includeCommas(quoteObj.low)
-      var changePrice = includeCommas(quoteObj.change);
-      var changePercent = includeCommas(quoteObj.changePercent);
+      var dayHigh = trimDecimalPlaces(quoteObj.high);
+      var dayLow = trimDecimalPlaces(quoteObj.low);
+      var changePrice = trimDecimalPlaces(quoteObj.change);
+      var changePercent = trimDecimalPlaces(quoteObj.changePercent*100);
       var marketCap = includeCommas(quoteObj.marketCap);
-      var peRatio = includeCommas(quoteObj.peRatio);
+      var peRatio = trimDecimalPlaces(quoteObj.peRatio);
       var latestVolume = includeCommas(quoteObj.latestVolume)
-      var week52High = includeCommas(quoteObj.week52High);
-      var week52Low = includeCommas(quoteObj.week52Low);
-      var ytdChange = includeCommas(quoteObj.ytdChange);
+      var week52High = trimDecimalPlaces(quoteObj.week52High);
+      var week52Low = trimDecimalPlaces(quoteObj.week52Low);
+      var ytdChange = trimDecimalPlaces(quoteObj.ytdChange);
       var logoURL = this.props.logoURL;
+
+      // var name = quoteObj.companyName;
+      // var symbol = quoteObj.symbol;
+      // var latestPrice = includeCommas((quoteObj.latestPrice).toFixed(2));
+      // var lastestTime = quoteObj.latestTime;
+      // var exchange = quoteObj.primaryExchange;
+      // var dayHigh = includeCommas((quoteObj.high).toFixed(2));
+      // var dayLow = includeCommas((quoteObj.low).toFixed(2));
+      // var changePrice = includeCommas((quoteObj.change).toFixed(2));
+      // var changePercent = includeCommas((quoteObj.changePercent*100).toFixed(2));
+      // var marketCap = includeCommas(quoteObj.marketCap);
+      // var peRatio = includeCommas(quoteObj.peRatio);
+      // var latestVolume = includeCommas(quoteObj.latestVolume)
+      // var week52High = includeCommas((quoteObj.week52High).toFixed(2));
+      // var week52Low = includeCommas((quoteObj.week52Low).toFixed(2));
+      // var ytdChange = includeCommas((quoteObj.ytdChange).toFixed(2));
+      // var logoURL = this.props.logoURL;
+
+      // var name = quoteObj.companyName;
+      // var symbol = quoteObj.symbol;
+      // var latestPrice = includeCommas(quoteObj.latestPrice);
+      // var lastestTime = quoteObj.latestTime;
+      // var exchange = quoteObj.primaryExchange;
+      // var dayHigh = includeCommas(quoteObj.high);
+      // var dayLow = includeCommas(quoteObj.low);
+      // var changePrice = includeCommas(quoteObj.change);
+      // var changePercent = includeCommas(quoteObj.changePercent*100);
+      // var marketCap = includeCommas(quoteObj.marketCap);
+      // var peRatio = includeCommas(quoteObj.peRatio);
+      // var latestVolume = includeCommas(quoteObj.latestVolume)
+      // var week52High = includeCommas(quoteObj.week52High);
+      // var week52Low = includeCommas(quoteObj.week52Low);
+      // var ytdChange = includeCommas(quoteObj.ytdChange);
+      // var logoURL = this.props.logoURL;
 
       // var name = quoteObj.companyName;
       // var symbol = quoteObj.symbol;

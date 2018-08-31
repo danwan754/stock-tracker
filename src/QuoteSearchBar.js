@@ -49,7 +49,7 @@ class QuoteSearchBar extends Component {
     // console.log(data);
 
     // fetch news about Company
-    var url = "https://api.iextrading.com/1.0/stock/" + symbol + "/news/last/2";
+    var url = "https://api.iextrading.com/1.0/stock/" + symbol + "/news/last/5";
     fetch(url)
     .then(response => { return response.json() })
     .then(data => { this.setState({ newsObj: data })
@@ -102,11 +102,9 @@ class QuoteSearchBar extends Component {
     return (
         <div>
           <input type="text" name="company" className="submitAdd" value={this.state.searchString} onChange={this.handleChange} placeholder="Company name or ticker symbol"/>
-          { companies.map(company => { return <div key={company.symbol} name={company.symbol} onClick={this.handleClick}>{company.symbol + ": " + company.name} </div> }) }
-          <div className="container">
-            <QuoteResult quote={this.state.quoteObj} logoURL={this.state.logoURL} />
-            <NewsResult newsArray={this.state.newsObj} />
-          </div>
+          { companies.map(company => { return <div className="suggestion" key={company.symbol} name={company.symbol} onClick={this.handleClick}>{company.symbol + ": " + company.name} </div> }) }
+          <QuoteResult quote={this.state.quoteObj} logoURL={this.state.logoURL} />
+          <NewsResult newsArray={this.state.newsObj} />
         </div>
     );
   }

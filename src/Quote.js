@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import QuoteSearchBar from "./QuoteSearchBar";
 import WatchListItem from "./WatchListItem";
+import QuoteFooter from "./QuoteFooter";
 import cookie from "react-cookies";
 import './styles.css'
 
@@ -15,14 +16,20 @@ class Quote extends Component {
       batchObj: {},
       quoteObject: {},
       newsObject: {},
-      toHide: true
+      toHide: true,
     }
     this.handleSelectedCompany = this.handleSelectedCompany.bind(this);
     this.handleAddToWatchlist = this.handleAddToWatchlist.bind(this);
     this.handleRemoveFromWatchList = this.handleRemoveFromWatchList.bind(this);
+    this.handleRefresh = this.handleRefresh.bind(this);
+    this.fetchWatchListQuotes = this.fetchWatchListQuotes.bind(this);
   }
 
   componentDidMount() {
+    this.fetchWatchListQuotes();
+  }
+
+  fetchWatchListQuotes() {
     // check if watchlist is empty
     if (Object.keys(this.state.watchlist).length == 0) {
       return;
@@ -53,7 +60,7 @@ class Quote extends Component {
     if ( !(this.state.symbol.toUpperCase() in this.state.batchObj) && (this.state.symbol != '') ) {
       // console.log("symbol: " + this.state.symbol);
       cookie.save(this.state.symbol, "true", {path: "/"});
-      // this.setState( {watchlist: cookie.loadAll()} );
+      this.setState( {watchlist: cookie.loadAll()} );
 
       // hide the 'add to watchlist' button
       this.setState( {toHide: true});
@@ -91,11 +98,16 @@ class Quote extends Component {
     this.setState( {batchObj: batchObj} );
   }
 
+  handleRefresh(event) {
+    this.fetchWatchListQuotes();
+  }
+
   handleSelectedCompany(symbol) {
     this.setState( {symbol: symbol} );
 
     if (symbol.toUpperCase() in this.state.batchObj) {
-      return;
+      // hide the 'add to watchlist' button
+      this.setState( {toHide: true});
     }
     else {
       // reveal the 'add to watchlist' button
@@ -111,17 +123,23 @@ class Quote extends Component {
         <p>Select the stock by typing the company name</p>
         <input type="submit" id="addBtn" hidden={this.state.toHide} value={addMessage} onClick={this.handleAddToWatchlist} />
         <QuoteSearchBar symbol={this.handleSelectedCompany} />
-        <br/><br/>
-        <h3 className="watchList">Watch List</h3>
-        {Object.keys(this.state.batchObj).map((symbol, value) => {
-          // console.log(this.state.batchObj[symbol]["quote"]);
-          return (
-            <div key={symbol}>
-              <WatchListItem quoteObject={this.state.batchObj[symbol]["quote"]} />
-              <input type="submit" value="X" id={symbol} onClick={this.handleRemoveFromWatchList} />
-            </div>
-          )
-        })}
+        <br/><br/><hr />
+        <div className="watchListContainer">
+          <h3 id="inline">Watch List</h3>
+          <div id="refreshButton" onClick={this.handleRefresh}>Refresh Watch List</div>
+          {Object.keys(this.state.batchObj).map((symbol, value) => {
+            // console.log(this.state.batchObj[symbol]["quote"]);
+            return (
+              <div key={symbol} className="watchListItem">
+                <WatchListItem quoteObject={this.state.batchObj[symbol]["quote"]} />
+                <div className="watchListItemRemove" id={symbol} onClick={this.handleRemoveFromWatchList}>
+                  <input type="submit" value="X" id={symbol} onClick={this.handleRemoveFromWatchList} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+        <QuoteFooter />
       </div>
     );
   }

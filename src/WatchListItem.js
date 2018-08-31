@@ -7,12 +7,14 @@ class WatchListItem extends Component {
     var quoteObj = this.props.quoteObject;
     var symbol = quoteObj.symbol;
     var companyName = quoteObj.companyName;
-    var changePrice = quoteObj.change;
-    var changePercent = quoteObj.changePercent;
-
+    var latestPrice = (quoteObj.latestPrice).toFixed(2);
+    var changePrice = (quoteObj.change).toFixed(3);
+    var changePercent = (quoteObj.changePercent*100).toFixed(2);
+    var priceMovement = "loss";
     if (changePrice > 0) {
       changePrice.toString();
       changePrice = "+" + changePrice;
+      priceMovement = "gain";
     }
     if (changePercent > 0) {
       changePercent.toString();
@@ -24,11 +26,12 @@ class WatchListItem extends Component {
       // console.log("quoteObj not empty");
       // console.log("name : " + quoteObj["companyName"]);
       return (
-        <div>
-          <h3>
+        <div className="watchListItemQuote">
+          <p className="symbolName">
             ({symbol}) :  {companyName}
-          </h3>
-          <h4>{changePrice}  ({changePercent})</h4>
+          </p>
+          <p className="currentPrice">{latestPrice}</p>
+          <p className={priceMovement}>{changePrice}  ({changePercent})</p>
         </div>
       )
     }
