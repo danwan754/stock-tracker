@@ -70,7 +70,8 @@ class QuoteResult extends Component {
       var symbol = quoteObj.symbol;
       var latestPrice = trimDecimalPlaces(quoteObj.latestPrice);
       // var latestUpdate = new Date(quoteObj.latestUpdate).toLocaleTimeString();
-      var latestUpdate = new Date(quoteObj.latestUpdate).toTimeString();
+      // var latestUpdate = new Date(quoteObj.latestUpdate).toTimeString();
+      var latestUpdate = new Date(quoteObj.latestUpdate).toLocaleString();
       var exchange = quoteObj.primaryExchange;
       var dayHigh = trimDecimalPlaces(quoteObj.high);
       var dayLow = trimDecimalPlaces(quoteObj.low);
@@ -84,10 +85,13 @@ class QuoteResult extends Component {
       var ytdChange = trimDecimalPlaces(quoteObj.ytdChange);
       var logoURL = this.props.logoURL;
 
+      var priceMovement = "loss";
       if (changePrice > 0) {
         changePrice.toString();
         changePrice = "+" + changePrice;
+        priceMovement = "gain";
       }
+
       if (changePercent > 0) {
         changePercent.toString();
         changePercent = "+" + changePercent;
@@ -107,7 +111,8 @@ class QuoteResult extends Component {
             </div>
           </div>
           <br/>
-          <h2>{latestPrice} <span>{changePrice}  ({changePercent})</span></h2>
+          <p id="quotePrice" className="currentPrice">{latestPrice}</p>
+          <p className={priceMovement}>{changePrice}  ({changePercent})</p>
           <table className="quoteTable">
             <tbody>
             <tr>
@@ -132,8 +137,7 @@ class QuoteResult extends Component {
             </tr>
             </tbody>
           </table>
-
-          <p id="latestUpdate">Last Updated at {latestUpdate}</p>
+          <p id="latestUpdate">Last Updated on {latestUpdate}</p>
         </div>
       )
     }

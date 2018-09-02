@@ -10,6 +10,7 @@ class WatchListItem extends Component {
     var latestPrice = (quoteObj.latestPrice).toFixed(2);
     var changePrice = (quoteObj.change).toFixed(3);
     var changePercent = (quoteObj.changePercent*100).toFixed(2);
+    var latestUpdate = new Date(quoteObj.latestUpdate).toLocaleString();
     var priceMovement = "loss";
     if (changePrice > 0) {
       changePrice.toString();
@@ -30,8 +31,9 @@ class WatchListItem extends Component {
           <p className="symbolName">
             ({symbol}) :  {companyName}
           </p>
-          <p className="currentPrice">{latestPrice}</p>
+          <p id="watchlistPrice" className="currentPrice">{latestPrice}</p>
           <p className={priceMovement}>{changePrice}  ({changePercent})</p>
+          <p id="watchlistDateStamp">{latestUpdate}</p>
         </div>
       )
     }

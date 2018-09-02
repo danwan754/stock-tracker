@@ -15,8 +15,10 @@ class NewsResult extends Component {
                 <span style={{display: "block"}}>
                   <h3>{news.headline}</h3>
                   <h4>{news.summary}</h4>
-                  <p>Source: {news.source}</p>
-                  <h5>{new Date(news.datetime).toLocaleString()}</h5>
+                  <div id="newDiv">
+                    <p id="newsSource">Source: {news.source}</p>
+                    <p id="newsDate">{new Date(news.datetime).toLocaleString()}</p>
+                  </div>
                 </span>
                 </a>
                 <hr/>
