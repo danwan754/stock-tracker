@@ -61,13 +61,16 @@ class QuoteResult extends Component {
       }
 
       function trimDecimalPlaces(number) {
-        return number.toFixed(2);
+        if (number != null) {
+          return number.toFixed(2);
+        }
       }
 
       var name = quoteObj.companyName;
       var symbol = quoteObj.symbol;
       var latestPrice = trimDecimalPlaces(quoteObj.latestPrice);
-      var lastestTime = quoteObj.latestTime;
+      // var latestUpdate = new Date(quoteObj.latestUpdate).toLocaleTimeString();
+      var latestUpdate = new Date(quoteObj.latestUpdate).toTimeString();
       var exchange = quoteObj.primaryExchange;
       var dayHigh = trimDecimalPlaces(quoteObj.high);
       var dayLow = trimDecimalPlaces(quoteObj.low);
@@ -81,57 +84,6 @@ class QuoteResult extends Component {
       var ytdChange = trimDecimalPlaces(quoteObj.ytdChange);
       var logoURL = this.props.logoURL;
 
-      // var name = quoteObj.companyName;
-      // var symbol = quoteObj.symbol;
-      // var latestPrice = includeCommas((quoteObj.latestPrice).toFixed(2));
-      // var lastestTime = quoteObj.latestTime;
-      // var exchange = quoteObj.primaryExchange;
-      // var dayHigh = includeCommas((quoteObj.high).toFixed(2));
-      // var dayLow = includeCommas((quoteObj.low).toFixed(2));
-      // var changePrice = includeCommas((quoteObj.change).toFixed(2));
-      // var changePercent = includeCommas((quoteObj.changePercent*100).toFixed(2));
-      // var marketCap = includeCommas(quoteObj.marketCap);
-      // var peRatio = includeCommas(quoteObj.peRatio);
-      // var latestVolume = includeCommas(quoteObj.latestVolume)
-      // var week52High = includeCommas((quoteObj.week52High).toFixed(2));
-      // var week52Low = includeCommas((quoteObj.week52Low).toFixed(2));
-      // var ytdChange = includeCommas((quoteObj.ytdChange).toFixed(2));
-      // var logoURL = this.props.logoURL;
-
-      // var name = quoteObj.companyName;
-      // var symbol = quoteObj.symbol;
-      // var latestPrice = includeCommas(quoteObj.latestPrice);
-      // var lastestTime = quoteObj.latestTime;
-      // var exchange = quoteObj.primaryExchange;
-      // var dayHigh = includeCommas(quoteObj.high);
-      // var dayLow = includeCommas(quoteObj.low);
-      // var changePrice = includeCommas(quoteObj.change);
-      // var changePercent = includeCommas(quoteObj.changePercent*100);
-      // var marketCap = includeCommas(quoteObj.marketCap);
-      // var peRatio = includeCommas(quoteObj.peRatio);
-      // var latestVolume = includeCommas(quoteObj.latestVolume)
-      // var week52High = includeCommas(quoteObj.week52High);
-      // var week52Low = includeCommas(quoteObj.week52Low);
-      // var ytdChange = includeCommas(quoteObj.ytdChange);
-      // var logoURL = this.props.logoURL;
-
-      // var name = quoteObj.companyName;
-      // var symbol = quoteObj.symbol;
-      // var latestPrice = quoteObj.latestPrice;
-      // var lastestTime = quoteObj.latestTime;
-      // var exchange = quoteObj.primaryExchange;
-      // var dayHigh = quoteObj.high;
-      // var dayLow = quoteObj.low;
-      // var changePrice = quoteObj.change;
-      // var changePercent = quoteObj.changePercent;
-      // var marketCap = quoteObj.marketCap;
-      // var peRatio = quoteObj.peRatio;
-      // var latestVolume = quoteObj.latestVolume;
-      // var week52High = quoteObj.week52High;
-      // var week52Low = quoteObj.week52Low;
-      // var ytdChange = quoteObj.ytdChange;
-      // var logoURL = this.props.logoURL;
-
       if (changePrice > 0) {
         changePrice.toString();
         changePrice = "+" + changePrice;
@@ -144,10 +96,16 @@ class QuoteResult extends Component {
 
 
       return (
-        <div className="inline topLeft">
+        <div>
           <br/>
-          <img src={logoURL} style={{width: value, height: value, maxHeight: maxHeight, maxWidth: maxWidth, margin: "0 0 0 0"}} />
-          <h2>({symbol}): {name}</h2>
+          <div className="alignRow">
+            <div>
+              <img id="logo" src={logoURL} />
+            </div>
+            <div className="verticalCenter">
+              <p>({symbol}): {name}</p>
+            </div>
+          </div>
           <br/>
           <h2>{latestPrice} <span>{changePrice}  ({changePercent})</span></h2>
           <table className="quoteTable">
@@ -175,7 +133,7 @@ class QuoteResult extends Component {
             </tbody>
           </table>
 
-          <h4>Last Updated on {lastestTime}</h4>
+          <p id="latestUpdate">Last Updated at {latestUpdate}</p>
         </div>
       )
     }

@@ -5,32 +5,39 @@ html * {
 
 div.inline {
   display: inline-block;
-  width: 50%;
-}
-
-img {
-    width: 100%;
-    height: auto;
-    opacity: 0.3;
-}
-
-.container {
-  /* position: relative; */
-}
-
-.topLeft {
-  /* position: relative;
-  top: 20px;
-  left: 20px; */
   vertical-align: top;
 }
 
-.topRight {
-  /* position: absolute;
-  top: 20px;
-  right: 20px; */
-
+div.verticalCenter {
+  display: flex;
+  align-items: center;
 }
+
+div.verticalCenter p {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+div.alignRow {
+  display: flex;
+  flex-direction: row;
+}
+
+#logo {
+  /* opacity: 0.8; */
+  maxWidth: 100px;
+  maxHeight: 80px;
+  margin: 0 0 0 0;
+}
+
+.news {
+  width: 60%;
+}
+
+.quote {
+  width: 40%;
+}
+
 
 .submitAdd {
   width: 100%;
@@ -157,4 +164,15 @@ table.quoteTable {
 
 #quoteFooter {
   text-align: center;
+}
+
+#latestUpdate {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+#chart {
+  /* position: relative;
+  left: 0px; */
 }

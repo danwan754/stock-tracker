@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NewsResult from "./NewsResult";
 import QuoteResult from "./QuoteResult";
+import QuoteGraph from "./QuoteGraph";
 
 
 class QuoteSearchBar extends Component {
@@ -13,9 +14,10 @@ class QuoteSearchBar extends Component {
       searchString: '',
       selectedSymbol: '',
       quoteObj: {},
+      graphObj: [],
       newsObj: [],
       logoURL: '',
-
+      period: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -39,9 +41,11 @@ class QuoteSearchBar extends Component {
                     selectedSymbol: symbol});
     this.props.symbol(symbol);
 
+    var baseUrl = "https://api.iextrading.com/1.0/stock/" + symbol;
+
     // fetch quote data
     var symbol = symbol.toLowerCase();
-    var url = "https://api.iextrading.com/1.0/stock/" + symbol + "/quote";
+    var url =  baseUrl + "/quote";
     fetch(url)
     .then(response => { return response.json() })
     .then(data => { this.setState({ quoteObj: data });
@@ -49,17 +53,26 @@ class QuoteSearchBar extends Component {
     // console.log(data);
 
     // fetch news about Company
-    var url = "https://api.iextrading.com/1.0/stock/" + symbol + "/news/last/5";
+    var url = baseUrl + "/news/last/2";
     fetch(url)
     .then(response => { return response.json() })
     .then(data => { this.setState({ newsObj: data })
     });
 
     // fetch company logo
-    var url = "https://api.iextrading.com/1.0/stock/" + symbol + "/logo";
+    var url = baseUrl + "/logo";
     fetch(url)
     .then(response => { return response.json() })
     .then(data => { this.setState({ logoURL: data.url })
+    });
+
+    // fetch graph data (default range is intraday data (minute by minute))
+    /*testing with range of 1 month */
+    var url = baseUrl + "/chart/1m";
+    fetch(url)
+    .then(response => { return response.json() })
+    .then(data => { this.setState({ graphObj: data,
+                                    period: "1m" });
     });
 
     this.setState({selectedSymbol: symbol});
@@ -103,8 +116,13 @@ class QuoteSearchBar extends Component {
         <div>
           <input type="text" name="company" className="submitAdd" value={this.state.searchString} onChange={this.handleChange} placeholder="Company name or ticker symbol"/>
           { companies.map(company => { return <div className="suggestion" key={company.symbol} name={company.symbol} onClick={this.handleClick}>{company.symbol + ": " + company.name} </div> }) }
-          <QuoteResult quote={this.state.quoteObj} logoURL={this.state.logoURL} />
-          <NewsResult newsArray={this.state.newsObj} />
+          <div className="inline quote">
+            <QuoteResult quote={this.state.quoteObj} logoURL={this.state.logoURL} />
+          </div>
+          <div className="inline news">
+            <NewsResult newsArray={this.state.newsObj} />
+          </div>
+          <QuoteGraph graphData={this.state.graphObj} period={this.state.period}/>
         </div>
     );
   }
