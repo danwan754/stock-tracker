@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NewsResult from "./NewsResult";
 import QuoteResult from "./QuoteResult";
 import QuoteGraph from "./QuoteGraph";
+import xml2js from "xml2js";
 
 
 class QuoteSearchBar extends Component {
@@ -15,7 +16,8 @@ class QuoteSearchBar extends Component {
       selectedSymbol: '',
       quoteObj: {},
       graphObj: [],
-      newsObj: [],
+      // newsObj: [], // for IEX news
+      newsObj: {}, // for Yahoo news
       logoURL: '',
       period: ''
     }
@@ -30,6 +32,7 @@ class QuoteSearchBar extends Component {
     .then(response => { return response.json() })
     .then(data => { this.setState({ companies: data });
       // console.log("company 1: " + this.state.companies[1].symbol);
+
     })
   }
 
@@ -53,11 +56,26 @@ class QuoteSearchBar extends Component {
     // console.log(data);
 
     // fetch news about Company
-    var url = baseUrl + "/news/last/2";
+    var tempNewsObj = {};
+    var url = "http://finance.yahoo.com/rss/headline?s=" + symbol;
     fetch(url)
-    .then(response => { return response.json() })
-    .then(data => { this.setState({ newsObj: data })
-    });
+    .then(response => { return response.text() })
+    .then((xmlText) => {
+      // console.log(xmlText);
+      var parseString = require('xml2js').parseString;
+      parseString(xmlText, function(err, result) {
+        tempNewsObj = result;
+      });
+
+      this.setState( {newsObj: tempNewsObj});
+    })
+
+
+    // var url = baseUrl + "/news/last/2";
+    // fetch(url)
+    // .then(response => { return response.json() })
+    // .then(data => { this.setState({ newsObj: data })
+    // });
 
     // fetch company logo
     var url = baseUrl + "/logo";
@@ -97,6 +115,8 @@ class QuoteSearchBar extends Component {
   render() {
 
     // console.log("quotesearchbar");
+    console.log("newsObj:");
+    console.log(this.state.newsObj);
 
     var companies = this.state.companies;
     var searchString = this.state.searchString.trim().toLowerCase();
@@ -120,7 +140,7 @@ class QuoteSearchBar extends Component {
             <QuoteResult quote={this.state.quoteObj} logoURL={this.state.logoURL} />
           </div>
           <div className="inline news">
-            <NewsResult newsArray={this.state.newsObj} />
+            <NewsResult newsObj={this.state.newsObj} />
           </div>
           <QuoteGraph graphData={this.state.graphObj} period={this.state.period}/>
         </div>

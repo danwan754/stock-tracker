@@ -9,7 +9,7 @@ class Home extends Component {
         allowing you to quote, make watch lists, view
         analyst ratings, and read latest news that may affect your stocks.</p>
         <br/>
-        <p>Companies that are available to quote are U.S listed companies that are listed on IEX.</p>
+        <p>Companies that are available to quote are listed on IEX. All market data are freely provided by IEX.</p>
       </div>
     );
   }

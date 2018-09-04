@@ -3,21 +3,21 @@ import React, { Component } from "react";
 class NewsResult extends Component {
 
   render() {
+    var newsObj = this.props.newsObj;
 
-    if (Object.keys(this.props.newsArray).length > 0) {
+    if (Object.keys(newsObj).length > 0) {
       return (
         <div>
           <h3>Latest News</h3>
-          { this.props.newsArray.map(news =>
+          { (newsObj["rss"]["channel"][0]["item"]).map(news =>
             { return (
-              <div key={news.headline}>
-                <a href={news.url}>
+              <div key={news.title} id="newsItem">
+                <a href={news.link}>
                 <span style={{display: "block"}}>
-                  <h3>{news.headline}</h3>
-                  <h4>{news.summary}</h4>
+                  <p id="newsDate">{new Date(news.pubDate).toLocaleString()}</p>
+                  <h3>{news.title}</h3>
+                  <h4>{news.description}</h4>
                   <div id="newDiv">
-                    <p id="newsSource">Source: {news.source}</p>
-                    <p id="newsDate">{new Date(news.datetime).toLocaleString()}</p>
                   </div>
                 </span>
                 </a>

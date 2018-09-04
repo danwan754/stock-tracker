@@ -92,7 +92,8 @@ class Quote extends Component {
     // console.log("removed: " + symbol);
 
     cookie.remove(symbol);
-    // this.setState( {watchlist: cookie.loadAll()} );
+    this.setState( {watchlist: cookie.loadAll()} );
+    
     var batchObj = this.state.batchObj;
     delete batchObj[symbol.toUpperCase()];
     this.setState( {batchObj: batchObj} );
