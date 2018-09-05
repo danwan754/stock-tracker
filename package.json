@@ -1,6 +1,10 @@
 {
   "name": "stock_quoter",
   "version": "1.0.0",
+  "engines": {
+    "npm": "6.4.1",
+    "node": "8.11.4"
+  },
   "description": "Quote stocks in close to real-time.",
   "main": "index.js",
   "scripts": {

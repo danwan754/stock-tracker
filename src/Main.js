@@ -16,7 +16,7 @@ class Main extends Component {
     return (
       <BrowserRouter>
         <div>
-          <h1>Stock Analyzer</h1>
+          <h1>Stock Tracker</h1>
           <ul className="header">
             <li><NavLink exact to="/">Home</NavLink></li>
             <li><NavLink to="/watchlists">Watch Lists</NavLink></li>
