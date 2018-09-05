@@ -65,6 +65,7 @@ class Quote extends Component {
       // hide the 'add to watchlist' button
       this.setState( {toHide: true});
 
+      // this.fetchWatchListQuotes();
       // fetch quote data and append it to batchObj
       var symbol = this.state.symbol.toLowerCase();
       var url = "https://api.iextrading.com/1.0/stock/" + symbol + "/quote";
@@ -87,14 +88,15 @@ class Quote extends Component {
   // remove stock from watch list
   handleRemoveFromWatchList(event) {
 
-    // var symbol = symbol.toLowerCase();
-    var symbol = event.target.id.toLowerCase();
-    // console.log("removed: " + symbol);
-
+    var symbol = event.target.id.toUpperCase();
     cookie.remove(symbol);
-    // this.setState( {watchlist: cookie.loadAll()} );
+
+    var watchlist = this.state.watchlist;
+    delete watchlist[symbol];
+    this.setState( {watchlist: watchlist} );
+
     var batchObj = this.state.batchObj;
-    delete batchObj[symbol.toUpperCase()];
+    delete batchObj[symbol];
     this.setState( {batchObj: batchObj} );
   }
 
