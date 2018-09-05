@@ -75,8 +75,6 @@ class QuoteSearchBar extends Component {
                                     period: "1m" });
     });
 
-    this.setState({selectedSymbol: symbol});
-    this.props.symbol(symbol);
   }
 
   handleChange(event) {
@@ -122,7 +120,7 @@ class QuoteSearchBar extends Component {
           <div className="inline news">
             <NewsResult newsArray={this.state.newsObj} />
           </div>
-          <QuoteGraph graphData={this.state.graphObj} period={this.state.period}/>
+          <QuoteGraph graphObj={this.state.graphObj} symbol={this.state.selectedSymbol} period={this.state.period}/>
         </div>
     );
   }

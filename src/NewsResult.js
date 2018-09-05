@@ -11,7 +11,7 @@ class NewsResult extends Component {
           { this.props.newsArray.map(news =>
             { return (
               <div key={news.headline}>
-                <a href={news.url}>
+                <a href={news.url} target="_blank">
                 <span style={{display: "block"}}>
                   <h3>{news.headline}</h3>
                   <h4>{news.summary}</h4>

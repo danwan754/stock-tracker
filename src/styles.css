@@ -202,3 +202,23 @@ table.quoteTable {
   display: inline-block;
   margin-left: 20px;
 }
+
+#chart {
+  width: 100%;
+  text-align: center;
+}
+
+.period {
+  display: inline-block;
+  margin: 8px;
+  padding: 2px;
+  border-style: solid;
+  text-align: center;
+}
+.period:hover {
+  background-color: #e6e6e6;
+}
+
+.period:active {
+  background-color: #bfbfbf;
+}
