@@ -2,12 +2,22 @@ import React, { Component } from "react";
 
 class QuoteResult extends Component {
 
+  // if parent component pass same symbol as previous, then don't re-render
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.symbol == nextProps.symbol) {
+      return false;
+    }
+    return true;
+  }
+
+
   render() {
-    // console.log("quoteresult");
-    // console.log(this.props.quoteObj);
-    var quoteObj = this.props.quote;
-    if (Object.keys(quoteObj).length == 0) {
-      // console.log("empty symbol");
+    console.log("QuoteResult");
+    // console.log(typeof this.props.quoteObj);
+    // console.log(this.props.)
+    var quoteObj = this.props.quoteObj;
+    if (Object.keys(quoteObj).length === 0) {
+      console.log("empty symbol");
       return (
         <div></div>
       )

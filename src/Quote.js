@@ -118,6 +118,8 @@ class Quote extends Component {
   }
 
   render() {
+    console.log("quoteComponent");
+
     var addMessage = "Add (" + this.state.symbol.toUpperCase() + ") to watch list";
     return (
       <div>

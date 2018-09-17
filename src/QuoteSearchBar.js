@@ -34,47 +34,60 @@ class QuoteSearchBar extends Component {
   }
 
   handleClick(event) {
-    var symbol = event.target.textContent.match(".*:")[0].trim().replace(":", '');
-
-    // clear the search string and store the ticker symbol of the selected company
-    this.setState({ searchString: '',
-                    selectedSymbol: symbol});
-    this.props.symbol(symbol);
+    let symbol = event.target.textContent.match(".*:")[0].trim().replace(":", '').toLowerCase();
 
     var baseUrl = "https://api.iextrading.com/1.0/stock/" + symbol;
 
     // fetch quote data
-    var symbol = symbol.toLowerCase();
-    var url =  baseUrl + "/quote";
-    fetch(url)
-    .then(response => { return response.json() })
-    .then(data => { this.setState({ quoteObj: data });
-    });
-    // console.log(data);
+    function getQuote() {
+      var url =  baseUrl + "/quote";
+      return fetch(url)
+        .then(response => { return response.json() })
+    }
 
     // fetch news about Company
-    var url = baseUrl + "/news/last/2";
-    fetch(url)
-    .then(response => { return response.json() })
-    .then(data => { this.setState({ newsObj: data })
-    });
+    function getNews() {
+      var url = baseUrl + "/news/last/2";
+      return fetch(url)
+        .then(response => { return response.json() })
+    }
 
-    // fetch company logo
-    var url = baseUrl + "/logo";
-    fetch(url)
-    .then(response => { return response.json() })
-    .then(data => { this.setState({ logoURL: data.url })
-    });
+    // fetch company logo and return url
+    function getLogo() {
+      var url = baseUrl + "/logo";
+      return fetch(url)
+        .then(response => { return response.json() })
+        .then(data => { return data["url"] });
+    }
 
     // fetch graph data (default range is intraday data (minute by minute))
-    /*testing with range of 1 month */
-    var url = baseUrl + "/chart/1m";
-    fetch(url)
-    .then(response => { return response.json() })
-    .then(data => { this.setState({ graphObj: data,
-                                    period: "1m" });
-    });
+    // default period of 1 month
+    function getChart() {
+      var url = baseUrl + "/chart/1m";
+      return fetch(url)
+        .then(response => { return response.json() })
+    }
 
+    // get results of all the API calls
+    function getQuoteNewsLogoAndChart() {
+      return Promise.all([getQuote(), getNews(), getLogo(), getChart()]);
+    }
+
+    // return symbol to Quote component
+    this.props.symbol(symbol);
+
+    // updates all the states
+    getQuoteNewsLogoAndChart()
+      .then(([quoteObj, newsObj, logoURL, graphObj]) => {
+        this.setState({ searchString: '',
+                        selectedSymbol: symbol,
+                        quoteObj: quoteObj,
+                        newsObj: newsObj,
+                        logoURL: logoURL,
+                        graphObj: graphObj,
+                        period: '1m'
+        });
+      });
   }
 
   handleChange(event) {
@@ -94,7 +107,7 @@ class QuoteSearchBar extends Component {
 
   render() {
 
-    // console.log("quotesearchbar");
+    // console.log("quoteSearchBar");
 
     var companies = this.state.companies;
     var searchString = this.state.searchString.trim().toLowerCase();
@@ -115,10 +128,10 @@ class QuoteSearchBar extends Component {
           <input type="text" name="company" className="submitAdd" value={this.state.searchString} onChange={this.handleChange} placeholder="Company name or ticker symbol"/>
           { companies.map(company => { return <div className="suggestion" key={company.symbol} name={company.symbol} onClick={this.handleClick}>{company.symbol + ": " + company.name} </div> }) }
           <div className="inline quote">
-            <QuoteResult quote={this.state.quoteObj} logoURL={this.state.logoURL} />
+            <QuoteResult symbol={this.state.selectedSymbol} quoteObj={this.state.quoteObj} logoURL={this.state.logoURL} />
           </div>
           <div className="inline news">
-            <NewsResult newsArray={this.state.newsObj} />
+            <NewsResult symbol={this.state.selectedSymbol} newsArray={this.state.newsObj} />
           </div>
           <QuoteGraph graphObj={this.state.graphObj} symbol={this.state.selectedSymbol} period={this.state.period}/>
         </div>

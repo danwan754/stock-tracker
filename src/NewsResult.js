@@ -2,6 +2,15 @@ import React, { Component } from "react";
 
 class NewsResult extends Component {
 
+
+  // if parent component pass same symbol as previous, then don't re-render
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.symbol == nextProps.symbol) {
+      return false;
+    }
+    return true;
+  }
+
   render() {
 
     if (Object.keys(this.props.newsArray).length > 0) {

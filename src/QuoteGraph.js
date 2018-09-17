@@ -13,6 +13,14 @@ class QuoteGraph extends Component {
     this.handleChartChange = this.handleChartChange.bind(this);
   }
 
+  // if parent component pass same symbol as previous, then don't re-render
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.symbol == nextProps.symbol) {
+      return false;
+    }
+    return true;
+  }
+
   handleChartChange(event) {
     var selectedPeriod = event.target.textContent;
     var period;
@@ -57,7 +65,10 @@ class QuoteGraph extends Component {
 
   render() {
 
+    console.log("quoteGraph");
     var graphObj;
+
+    // if (this.props.symbol == "")
 
     if (this.props.graphObj === undefined || this.props.graphObj.length == 0) {
       return (
