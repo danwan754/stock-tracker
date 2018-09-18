@@ -11,14 +11,12 @@ class NewsResult extends Component {
           <h3>Latest News</h3>
           { (newsObj["rss"]["channel"][0]["item"]).map(news =>
             { return (
-              <div key={news.title} id="newsItem">
-                <a href={news.link}>
+              <div key={news.title} className="newsItem">
+                <a href={news.link} className="newsLink">
                 <span style={{display: "block"}}>
                   <p id="newsDate">{new Date(news.pubDate).toLocaleString()}</p>
                   <h3>{news.title}</h3>
                   <h4>{news.description}</h4>
-                  <div id="newDiv">
-                  </div>
                 </span>
                 </a>
                 <hr/>

@@ -40,8 +40,26 @@ div.alignRow {
   width: 50%;
 }
 
-#newsItem {
+.newsLink {
+  text-decoration: none;
 }
+
+.newsLink:hover {
+  color: #e6e6e6;
+}
+
+.newsLink:active {
+  color: #bfbfbf;
+}
+
+.newsItem div {
+  /* padding: 5px 10px 5px 10px; */
+  /* border-style: solid;
+  border-width: thin; */
+  /* border: 1px solid black; */
+}
+
+
 
 #newsDate {
   /* text-align: right; */
