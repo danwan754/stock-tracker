@@ -19,18 +19,17 @@ class NewsResult extends Component {
           <h3>Latest News</h3>
           { this.props.newsArray.map(news =>
             { return (
-              <div key={news.headline}>
-                <a href={news.url} target="_blank">
+              <div key={news.headline} className="newsItem">
+                <a href={news.url} target="_blank" className="newsLink">
                 <span style={{display: "block"}}>
                   <h3>{news.headline}</h3>
                   <h4>{news.summary}</h4>
-                  <div id="newDiv">
+                  <div id="newsFooter">
                     <p id="newsSource">Source: {news.source}</p>
                     <p id="newsDate">{new Date(news.datetime).toLocaleString()}</p>
                   </div>
                 </span>
                 </a>
-                <hr/>
               </div>
             )}
           )}

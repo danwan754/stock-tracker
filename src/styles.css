@@ -40,6 +40,28 @@ div.alignRow {
   width: 50%;
 }
 
+.newsLink {
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.newsItem {
+  background-color: #f2f2f2;
+  border: 1px solid black;
+  padding: 5px 10px 5px 10px;
+  margin-bottom: 5px;
+}
+
+.newsItem:hover {
+  background-color: #cccccc;
+}
+
+.newsItem:active {
+  background-color: #a6a6a6;
+}
+
 #newsSource {
 
 }
@@ -48,7 +70,7 @@ div.alignRow {
   text-align: right;
 }
 
-#newsDiv {
+#newsFooter {
   width: 100%;
 }
 

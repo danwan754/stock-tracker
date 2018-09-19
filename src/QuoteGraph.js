@@ -59,6 +59,7 @@ class QuoteGraph extends Component {
       .then(response => { return response.json() })
       .then(data => { this.setState({ graphObj: data,
                                       period: selectedPeriod });
+                      this.forceUpdate();
       });
     }
   }
