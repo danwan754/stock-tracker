@@ -95,14 +95,14 @@ class Quote extends Component {
   handleRemoveFromWatchList(event) {
 
     var symbol = event.target.id.toLowerCase();
-    console.log(symbol);
+    // console.log(symbol);
     let symbolArr = this.state.watchlist.split(",");
-    console.log(symbolArr);
+    // console.log(symbolArr);
     var index = symbolArr.indexOf(symbol);
     if (index > -1) {
       symbolArr.splice(index, 1);
     }
-    console.log(symbolArr);
+    // console.log(symbolArr);
     let symbolString = symbolArr.toString();
     cookie.save("watchlist", symbolString, {path: "/"});
     var batchObj = this.state.batchObj;

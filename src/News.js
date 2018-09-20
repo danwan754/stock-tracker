@@ -5,11 +5,11 @@ class News extends Component {
   constructor() {
     super();
     this.state = {
-      industries: cookie.loadAll(),
-      companies: cookie.load(companies),
-      generalToHide: cookie.load(),
-      industriesToHide: cookie.load(),
-      companiesToHide: cookie.load()
+      industries: cookie.load('industries'),
+      companies: cookie.load('companies'),
+      generalToHide: cookie.load('generalToHide'),
+      industriesToHide: cookie.load('industriesToHide'),
+      companiesToHide: cookie.load('companiesToHide')
     }
   }
 
