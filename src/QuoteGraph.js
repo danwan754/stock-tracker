@@ -24,7 +24,7 @@ class QuoteGraph extends Component {
   handleChartChange(event) {
     var selectedPeriod = event.target.textContent;
     var period;
-    console.log(selectedPeriod);
+    // console.log(selectedPeriod);
     switch(selectedPeriod) {
       case "1 Month":
         period = "1m";
@@ -54,7 +54,7 @@ class QuoteGraph extends Component {
     // console.log(this.props.symbol);
     if (this.props.symbol ) {
       var url = "https://api.iextrading.com/1.0/stock/" + this.props.symbol.toLowerCase() + "/chart/" + period;
-      console.log(url);
+      // console.log(url);
       fetch(url)
       .then(response => { return response.json() })
       .then(data => { this.setState({ graphObj: data,
@@ -67,10 +67,9 @@ class QuoteGraph extends Component {
   render() {
 
     console.log("quoteGraph");
+
+
     var graphObj;
-
-    // if (this.props.symbol == "")
-
     if (this.props.graphObj === undefined || this.props.graphObj.length == 0) {
       return (
         <div></div>

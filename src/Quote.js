@@ -12,7 +12,7 @@ class Quote extends Component {
     super();
     this.state = {
       symbol: '',
-      watchlist: cookie.loadAll(),
+      watchlist: cookie.load('watchlist'), // string of symbols; ex.: "aapl,amzn,tsl"
       batchObj: {},
       quoteObject: {},
       newsObject: {},
@@ -31,20 +31,17 @@ class Quote extends Component {
 
   fetchWatchListQuotes() {
     // check if watchlist is empty
-    if (Object.keys(this.state.watchlist).length == 0) {
+    if (this.state.watchlist === undefined || this.state.watchlist == '') {
       return;
     }
 
-    // create string of the symbols
-    var symbolArr = [];
-    Object.keys(this.state.watchlist).map( (key, value) =>
-      { return ( symbolArr.push(key)) }
-    )
-    var symbols = symbolArr.join(',');
-
+    // // create string of the symbols
+    // var symbolArr = this.state.watchlist.split(',');
+    console.log("watchlist: ");
+    console.log(this.state.watchlist);
     // fetch batch quotes
-    var url = "https://api.iextrading.com/1.0/stock/market/batch?symbols=" + symbols + "&types=quote";
-    // console.log(url);
+    var url = "https://api.iextrading.com/1.0/stock/market/batch?symbols=" + this.state.watchlist + "&types=quote";
+    console.log(url);
 
     // Object.keys(this.state.watchlist)
     //   .map((symbol, value) => { console.log(symbol) })
@@ -59,11 +56,20 @@ class Quote extends Component {
     // console.log("symbol: " + this.state.symbol);
     if ( !(this.state.symbol.toUpperCase() in this.state.batchObj) && (this.state.symbol != '') ) {
       // console.log("symbol: " + this.state.symbol);
-      cookie.save(this.state.symbol, "true", {path: "/"});
-      this.setState( {watchlist: cookie.loadAll()} );
 
-      // hide the 'add to watchlist' button
-      this.setState( {toHide: true});
+      let symbolString;
+      if (this.state.watchlist === undefined) {
+        symbolString = this.state.symbol;
+      }
+      else {
+        let symbolArr = this.state.watchlist.split(",");
+        symbolArr.push(this.state.symbol);
+        symbolString = symbolArr.toString();
+      }
+      console.log(symbolString);
+      cookie.save("watchlist", symbolString, {path: "/"});
+      this.setState( {watchlist: symbolString,
+                      toHide: true} ); // hides add to watchlist button
 
       // this.fetchWatchListQuotes();
       // fetch quote data and append it to batchObj
@@ -88,16 +94,22 @@ class Quote extends Component {
   // remove stock from watch list
   handleRemoveFromWatchList(event) {
 
-    var symbol = event.target.id.toUpperCase();
-    cookie.remove(symbol);
-
-    var watchlist = this.state.watchlist;
-    delete watchlist[symbol];
-    this.setState( {watchlist: watchlist} );
-
+    var symbol = event.target.id.toLowerCase();
+    console.log(symbol);
+    let symbolArr = this.state.watchlist.split(",");
+    console.log(symbolArr);
+    var index = symbolArr.indexOf(symbol);
+    if (index > -1) {
+      symbolArr.splice(index, 1);
+    }
+    console.log(symbolArr);
+    let symbolString = symbolArr.toString();
+    cookie.save("watchlist", symbolString, {path: "/"});
     var batchObj = this.state.batchObj;
-    delete batchObj[symbol];
-    this.setState( {batchObj: batchObj} );
+    delete batchObj[symbol.toUpperCase()];
+
+    this.setState( {watchlist: symbolString,
+                    batchObj: batchObj} );
   }
 
   handleRefresh(event) {
@@ -119,6 +131,8 @@ class Quote extends Component {
 
   render() {
     console.log("quoteComponent");
+    // console.log("batchObj: ");
+    // console.log(this.state.batchObj);
 
     var addMessage = "Add (" + this.state.symbol.toUpperCase() + ") to watch list";
     return (
