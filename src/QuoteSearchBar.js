@@ -115,8 +115,8 @@ class QuoteSearchBar extends Component {
   render() {
 
     // console.log("quotesearchbar");
-    console.log("newsObj:");
-    console.log(this.state.newsObj);
+    // console.log("newsObj:");
+    // console.log(this.state.newsObj);
 
     var companies = this.state.companies;
     var searchString = this.state.searchString.trim().toLowerCase();

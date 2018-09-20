@@ -45,11 +45,11 @@ div.alignRow {
 }
 
 .newsLink:hover {
-  color: #e6e6e6;
+  color: #80b3ff;
 }
 
 .newsLink:active {
-  color: #bfbfbf;
+  color: #003d99;
 }
 
 .newsItem div {
