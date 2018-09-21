@@ -14,6 +14,16 @@ class News extends Component {
     }
   }
 
+  ComponentDidMount() {
+    updateGeneralNews();
+    updateIndustryNews();
+    updateCompanyNews();
+  }
+
+  updateGeneralNews() {
+    let url;
+  }
+
   // toggles hiding of section of news (general, industries, companies)
   handleHideClick() {
     return;

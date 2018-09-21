@@ -105,6 +105,7 @@ class Quote extends Component {
     // console.log(symbolArr);
     let symbolString = symbolArr.toString();
     cookie.save("watchlist", symbolString, {path: "/"});
+
     var batchObj = this.state.batchObj;
     delete batchObj[symbol.toUpperCase()];
 

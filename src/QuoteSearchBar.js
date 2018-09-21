@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NewsResult from "./NewsResult";
 import QuoteResult from "./QuoteResult";
 import QuoteGraph from "./QuoteGraph";
+import xml2js from "xml2js";
 
 
 class QuoteSearchBar extends Component {
@@ -15,7 +16,8 @@ class QuoteSearchBar extends Component {
       selectedSymbol: '',
       quoteObj: {},
       graphObj: [],
-      newsObj: [],
+      // newsObj: [], // for IEX news
+      newsObj: {}, // for Yahoo news
       logoURL: '',
       period: ''
     }
@@ -30,6 +32,7 @@ class QuoteSearchBar extends Component {
     .then(response => { return response.json() })
     .then(data => { this.setState({ companies: data });
       // console.log("company 1: " + this.state.companies[1].symbol);
+
     })
   }
 
@@ -106,7 +109,6 @@ class QuoteSearchBar extends Component {
 
 
   render() {
-
     // console.log("quoteSearchBar");
 
     var companies = this.state.companies;
