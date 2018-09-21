@@ -37,11 +37,11 @@ class Quote extends Component {
 
     // // create string of the symbols
     // var symbolArr = this.state.watchlist.split(',');
-    console.log("watchlist: ");
-    console.log(this.state.watchlist);
+    // console.log("watchlist: ");
+    // console.log(this.state.watchlist);
     // fetch batch quotes
     var url = "https://api.iextrading.com/1.0/stock/market/batch?symbols=" + this.state.watchlist + "&types=quote";
-    console.log(url);
+    // console.log(url);
 
     // Object.keys(this.state.watchlist)
     //   .map((symbol, value) => { console.log(symbol) })
@@ -58,7 +58,7 @@ class Quote extends Component {
       // console.log("symbol: " + this.state.symbol);
 
       let symbolString;
-      if (this.state.watchlist === undefined) {
+      if (this.state.watchlist === undefined || this.state.watchlist == '') {
         symbolString = this.state.symbol;
       }
       else {
@@ -130,7 +130,7 @@ class Quote extends Component {
   }
 
   render() {
-    console.log("quoteComponent");
+    // console.log("quoteComponent");
     // console.log("batchObj: ");
     // console.log(this.state.batchObj);
 

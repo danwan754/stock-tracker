@@ -66,7 +66,7 @@ class QuoteGraph extends Component {
 
   render() {
 
-    console.log("quoteGraph");
+    // console.log("quoteGraph");
 
 
     var graphObj;

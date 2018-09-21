@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import cookie from "react-cookies";
 
 class News extends Component {
 
@@ -11,6 +12,11 @@ class News extends Component {
       industriesToHide: cookie.load('industriesToHide'),
       companiesToHide: cookie.load('companiesToHide')
     }
+  }
+
+  // toggles hiding of section of news (general, industries, companies)
+  handleHideClick() {
+    return;
   }
 
   render() {

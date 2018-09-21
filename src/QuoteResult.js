@@ -12,12 +12,12 @@ class QuoteResult extends Component {
 
 
   render() {
-    console.log("QuoteResult");
+    // console.log("QuoteResult");
     // console.log(typeof this.props.quoteObj);
     // console.log(this.props.)
     var quoteObj = this.props.quoteObj;
     if (Object.keys(quoteObj).length === 0) {
-      console.log("empty symbol");
+      // console.log("empty symbol");
       return (
         <div></div>
       )
