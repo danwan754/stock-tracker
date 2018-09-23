@@ -25,8 +25,8 @@ class News extends Component {
 
   componentDidMount() {
 //    updateGeneralNews(); // not supported in Yahoo API (use IEX instead?)
-    // this.updateIndustryNews();
-    this.updateCompanyNews();
+    this.updateIndustryNews();
+    // this.updateCompanyNews();
   }
 
   updateIndustryNews() {
@@ -39,7 +39,16 @@ class News extends Component {
       // console.log(xmlText);
       var parseString = require('xml2js').parseString;
       parseString(xmlText, function(err, result) {
-        tempNewsObj = result;
+        // console.log(result["rss"]["channel"][0]["item"]);
+
+        // strip out the html tags in description field of each news article
+        result["rss"]["channel"][0]["item"].map(article => {
+          // console.log(article["description"]);
+          var regex = /(?<=<p><a.*<\/a>).*(?=<p><br)/gi;
+          article["description"] = article["description"][0].match(regex);
+          // console.log(article["description"]);
+          tempNewsObj = result;
+        });
       });
 
       this.setState( {industriesNewsObj: tempNewsObj} );
@@ -105,7 +114,7 @@ class News extends Component {
       <div>
         <h2>News</h2>
         <br/>
-        <h3>Industry News</h3>
+        <h3>Suggested News</h3>
         <NewsList newsObj={this.state.industriesNewsObj} />
         <br/>
         <h3>Company News</h3>

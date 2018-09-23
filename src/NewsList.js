@@ -14,7 +14,7 @@ class NewsList extends Component {
     else {
       console.log("there is news")
       return (
-        <div>
+        <div className="newsList">
           { (this.props.newsObj["rss"]["channel"][0]["item"]).map(news =>
             { return (
               <div key={news.title} className="newsItem">
