@@ -3,6 +3,7 @@ import cookie from "react-cookies";
 import xml2js from "xml2js";
 import NewsList from "./NewsList";
 import NewsModal from "./NewsModal";
+import NewsCompanyModal from "./NewsCompanyModal";
 import './styles.css';
 
 
@@ -23,13 +24,15 @@ class News extends Component {
     }
     this.updateIndustryNews = this.updateIndustryNews.bind(this);
     this.updateCompanyNews = this.updateCompanyNews.bind(this);
-    this.handleClickSelectCompany = this.handleClickSelectCompany.bind(this);
+    // this.handleClickSelectCompany = this.handleClickSelectCompany.bind(this);
+    this.maxNumSampleArticles = 3;
+    this.maxNumArticles = 20;
   }
 
   componentDidMount() {
 //    updateGeneralNews(); // not supported in Yahoo API (use IEX instead?)
     this.updateIndustryNews();
-    // this.updateCompanyNews();
+    this.updateCompanyNews();
   }
 
   componentDidUpdate() {
@@ -109,24 +112,24 @@ class News extends Component {
       .then(result => { this.setState( {companiesNewsObjArr: companiesNewsObjArr} ) })
   }
 
-  // select company to view news
-  handleClickSelectCompany(event) {
-
-    let company = event.target.id;
-
-    // remove the highlighting of current company
-    if (Object.keys(this.state.currentCompanyNewsObj).length > 0) {
-      document.getElementById(this.state.currentCompanyNewsObj.rss.channel.description).style.backgroundColor = "";
-    }
-
-    this.state.companiesNewsObjArr.map(newsObj => {
-      // console.log("newsoBj: " + newsObj.rss.channel.description);
-      if (newsObj.rss.channel.description == company) {
-        this.setState( {currentCompanyNewsObj: newsObj} );
-        return;
-      }
-    })
-  }
+  // // select company to view news
+  // handleClickSelectCompany(event) {
+  //
+  //   let company = event.target.id;
+  //
+  //   // remove the highlighting of current company
+  //   if (Object.keys(this.state.currentCompanyNewsObj).length > 0) {
+  //     document.getElementById(this.state.currentCompanyNewsObj.rss.channel.description).style.backgroundColor = "";
+  //   }
+  //
+  //   this.state.companiesNewsObjArr.map(newsObj => {
+  //     // console.log("newsoBj: " + newsObj.rss.channel.description);
+  //     if (newsObj.rss.channel.description == company) {
+  //       this.setState( {currentCompanyNewsObj: newsObj} );
+  //       return;
+  //     }
+  //   })
+  // }
 
   // toggles hiding of section of news (general, industries, companies)
   handleHideClick() {
@@ -144,24 +147,23 @@ class News extends Component {
         <h2>News</h2>
         <br/>
         <h3>Suggested News</h3>
-        <NewsList newsObj={this.state.industriesNewsObj} />
-        <NewsModal newsObj={this.state.industriesNewsObj} />
+        <NewsList newsObj={this.state.industriesNewsObj} sliceLimit={this.maxNumSampleArticles} />
+        <NewsModal newsObj={this.state.industriesNewsObj} sliceLimit={this.maxNumArticles} />
         <br/>
         <h3>Company News</h3>
-        <div className="inline" id="companyNewsBar">
-          <h5>Watch List</h5>
-          {this.state.watchlist.split(",").map(symbol => { symbol = symbol.toUpperCase(); return (
-            <div className="suggestion" key={symbol} id={symbol} onClick={this.handleClickSelectCompany}>
-              {symbol}
-            </div>
-          )})}
-        </div>
-        <div className="inline" id="companyNewsList">
-          <NewsList newsObj={this.state.currentCompanyNewsObj} />
-        </div>
+        <NewsCompanyModal newsObjArr={this.state.companiesNewsObjArr} sliceLimit={this.maxNumArticles} />
       </div>
     );
   }
 }
 
 export default News;
+
+// {this.state.watchlist.split(",").map(symbol => { symbol = symbol.toUpperCase(); return (
+//   <div className="suggestion" key={symbol} id={symbol} onClick={this.handleClickSelectCompany}>
+//     {symbol}
+//   </div>
+// )})}
+// <div className="inline" id="companyNewsList">
+//   <NewsList newsObj={this.state.currentCompanyNewsObj} sliceLimit={this.maxNumArticles} />
+// </div>

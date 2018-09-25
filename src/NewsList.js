@@ -15,7 +15,7 @@ class NewsList extends Component {
       // console.log("there is news")
       return (
         <div className="newsList">
-          { (this.props.newsObj["rss"]["channel"][0]["item"]).map(news =>
+          { (this.props.newsObj["rss"]["channel"][0]["item"].slice(0, this.props.sliceLimit)).map(news =>
             { return (
               <div key={news.title} className="newsItem">
                 <a href={news.link} className="newsLink" target="_blank">

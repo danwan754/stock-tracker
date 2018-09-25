@@ -26,13 +26,14 @@ class NewsModal extends Component {
   render() {
     return (
       <div>
-        <div className='suggestion button' onClick={this.handleShow}>
+        <div className='suggestion more-news-button' onClick={this.handleShow}>
           More News
         </div>
         <ButtonToolbar>
           <Modal
             show={this.state.show}
             onHide={this.handleHide}
+            dialogClassName="custom-modal"
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-lg">
@@ -40,7 +41,7 @@ class NewsModal extends Component {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <NewsList newsObj={this.props.newsObj} />
+              <NewsList newsObj={this.props.newsObj} sliceLimit={this.props.sliceLimit} />
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={this.handleHide}>Close</Button>

@@ -156,8 +156,12 @@ table.quoteTable {
   background-color: #bfbfbf;
 }
 
-.button {
+.more-news-button {
   text-align: center;
+}
+
+.custom-modal {
+  width: 80%;
 }
 
 .watchListItem {
