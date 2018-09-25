@@ -75,9 +75,18 @@ div.alignRow {
 }
 
 .newsList {
-  margin: 5px 10px 5px 10px;
+  margin: 0px 10px 5px 10px;
+
 }
 
+#companyNewsBar {
+  width: 10%;
+  text-align: center;
+}
+
+#companyNewsList {
+  width: 90%;
+}
 
 #newsDate {
   /* text-align: right; */
@@ -136,14 +145,19 @@ table.quoteTable {
 .suggestion {
   border-style: solid;
   border-width: thin;
+  padding: 5px 10px 5px 10px;
 }
 
 .suggestion:hover {
-  background-color: #e6e6e6;
+  background-color: #a6a6a6;
 }
 
 .suggestion:active {
   background-color: #bfbfbf;
+}
+
+.button {
+  text-align: center;
 }
 
 .watchListItem {
@@ -221,6 +235,7 @@ table.quoteTable {
   display: inline-block;
   width: auto;
   margin-right: 20px;
+  /* margin-left: 20px; */
 }
 
 #quoteFooter {

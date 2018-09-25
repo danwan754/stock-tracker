@@ -149,7 +149,7 @@ class Quote extends Component {
           {Object.keys(this.state.batchObj).map((symbol, value) => {
             // console.log(this.state.batchObj[symbol]["quote"]);
             return (
-              <div key={symbol} className="watchListItem">
+              <div key={symbol} id={symbol} className="watchListItem" onClick={this.handleClick}>
                 <WatchListItem quoteObject={this.state.batchObj[symbol]["quote"]} />
                 <div className="watchListItemRemove" id={symbol} onClick={this.handleRemoveFromWatchList}>
                   <input type="submit" value="X" id={symbol} onClick={this.handleRemoveFromWatchList} />
