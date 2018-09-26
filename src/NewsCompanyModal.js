@@ -36,6 +36,11 @@ class NewsCompanyModal extends Component {
   }
 
   render() {
+    if (this.props.newsObjArr.length == 0) {
+      return (
+        <div>To see company news, add stocks to your watch list. (Currently only able to add to watchlist from Quote section)</div>
+      )
+    }
     return (
       <div>
         <table className="news-table">
@@ -51,7 +56,7 @@ class NewsCompanyModal extends Component {
                   <NewsList newsObj={newsObj} sliceLimit={this.numNewsArticles} />
                 </td>
               </tr>
-            )}) : false}
+            )}) : false }
           </tbody>
         </table>
         <Modal

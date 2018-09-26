@@ -4,6 +4,7 @@ import xml2js from "xml2js";
 import NewsList from "./NewsList";
 import NewsModal from "./NewsModal";
 import NewsCompanyModal from "./NewsCompanyModal";
+import NewsFooter from "./NewsFooter";
 import './styles.css';
 
 
@@ -112,6 +113,7 @@ class News extends Component {
         <br/>
         <h3>Company News</h3>
         <NewsCompanyModal newsObjArr={this.state.companiesNewsObjArr} sliceLimit={this.maxNumArticles} />
+        <NewsFooter />
       </div>
     );
   }
