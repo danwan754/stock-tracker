@@ -14,19 +14,12 @@ class NewsCompanyModal extends Component {
     };
     this.handleShow = this.handleShow.bind(this);
     this.handleHide = this.handleHide.bind(this);
+    this.numNewsArticles =  1
   }
 
   handleShow(event) {
-
     let company = event.target.id;
-
-    // // remove the highlighting of current company
-    // if (Object.keys(this.state.currentCompanyNewsObj).length > 0) {
-    //   document.getElementById(this.state.currentCompanyNewsObj.rss.channel.description).style.backgroundColor = "";
-    // }
-
     this.props.newsObjArr.map(newsObj => {
-      // console.log("newsoBj: " + newsObj.rss.channel.description);
       if (newsObj.rss.channel.description == company) {
         this.setState( {
           currentCompanyNewsObj: newsObj,
@@ -45,21 +38,21 @@ class NewsCompanyModal extends Component {
   render() {
     return (
       <div>
-        <table>
-        <tbody>
-          {this.props.newsObjArr.length > 0? this.props.newsObjArr.map(newsObj => { return (
-            <tr key={newsObj.rss.channel.description.toUpperCase()}>
-              <td>
-                <Button bsStyle="primary" id={newsObj.rss.channel.description.toUpperCase()} onClick={this.handleShow}>
-                  {newsObj.rss.channel.description.toUpperCase()}
-                </Button>
-              </td>
-              <td>
-                <NewsList newsObj={newsObj} sliceLimit={1} />
-              </td>
-            </tr>
-          )}) : false}
-        </tbody>
+        <table className="news-table">
+          <tbody>
+            {this.props.newsObjArr.length > 0? this.props.newsObjArr.map(newsObj => { return (
+              <tr key={newsObj.rss.channel.description.toUpperCase()}>
+                <td>
+                  <Button bsStyle="primary" className="company-select-button" id={newsObj.rss.channel.description.toUpperCase()} onClick={this.handleShow}>
+                    {newsObj.rss.channel.description.toUpperCase()}
+                  </Button>
+                </td>
+                <td>
+                  <NewsList newsObj={newsObj} sliceLimit={this.numNewsArticles} />
+                </td>
+              </tr>
+            )}) : false}
+          </tbody>
         </table>
         <Modal
           show={this.state.show}
@@ -84,5 +77,3 @@ class NewsCompanyModal extends Component {
 }
 
 export default NewsCompanyModal;
-
-// <div className='suggestion more-news-button' id={newsObj.rss.channel.description.toUpperCase()} onClick={this.handleShow}>

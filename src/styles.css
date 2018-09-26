@@ -160,6 +160,16 @@ table.quoteTable {
   text-align: center;
 }
 
+.company-select-button {
+  width: 100%;
+  height: 100%;
+}
+
+.news-table {
+  /* border-style: solid; */
+
+}
+
 .custom-modal {
   width: 80%;
 }
