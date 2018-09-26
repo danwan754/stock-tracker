@@ -78,7 +78,7 @@ class News extends Component {
     // fetch news about selected companies
     function getNewsForCompany(symbol) {
       return Promise.resolve(
-        fetch("http://finance.yahoo.com/rss/headline?s=" + symbol)
+        fetch("https://finance.yahoo.com/rss/headline?s=" + symbol)
         .then(response => { return response.text() })
         .then((xmlText) => {
           let temp;
