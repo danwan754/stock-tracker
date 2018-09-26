@@ -3,6 +3,7 @@ import QuoteSearchBar from "./QuoteSearchBar";
 import WatchListItem from "./WatchListItem";
 import QuoteFooter from "./QuoteFooter";
 import cookie from "react-cookies";
+import Button from "react-bootstrap/lib/Button";
 import './styles.css'
 
 
@@ -114,6 +115,7 @@ class Quote extends Component {
   }
 
   handleRefresh(event) {
+    event.target.blur(); // get rid of focus on button
     this.fetchWatchListQuotes();
   }
 
@@ -145,9 +147,8 @@ class Quote extends Component {
         <br/><br/><hr />
         <div className="watchListContainer">
           <h3 id="inline">Watch List</h3>
-          <div id="refreshButton" onClick={this.handleRefresh}>Refresh Watch List</div>
+          <Button id="refreshButton" onClick={this.handleRefresh}><i className="fa refresh-icon">&#xf021;</i></Button>
           {Object.keys(this.state.batchObj).map((symbol, value) => {
-            // console.log(this.state.batchObj[symbol]["quote"]);
             return (
               <div key={symbol} id={symbol} className="watchListItem" onClick={this.handleClick}>
                 <WatchListItem quoteObject={this.state.batchObj[symbol]["quote"]} />
@@ -165,3 +166,5 @@ class Quote extends Component {
 }
 
 export default Quote;
+
+// <div id="refreshButton" onClick={this.handleRefresh}><i className="fa">&#xf021;</i></div>

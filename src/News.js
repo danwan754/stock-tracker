@@ -112,12 +112,16 @@ class News extends Component {
       <div>
         <h2>News</h2>
         <br/>
-        <h3>Suggested News</h3>
-        <NewsList newsObj={this.state.industriesNewsObj} sliceLimit={this.maxNumSampleArticles} />
-        <NewsModal newsObj={this.state.industriesNewsObj} sliceLimit={this.maxNumArticles} />
-        <br/>
-        <h3>Company News</h3>
-        <NewsCompanyModal newsObjArr={this.state.companiesNewsObjArr} sliceLimit={this.maxNumArticles} />
+        <div className="outter-div">
+          <h3>Suggested News</h3>
+          <div className="suggested-news">
+            <NewsList newsObj={this.state.industriesNewsObj} sliceLimit={this.maxNumSampleArticles} />
+            <NewsModal newsObj={this.state.industriesNewsObj} sliceLimit={this.maxNumArticles} />
+          </div>
+          <br/>
+          <h3>Company News</h3>
+          <NewsCompanyModal newsObjArr={this.state.companiesNewsObjArr} sliceLimit={this.maxNumArticles} />
+        </div>
         <NewsFooter />
       </div>
     );

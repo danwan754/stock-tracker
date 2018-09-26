@@ -15,7 +15,8 @@ class NewsModal extends Component {
     this.handleHide = this.handleHide.bind(this);
   }
 
-  handleShow() {
+  handleShow(event) {
+    event.target.blur();
     this.setState({ show: true });
   }
 
@@ -26,9 +27,9 @@ class NewsModal extends Component {
   render() {
     return (
       <div>
-        <div className='suggestion more-news-button' onClick={this.handleShow}>
-          More News
-        </div>
+        <Button className='more-news-button' onClick={this.handleShow}>
+          <i className="fa fa-angle-double-down double-down-arrow"></i>
+        </Button>
         <ButtonToolbar>
           <Modal
             show={this.state.show}
@@ -54,3 +55,5 @@ class NewsModal extends Component {
 }
 
 export default NewsModal;
+
+// <div className='suggestion more-news-button' onClick={this.handleShow}>
