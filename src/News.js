@@ -23,7 +23,6 @@ class News extends Component {
     }
     this.updateIndustryNews = this.updateIndustryNews.bind(this);
     this.updateCompanyNews = this.updateCompanyNews.bind(this);
-    // this.handleClickSelectCompany = this.handleClickSelectCompany.bind(this);
     this.maxNumSampleArticles = 3;
     this.maxNumArticles = 20;
   }
@@ -36,7 +35,14 @@ class News extends Component {
 
   updateIndustryNews() {
 
-    let url = "https://finance.yahoo.com/rss/industry?s=" + this.state.watchlist;
+    let industriesString;
+    if (typeof this.state.watchlist == 'undefined' || this.state.watchlist == '') {
+      industriesString = "aapl,cgc,amzn,wmt,gs,wfc";
+    }
+    else {
+      industriesString = this.state.watchlist;
+    }
+    let url = "https://finance.yahoo.com/rss/industry?s=" + industriesString;
     var tempNewsObj = {};
     fetch(url)
     .then(response => { return response.text() })
@@ -93,8 +99,7 @@ class News extends Component {
     ))
       .then(result => { return (
         result.map(companyObj => { return (
-        // console.log(companyObj)
-        companiesNewsObjArr.push(companyObj)
+          companiesNewsObjArr.push(companyObj)
         )})
       )})
       .then(result => { this.setState( {companiesNewsObjArr: companiesNewsObjArr} ) })
