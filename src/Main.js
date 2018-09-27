@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import {
-  Route,
-  NavLink,
-  BrowserRouter
-} from "react-router-dom";
+import { Route, BrowserRouter } from "react-router-dom";
+import NaviBar from "./NaviBar";
 import Home from "./Home";
 import WatchLists from "./WatchLists";
 import Quote from "./Quote";
@@ -15,14 +12,7 @@ class Main extends Component {
     return (
       <BrowserRouter>
         <div>
-          <h1>Stock Tracker</h1>
-          <ul className="header">
-            <li><NavLink exact to="/">Home</NavLink></li>
-            <li><NavLink to="/watchlists">Watch Lists</NavLink></li>
-            <li><NavLink to="/quote">Quote</NavLink></li>
-            <li><NavLink to="/news">News</NavLink></li>
-            <li><NavLink to="/contact">Contact</NavLink></li>
-          </ul>
+          <NaviBar />
           <div className="content">
             <Route exact path="/" component={Home}/>
             <Route path="/watchlists" component={WatchLists}/>
