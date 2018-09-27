@@ -127,7 +127,7 @@ class QuoteSearchBar extends Component {
 
     return (
         <div>
-          <input type="text" name="company" className="submitAdd" value={this.state.searchString} onChange={this.handleChange} placeholder="Company name or ticker symbol"/>
+          <input type="text" name="company" className="submitAdd" value={this.state.searchString} onChange={this.handleChange} placeholder="Company name"/>
           { companies.map(company => { return <div className="suggestion" key={company.symbol} name={company.symbol} onClick={this.handleClick}>{company.symbol + ": " + company.name} </div> }) }
           <div className="inline quote">
             <QuoteResult symbol={this.state.selectedSymbol} quoteObj={this.state.quoteObj} logoURL={this.state.logoURL} />

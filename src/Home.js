@@ -5,6 +5,7 @@ class Home extends Component {
     return (
       <div>
         <h2>Welcome</h2>
+        <br/>
         <p>This web-app will allow you to quote, make watch lists, view
         analyst ratings, and read latest news that may affect your stocks.</p>
         <br/>

@@ -141,6 +141,7 @@ class Quote extends Component {
     return (
       <div>
         <h2>Quote</h2>
+        <br/>
         <p>Select the stock by typing the company name</p>
         <input type="submit" id="addBtn" hidden={this.state.toHide} value={addMessage} onClick={this.handleAddToWatchlist} />
         <QuoteSearchBar symbol={this.handleSelectedCompany} />

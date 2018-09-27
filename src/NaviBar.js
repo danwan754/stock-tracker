@@ -15,7 +15,7 @@ class NaviBar extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <LinkContainer to="/">
+            <LinkContainer exact to="/">
               <NavItem>Home</NavItem>
             </LinkContainer>
             <LinkContainer to="/watchlists">
