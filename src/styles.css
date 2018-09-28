@@ -311,3 +311,13 @@ table.quoteTable {
 .period:active {
   background-color: #bfbfbf;
 }
+
+#home-intro-p {
+  font-size: 30px;
+  text-align: center;
+}
+
+#home-notice-p {
+  font-size: 18px;
+  text-align: center;
+}
