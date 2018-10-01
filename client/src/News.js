@@ -42,9 +42,27 @@ class News extends Component {
     else {
       industriesString = this.state.watchlist;
     }
-    let url = "https://finance.yahoo.com/rss/industry?s=" + industriesString;
+    // let url = "https://finance.yahoo.com/rss/industry?s=" + industriesString;
+    // var tempNewsObj = {};
+    // fetch(url)
+    // .then(response => { console.log(response); return response.text() })
+    // .then((xmlText) => {
+    //   var parseString = require('xml2js').parseString;
+    //   parseString(xmlText, function(err, result) {
+    //
+    //     // strip out the html tags in description field of each news article
+    //     result["rss"]["channel"][0]["item"].map(article => {
+    //       var regex = /(?<=<p><a.*<\/a>).*(?=<p><br)/gi;
+    //       article["description"] = article["description"][0].match(regex);
+    //       tempNewsObj = result;
+    //     });
+    //   });
+    //
+    //   this.setState( {industriesNewsObj: tempNewsObj} );
+    // });
+
     var tempNewsObj = {};
-    fetch(url)
+    fetch('/api/news/industry/' + industriesString)
     .then(response => { return response.text() })
     .then((xmlText) => {
       var parseString = require('xml2js').parseString;
@@ -77,8 +95,21 @@ class News extends Component {
 
     // fetch news about selected companies
     function getNewsForCompany(symbol) {
+      // return Promise.resolve(
+      //   fetch("https://finance.yahoo.com/rss/headline?s=" + symbol)
+      //   .then(response => { return response.text() })
+      //   .then((xmlText) => {
+      //     let temp;
+      //     var parseString = require('xml2js').parseString;
+      //     parseString(xmlText, function(err, result) {
+      //       result["rss"]["channel"]["description"] = symbol.toUpperCase();
+      //       temp = result;
+      //     })
+      //     return temp;
+      //   })
+      // )
       return Promise.resolve(
-        fetch("https://finance.yahoo.com/rss/headline?s=" + symbol)
+        fetch("/api/news/company/" + symbol)
         .then(response => { return response.text() })
         .then((xmlText) => {
           let temp;
