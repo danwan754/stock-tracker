@@ -26,21 +26,21 @@ app.get('/', function (req, res) {
 });
 
 
-// get industry news
-app.get('/api/news/industry/:symbols', function (req, res) {
-  let url = "https://finance.yahoo.com/rss/industry?s=" + req.params.symbols;
-  request(url, function (error, response, body) {
-    res.send(body);
-  });
-});
-
-// get company news
-app.get('/api/news/company/:symbol', function (req, res) {
-  let url = "https://finance.yahoo.com/rss/headline?s=" + req.params.symbol;
-  request(url, function (error, response, body) {
-    res.send(body);
-  });
-});
+// // get industry news
+// app.get('/api/news/industry/:symbols', function (req, res) {
+//   let url = "https://finance.yahoo.com/rss/industry?s=" + req.params.symbols;
+//   request(url, function (error, response, body) {
+//     res.send(body);
+//   });
+// });
+//
+// // get company news
+// app.get('/api/news/company/:symbol', function (req, res) {
+//   let url = "https://finance.yahoo.com/rss/headline?s=" + req.params.symbol;
+//   request(url, function (error, response, body) {
+//     res.send(body);
+//   });
+// });
 
 
 
