@@ -9,7 +9,6 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "build": "webpack --mode production",
     "heroku-postbuild": "webpack -p"
   },
   "author": "Dan Wan",
@@ -27,6 +26,7 @@
     "webpack-dev-server": "^3.1.5"
   },
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "font-awesome": "^4.7.0",
     "react": "^16.5.2",
