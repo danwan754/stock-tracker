@@ -5,7 +5,6 @@
     "npm": "6.4.1",
     "node": "8.11.4"
   },
-  "description": "Quote stocks in close to real-time.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
