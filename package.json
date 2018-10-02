@@ -8,7 +8,7 @@
   "description": "Quote stocks in close to real-time.",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "webpack-dev-server",
     "build": "webpack --mode production",
     "heroku-postbuild": "webpack -p"
   },
