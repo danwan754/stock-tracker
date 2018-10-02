@@ -36,7 +36,7 @@ app.get('/', function (req, res) {
 //
 // // get company news
 // app.get('/api/news/company/:symbol', function (req, res) {
-//   let url = "https://finance.yahoo.com/rss/headline?s=" + req.params.symbol;
+//   let url = "https://feeds.finance.yahoo.com/rss/2.0/headline?s=" + req.params.symbol;
 //   request(url, function (error, response, body) {
 //     res.send(body);
 //   });

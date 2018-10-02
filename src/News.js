@@ -63,7 +63,7 @@ class News extends Component {
 
     var tempNewsObj = {};
     // fetch('/api/news/industry/' + industriesString)
-    fetch('/api/rss/industry?s=' + industriesString)
+    fetch('/api/industry/rss/industry?s=' + industriesString)
     .then(response => { return response.text() })
     .then((xmlText) => {
       var parseString = require('xml2js').parseString;
@@ -111,7 +111,7 @@ class News extends Component {
       // )
       return Promise.resolve(
         // fetch("/api/news/company/" + symbol)
-        fetch("/api/rss/headline?s=" + symbol)
+        fetch("/api/company/rss/2.0/headline?s=" + symbol)
         .then(response => { return response.text() })
         .then((xmlText) => {
           let temp;

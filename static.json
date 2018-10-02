@@ -4,8 +4,11 @@
     "/**": "index.html"
   },
   "proxies": {
-    "/api/": {
-      "origin": "${API_URL}"
+    "/api/industry/": {
+      "origin": "${API_IN_URL}"
+    },
+    "/api/company/": {
+      "origin": "${API_CO_URL}"
     }
   }
 }
