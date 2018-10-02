@@ -7,15 +7,13 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack --mode production",
-    "heroku-postbuild": "webpack -p"
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   },
   "author": "Dan Wan",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^1.0.0",
@@ -36,8 +34,15 @@
     "react-google-charts": "^3.0.8",
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.3.1",
+    "react-scripts": "^2.0.3",
     "request": "^2.88.0",
     "xml2js": "^0.4.19"
   },
-  "keywords": []
+  "keywords": [],
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

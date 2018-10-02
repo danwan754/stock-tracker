@@ -62,7 +62,8 @@ class News extends Component {
     // });
 
     var tempNewsObj = {};
-    fetch('/api/news/industry/' + industriesString)
+    // fetch('/api/news/industry/' + industriesString)
+    fetch('/api/rss/industry?s=' + industriesString)
     .then(response => { return response.text() })
     .then((xmlText) => {
       var parseString = require('xml2js').parseString;
@@ -109,7 +110,8 @@ class News extends Component {
       //   })
       // )
       return Promise.resolve(
-        fetch("/api/news/company/" + symbol)
+        // fetch("/api/news/company/" + symbol)
+        fetch("/api/rss/headline?s=" + symbol)
         .then(response => { return response.text() })
         .then((xmlText) => {
           let temp;
