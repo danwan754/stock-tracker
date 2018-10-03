@@ -5,7 +5,7 @@ class NewsList extends Component {
 
   render() {
 
-    if (typeof this.props.newsObj === 'undefined' || Object.keys(this.props.newsObj).length == 0) {
+    if (typeof this.props.newsObj === 'undefined' || Object.keys(this.props.newsObj).length === 0) {
       return (
         <div></div>
       )
@@ -16,7 +16,7 @@ class NewsList extends Component {
           { (this.props.newsObj["rss"]["channel"][0]["item"].slice(0, this.props.sliceLimit)).map(news =>
             { return (
               <div key={news.title} className="newsItem">
-                <a href={news.link} className="newsLink" target="_blank">
+                <a href={news.link} className="newsLink" target="_blank" rel="noopener noreferrer">
                 <span style={{display: "block"}}>
                   <p id="newsDate">{new Date(news.pubDate).toLocaleString()}</p>
                   <p className="newsTitle">{news.title}</p>

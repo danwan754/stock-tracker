@@ -15,7 +15,7 @@ class QuoteGraph extends Component {
 
   // if parent component pass same symbol as previous, then don't re-render
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.symbol == nextProps.symbol) {
+    if (this.props.symbol === nextProps.symbol) {
       return false;
     }
     return true;
@@ -26,9 +26,6 @@ class QuoteGraph extends Component {
     var period;
     // console.log(selectedPeriod);
     switch(selectedPeriod) {
-      case "1 Month":
-        period = "1m";
-        break;
       case "1 Day":
         period = "1d";
         break;
@@ -49,6 +46,10 @@ class QuoteGraph extends Component {
         break;
       case "5 Years":
         period = "5y";
+        break;
+      default:
+        period = "1m";
+        break;
     }
 
     // console.log(this.props.symbol);
@@ -70,25 +71,26 @@ class QuoteGraph extends Component {
 
 
     var graphObj;
-    if (this.props.graphObj === undefined || this.props.graphObj.length == 0) {
+    if (this.props.graphObj === undefined || this.props.graphObj.length === 0) {
       return (
         <div></div>
       )
     }
     else {
       // use the props graph object if state graphObj is empty
-      if (this.state.graphObj === undefined || this.state.graphObj.length == 0) {
+      if (this.state.graphObj === undefined || this.state.graphObj.length === 0) {
         graphObj = this.props.graphObj;
       }
       else {
         graphObj = this.state.graphObj;
       }
 
-      if (this.props.period == "1 day") {
-        var xAxis = "minute";
+      var xAxis;
+      if (this.props.period === "1 day") {
+        xAxis = "minute";
       }
       else {
-        var xAxis = "date";
+        xAxis = "date";
       }
 
       var data = [

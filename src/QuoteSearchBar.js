@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import NewsResult from "./NewsResult";
 import QuoteResult from "./QuoteResult";
 import QuoteGraph from "./QuoteGraph";
-import xml2js from "xml2js";
-
 
 class QuoteSearchBar extends Component {
 
@@ -97,7 +95,8 @@ class QuoteSearchBar extends Component {
 
     // need to check for special regex characters and remove them from input string
     var currentString = event.target.value;
-    var illegalChars = "\[\]\\\^\$\.\|\?\*\+\(\)";
+    // var illegalChars = "\[\]\\\^\$\.\|\?\*\+\(\)";
+    var illegalChars = "[]\\^$.|?*+()";
     if (illegalChars.includes(currentString[currentString.length - 1])) {
       this.setState({searchString: currentString.slice(0, currentString.length - 1)})
     }

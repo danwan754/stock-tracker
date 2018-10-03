@@ -36,7 +36,7 @@ class News extends Component {
   updateIndustryNews() {
 
     let industriesString;
-    if (typeof this.state.watchlist == 'undefined' || this.state.watchlist == '') {
+    if (typeof this.state.watchlist === 'undefined' || this.state.watchlist === '') {
       industriesString = "aapl,cgc,amzn,wmt,gs,wfc";
     }
     else {
@@ -66,7 +66,7 @@ class News extends Component {
     fetch('/api/industry/rss/industry?s=' + industriesString)
     .then(response => { return response.text() })
     .then((xmlText) => {
-      var parseString = require('xml2js').parseString;
+      var parseString = xml2js.parseString;
       parseString(xmlText, function(err, result) {
 
         // strip out the html tags in description field of each news article
@@ -74,6 +74,7 @@ class News extends Component {
           var regex = /(?<=<p><a.*<\/a>).*(?=<p><br)/gi;
           article["description"] = article["description"][0].match(regex);
           tempNewsObj = result;
+          return 0;
         });
       });
 
@@ -88,7 +89,7 @@ class News extends Component {
     // }
     // console.log(this.state.companies);
     // var symbolArr = this.state.companies.split(",");
-    if (typeof this.state.watchlist === 'undefined' || this.state.watchlist == '') {
+    if (typeof this.state.watchlist === 'undefined' || this.state.watchlist === '') {
       return;
     }
     console.log(this.state.watchlist);
@@ -115,7 +116,7 @@ class News extends Component {
         .then(response => { return response.text() })
         .then((xmlText) => {
           let temp;
-          var parseString = require('xml2js').parseString;
+          var parseString = xml2js.parseString;
           parseString(xmlText, function(err, result) {
             result["rss"]["channel"]["description"] = symbol.toUpperCase();
             temp = result;

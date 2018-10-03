@@ -32,7 +32,7 @@ class Quote extends Component {
 
   fetchWatchListQuotes() {
     // check if watchlist is empty
-    if (this.state.watchlist === undefined || this.state.watchlist == '') {
+    if (this.state.watchlist === undefined || this.state.watchlist === '') {
       return;
     }
 
@@ -55,11 +55,11 @@ class Quote extends Component {
 
   handleAddToWatchlist() {
     // console.log("symbol: " + this.state.symbol);
-    if ( !(this.state.symbol.toUpperCase() in this.state.batchObj) && (this.state.symbol != '') ) {
+    if ( !(this.state.symbol.toUpperCase() in this.state.batchObj) && (this.state.symbol !== '') ) {
       // console.log("symbol: " + this.state.symbol);
 
       let symbolString;
-      if (this.state.watchlist === undefined || this.state.watchlist == '') {
+      if (this.state.watchlist === undefined || this.state.watchlist === '') {
         symbolString = this.state.symbol;
       }
       else {

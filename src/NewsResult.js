@@ -5,7 +5,7 @@ class NewsResult extends Component {
 
   // if parent component pass same symbol as previous, then don't re-render
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.symbol == nextProps.symbol) {
+    if (this.props.symbol === nextProps.symbol) {
       return false;
     }
     return true;
@@ -20,7 +20,7 @@ class NewsResult extends Component {
           { this.props.newsArray.map(news =>
             { return (
               <div key={news.headline} className="newsItem">
-                <a href={news.url} target="_blank" className="newsLink">
+                <a href={news.url} target="_blank" className="newsLink" rel="noopener noreferrer">
                 <span style={{display: "block"}}>
                   <h3>{news.headline}</h3>
                   <h4>{news.summary}</h4>

@@ -8,7 +8,7 @@ class Home extends Component {
         <p id="home-intro-p">Quote stocks, make watch lists, view
         analyst ratings, and read latest news that may affect your stocks.</p>
         <br/><br/><br/>
-        <p id="home-notice-p">Companies that are available to quote are U.S listed companies that are listed on <a href="https://iextrading.com/" target="_blank">IEX</a>.</p>
+        <p id="home-notice-p">Companies that are available to quote are U.S listed companies that are listed on <a href="https://iextrading.com/" target="_blank" rel="noopener noreferrer">IEX</a>.</p>
       </div>
     );
   }

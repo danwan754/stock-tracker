@@ -4,7 +4,7 @@ class QuoteResult extends Component {
 
   // if parent component pass same symbol as previous, then don't re-render
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.symbol == nextProps.symbol) {
+    if (this.props.symbol === nextProps.symbol) {
       return false;
     }
     return true;
@@ -19,9 +19,6 @@ class QuoteResult extends Component {
       )
     }
     else {
-      var value = "auto";
-      var maxWidth = "100px";
-      var maxHeight = "100px";
 
       // // include commas for thousands and strip down decimal places to a max of 2
       // function includeCommasAndTrimDecimalPlaces(number) {
@@ -78,7 +75,7 @@ class QuoteResult extends Component {
       // var latestUpdate = new Date(quoteObj.latestUpdate).toLocaleTimeString();
       // var latestUpdate = new Date(quoteObj.latestUpdate).toTimeString();
       var latestUpdate = new Date(quoteObj.latestUpdate).toLocaleString();
-      var exchange = quoteObj.primaryExchange;
+      // var exchange = quoteObj.primaryExchange;
       var dayHigh = trimDecimalPlaces(quoteObj.high);
       var dayLow = trimDecimalPlaces(quoteObj.low);
       var changePrice = trimDecimalPlaces(quoteObj.change);
@@ -88,7 +85,7 @@ class QuoteResult extends Component {
       var latestVolume = includeCommas(quoteObj.latestVolume)
       var week52High = trimDecimalPlaces(quoteObj.week52High);
       var week52Low = trimDecimalPlaces(quoteObj.week52Low);
-      var ytdChange = trimDecimalPlaces(quoteObj.ytdChange);
+      // var ytdChange = trimDecimalPlaces(quoteObj.ytdChange);
       var logoURL = this.props.logoURL;
 
       var priceMovement = "loss";
@@ -110,7 +107,7 @@ class QuoteResult extends Component {
           <br/>
           <div className="alignRow">
             <div>
-              <img id="logo" src={logoURL} />
+              <img id="logo" src={logoURL} alt="" />
             </div>
             <div className="verticalCenter">
               <p>({symbol}): {name}</p>

@@ -1,6 +1,5 @@
 import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
-import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import React, { Component } from "react";
 import NewsList from "./NewsList";
 
@@ -20,13 +19,14 @@ class NewsCompanyModal extends Component {
   handleShow(event) {
     let company = event.target.id;
     this.props.newsObjArr.map(newsObj => {
-      if (newsObj.rss.channel.description == company) {
+      if (newsObj.rss.channel.description === company) {
         this.setState( {
           currentCompanyNewsObj: newsObj,
           show: true
         });
-        return;
+        return 0;
       }
+      return 0;
     })
   }
 
@@ -36,7 +36,7 @@ class NewsCompanyModal extends Component {
   }
 
   render() {
-    if (this.props.newsObjArr.length == 0) {
+    if (this.props.newsObjArr.length === 0) {
       return (
         <div>To see company news, add stocks to your watch list. (Currently only able to add to watchlist from Quote section)</div>
       )
