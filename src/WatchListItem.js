@@ -27,13 +27,18 @@ class WatchListItem extends Component {
       // console.log("quoteObj not empty");
       // console.log("name : " + quoteObj["companyName"]);
       return (
-        <div className="watchListItemQuote">
-          <p className="symbolName">
-            ({symbol}) :  {companyName}
-          </p>
-          <p id="watchlistPrice" className="currentPrice">{latestPrice}</p>
-          <p className={priceMovement}>{changePrice}  ({changePercent})</p>
-          <p id="watchlistDateStamp">{latestUpdate}</p>
+        <div>
+          <div className="watchListItemQuote">
+            <p className="symbolName">
+              ({symbol}) :  {companyName}
+            </p>
+            <p id="watchlistPrice" className="currentPrice">{latestPrice}</p>
+            <p className={priceMovement}>{changePrice}  ({changePercent})</p>
+            <p id="watchlistDateStamp">{latestUpdate}</p>
+          </div>
+          <div className="watchListItemRemove" id={this.props.watchListName + "-" + symbol} onClick={this.props.handleRemove}>
+            <input type="submit" value="X" id={this.props.watchListName + "-" + symbol} onClick={this.props.handleRemove} />
+          </div>
         </div>
       )
     }

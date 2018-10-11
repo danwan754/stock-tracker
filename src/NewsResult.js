@@ -15,7 +15,7 @@ class NewsResult extends Component {
 
     if (Object.keys(this.props.newsArray).length > 0) {
       return (
-        <div>
+        <div className="inline news">
           <h3>Latest News</h3>
           { this.props.newsArray.map(news =>
             { return (

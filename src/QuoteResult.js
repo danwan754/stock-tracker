@@ -103,7 +103,7 @@ class QuoteResult extends Component {
 
 
       return (
-        <div>
+        <div className="inline quote">
           <br/>
           <div className="alignRow">
             <div>

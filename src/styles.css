@@ -192,6 +192,10 @@ table.quoteTable {
   width: 80%;
 }
 
+.modal-quote-results {
+  width: 90%;
+}
+
 .watchListItem {
   /* border-style: solid; */
   border-width: thin;

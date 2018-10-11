@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import NewsResult from "./NewsResult";
 import QuoteResult from "./QuoteResult";
 import QuoteGraph from "./QuoteGraph";
+import QuoteFooter from "./QuoteFooter";
+import WatchListDropDown from "./WatchListDropDown";
+
+import Modal from 'react-bootstrap/lib/Modal';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 
 class QuoteSearchBar extends Component {
 
@@ -9,6 +14,7 @@ class QuoteSearchBar extends Component {
   constructor() {
     super();
     this.state = {
+      show: false,
       companies: [],
       searchString: '',
       selectedSymbol: '',
@@ -21,11 +27,13 @@ class QuoteSearchBar extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleHide = this.handleHide.bind(this);
+    this.watchListAndSymbol = this.watchListAndSymbol.bind(this);
   }
 
   componentDidMount() {
 
-    // get all the companies listed on IEX
+    // get all the company names listed on IEX
     fetch("https://api.iextrading.com/1.0/ref-data/symbols")
     .then(response => { return response.json() })
     .then(data => { this.setState({ companies: data });
@@ -86,7 +94,8 @@ class QuoteSearchBar extends Component {
                         newsObj: newsObj,
                         logoURL: logoURL,
                         graphObj: graphObj,
-                        period: '1m'
+                        period: '1m',
+                        show: true
         });
       });
   }
@@ -106,6 +115,20 @@ class QuoteSearchBar extends Component {
     }
   }
 
+  handleHide() {
+    this.setState({ show: false });
+  }
+
+  // append the watch list and symbol as an object and return it to parent component to add to watch list
+  watchListAndSymbol(watchList) {
+    let watchListAndSymbolObj = {
+      watchList: watchList,
+      symbol: this.state.selectedSymbol
+    }
+    console.log("watchListAndSymbol object: ")
+    console.log(watchListAndSymbolObj);
+    this.props.addToList(watchListAndSymbolObj);
+  }
 
   render() {
     // console.log("quoteSearchBar");
@@ -124,20 +147,58 @@ class QuoteSearchBar extends Component {
       companies = [];
     }
 
+    // console.log("watchListsArr in QuoteSearchBar: ");
+    // console.log(this.props.watchListsArr);
+
     return (
         <div>
           <input type="text" name="company" className="submitAdd" value={this.state.searchString} onChange={this.handleChange} placeholder="Company name"/>
           { companies.map(company => { return <div className="suggestion" key={company.symbol} name={company.symbol} onClick={this.handleClick}>{company.symbol + ": " + company.name} </div> }) }
-          <div className="inline quote">
-            <QuoteResult symbol={this.state.selectedSymbol} quoteObj={this.state.quoteObj} logoURL={this.state.logoURL} />
-          </div>
-          <div className="inline news">
-            <NewsResult symbol={this.state.selectedSymbol} newsArray={this.state.newsObj} />
-          </div>
-          <QuoteGraph graphObj={this.state.graphObj} symbol={this.state.selectedSymbol} period={this.state.period}/>
+
+          <ButtonToolbar>
+            <Modal
+              show={this.state.show}
+              onHide={this.handleHide}
+              dialogClassName="modal-quote-results"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-lg">
+                  Quote Results
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <WatchListDropDown watchListsArr={this.props.watchListsArr} watchList={this.watchListAndSymbol} toHideButton={this.props.toHideButton} />
+                <div>
+                  <QuoteResult symbol={this.state.selectedSymbol} quoteObj={this.state.quoteObj} logoURL={this.state.logoURL} />
+                  <NewsResult symbol={this.state.selectedSymbol} newsArray={this.state.newsObj} />
+                </div>
+                <QuoteGraph graphObj={this.state.graphObj} symbol={this.state.selectedSymbol} period={this.state.period}/>
+              </Modal.Body>
+              <Modal.Footer>
+                <QuoteFooter />
+              </Modal.Footer>
+            </Modal>
+          </ ButtonToolbar>
         </div>
     );
   }
 }
 
 export default QuoteSearchBar;
+
+// {this.props.toHideButton? "" : <WatchListDropDown watchListsArr={this.props.watchListsArr} watchListAndSymbol={this.watchListAndSymbol} />}
+
+
+// // fetch quote data and append it to batchObj
+// var symbol = this.state.symbol.toLowerCase();
+// var url = "https://api.iextrading.com/1.0/stock/" + symbol + "/quote";
+// fetch(url)
+// .then(response => { return response.json() })
+// .then(data => {
+//   var batchObj = this.state.batchObj;
+//   var symbolCaps = symbol.toUpperCase();
+//   batchObj[symbolCaps] = {};
+//   batchObj[symbolCaps]["quote"] = data;
+//   // console.log(batchObj);
+//   return this.setState( {batchObj: batchObj} );
+// });
