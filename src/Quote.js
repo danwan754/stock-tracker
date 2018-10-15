@@ -15,9 +15,9 @@ class Quote extends Component {
       // watchlist: cookie.load('watchlist'), // string of symbols; ex.: "aapl,amzn,tsl"
       watchListsArrsObj: {},
       watchListsArr: [],
-      quoteObject: {},
-      newsObject: {},
       toHide: true,
+      toAdd: true, // tell child component to add symbol to watch list
+      newWatchListAndSymbolObj: {watchList: '', symbol: ''} // the symbol to be added to the watch list by child component
     }
     this.handleSelectedCompany = this.handleSelectedCompany.bind(this);
     this.handleAddToWatchlist = this.handleAddToWatchlist.bind(this);
@@ -74,6 +74,7 @@ class Quote extends Component {
       let watchList = watchListAndSymbolObj.watchList;
       let symbol = watchListAndSymbolObj.symbol;
 
+      // if watch list does not exist, create it and add symbol to it
       if (!this.state.watchListsArr.includes(watchList)) {
         console.log("created new watchlist: " + watchList);
         cookie.save(watchList, symbol, {path: "/"});
@@ -83,7 +84,8 @@ class Quote extends Component {
         tempArr.push(watchList);
         this.setState({
           watchListsArrsObj: tempObj,
-          watchListsArr: tempArr
+          watchListsArr: tempArr,
+          newWatchListAndSymbolObj: watchListAndSymbolObj
         })
         return;
       }
@@ -99,7 +101,7 @@ class Quote extends Component {
       /* saving symbol to the appropiate watch list cookie */
       let symbolString;
       let symbolArr;
-      if (this.state.watchListsArrsObj[watchList].length === 0) {
+      if (this.state.watchListsArrsObj[watchList][0] === '') {
         symbolString = symbol;
       }
       else {
@@ -112,33 +114,42 @@ class Quote extends Component {
       // console.log("symbolString: " + symbolString);
       cookie.save(watchList, symbolString, {path: "/"});
 
-      let tempObj = this.state.watchListsArrsObj;
-      tempObj[watchList] = symbolArr;
-      this.setState( {watchListsArrsObj: tempObj,
-                      toHide: true} ); // hides add to watchlist button
+      let tempObj = JSON.parse(JSON.stringify(this.state.watchListsArrsObj));
+      let tempArr = JSON.parse(JSON.stringify(symbolArr));
+      tempObj[watchList] = tempArr;
+      this.setState({
+        watchListsArrsObj: tempObj,
+        toHide: true, // hides add to watchlist button
+        watchListAndSymbolObj: watchListAndSymbolObj
+      });
     }
   }
 
   // remove stock from watch list
-  handleRemoveFromWatchList(event) {
+  handleRemoveFromWatchList(watchListAndSymbolObj) {
 
-    var symbol = event.target.id.toLowerCase();
-    // console.log(symbol);
-    let symbolArr = this.state.watchlist.split(",");
-    // console.log(symbolArr);
+    let symbol = watchListAndSymbolObj.symbol.toLowerCase();
+    let watchList = watchListAndSymbolObj.watchList;
+    console.log("symbol to remove: " + symbol);
+    let symbolArr = this.state.watchListsArrsObj[watchList];
+    console.log("symbols in " + watchList + ": " + symbolArr);
     var index = symbolArr.indexOf(symbol);
     if (index > -1) {
       symbolArr.splice(index, 1);
     }
+    else {
+      console.log(symbol + " is not in " + watchList + "; no need to remove");
+    }
     // console.log(symbolArr);
     let symbolString = symbolArr.toString();
-    cookie.save("watchlists", symbolString, {path: "/"});
+    cookie.save(watchList, symbolString, {path: "/"});
 
-    var batchObj = this.state.batchObj;
-    delete batchObj[symbol.toUpperCase()];
-
-    this.setState( {watchlist: symbolString,
-                    batchObj: batchObj} );
+    // this.getWatchLists();
+    let tempObj = this.state.watchListsArrsObj;
+    tempObj[watchList] = symbolArr;
+    this.setState({
+      watchListsArrsObj: tempObj
+    })
   }
 
   // handleRefresh(event) {
@@ -172,14 +183,28 @@ class Quote extends Component {
 
 
   render() {
+    // console.log("quote component");
+    // console.log("watchListsArrsObj: ");
+    // console.log(this.state.watchListsArrsObj);
+    // console.log(this.state.newWatchListAndSymbolObj);
     return (
       <div>
         <h2>Quote</h2>
         <br/>
         <p>Select the stock by typing the company name</p>
-        <QuoteSearchBar watchListsArr={this.state.watchListsArr} symbol={this.handleSelectedCompany} toHideButton={this.state.toHide} addToList={this.handleAddToWatchlist} />
+        <QuoteSearchBar
+          watchListsArr={this.state.watchListsArr}
+          symbol={this.handleSelectedCompany}
+          toHideButton={this.state.toHide}
+          addToList={this.handleAddToWatchlist}
+        />
         <br/><br/><hr />
-        <WatchListsMainContainer watchListsObj={this.state.watchListsArrsObj} handleRemove={this.handleRemoveFromWatchList} />
+        <WatchListsMainContainer
+          watchListsObj={this.state.watchListsArrsObj}
+          handleRemove={this.handleRemoveFromWatchList}
+          toAdd={this.state.toAdd}
+          newWatchListAndSymbolObj={this.state.newWatchListAndSymbolObj}
+        />
         <QuoteFooter />
       </div>
     );

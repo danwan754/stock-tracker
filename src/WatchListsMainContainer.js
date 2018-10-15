@@ -3,9 +3,6 @@ import './styles.css';
 import Button from "react-bootstrap/lib/Button";
 import WatchListsRowContainer from "./WatchListsRowContainer";
 
-
-
-
 class WatchListsMainContainer extends Component {
 
   constructor() {
@@ -14,26 +11,130 @@ class WatchListsMainContainer extends Component {
       batchObj: {} // object of all watch lists quotes; ex.: { }
     }
     this.watchListsRows = this.watchListsRows.bind(this);
+    this.compareObjects = this.compareObjects.bind(this);
   }
 
   componentDidMount() {
-    this.fetchWatchListQuotes(this.props.watchListsArrsObj);
+    // console.log(this.props.watchListsObj);
+    this.fetchWatchListQuotes(this.props.watchListsObj);
   }
 
-  componentDidUpdate(prevProps) {
-    this.fetchWatchListQuotes(this.props.watchListsArrsObj);
+  // shouldComponentUpdate(nextProps, nextState) {
+  //
+  //   // console.log(this.props.watchListsObj);
+  //   // console.log(nextProps.watchListsObj);
+  //   if (this.compareObjects(this.props.watchListsObj, nextProps.watchListsObj)) {
+  //     console.log("props are the same, dont render");
+  //     return false;
+  //   }
+  //   // if (nextProps.newWatchListAndSymbolObj.watchList === this.props.newWatchListAndSymbolObj.watchList
+  //   //       && nextProps.newWatchListAndSymbolObj.symbol === this.props.newWatchListAndSymbolObj.symbol) {
+  //   //   console.log("props are same; dont render");
+  //   //   return false;
+  //   // }
+  //   console.log("rendering");
+  //   return true;
+  // }
+
+  componentWillReceiveProps(nextProps) {
+    // console.log("componentWillReceiveProps");
+    // console.log(this.props.watchListsObj);
+    // console.log(nextProps.watchListsObj);
+    // console.log(this.props);
+    // console.log(prevState);
+    // console.log(this.state);
+
+    // // console.log(prevProps.watchListsObj);
+    // if (this.compareObjects(this.props.watchListsObj, nextProps.watchListsObj)) {
+    //   console.log("dont render");
+    //   return;
+    // }
+
+    // if (this.props.watchListsObj === nextProps.watchListsObj) {
+    //   console.log("dont render");
+    //   return;
+    // }
+
+    console.log("rendering");
+    this.fetchWatchListQuotes(nextProps.watchListsObj);
   }
 
-  fetchWatchListQuotes(watchListsArrsObj) {
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log("componentDidUpdate");
+  //   console.log(this.props.watchListsObj);
+  //   console.log(prevProps.watchListsObj);
+  //   // console.log(this.props);
+  //   // console.log(prevState);
+  //   // console.log(this.state);
+  //
+  //   // console.log(prevProps.watchListsObj);
+  //   if (this.compareObjects(this.props.watchListsObj, prevProps.watchListsObj)) {
+  //     console.log("dont render");
+  //     return;
+  //   }
+  //
+  //   console.log("rendering");
+  //   this.fetchWatchListQuotes(this.props.watchListsObj);
+  // }
 
-    if (!watchListsArrsObj) {
+  // check if the two objects containing watch lists are the same
+  compareObjects(objA, objB) {
+
+    // console.log(Object.keys(objA).length);
+    // console.log(Object.keys(objB).length);
+
+    var i; // for loop iterator
+
+    // compare the number of keys in each object
+    if (Object.keys(objA).length !== Object.keys(objB).length) {
+      console.log("objA and objB have different size");
+      return false;
+    }
+
+    // compare the keys (name of watch lists) of each object, return true if they are equivalent
+    let arrA = Object.keys(objA);
+    let arrB = Object.keys(objB);
+    for (i=0; i<arrA.length; i++) {
+      if (!arrB.includes(arrA[i])) {
+        console.log("objA and objB have different keys");
+        return false;
+      }
+    }
+
+    // compare the lengths of the same watch lists in each object
+    for (i=0; i<arrA.length; i++) {
+      if (objA[arrA[i]].length !== objB[arrA[i]].length) {
+        console.log("objA and objB has a watch list that has different size");
+        return false;
+      }
+    }
+
+    // compare all the symbols in the same watch lists in each object
+    for (i=0; i<arrA.length; i++) {
+      for (var j=0; j<objA[arrA[i]].length; j++) {
+        // console.log(objB[arrA[i]]);
+        // console.log(objA[arrA[i]][j]);
+        if (!objB[arrA[i]].includes(objA[arrA[i]][j])) {
+          console.log("objA and objB symbols that are different");
+          return false;
+        }
+      }
+    }
+
+    console.log("objA and objB are the SAME");
+    return true;
+  }
+
+
+  fetchWatchListQuotes(watchListsObj) {
+
+    if (Object.keys(watchListsObj).length === 0) {
       return;
     }
     // fetch quotes for a watch List
     // param: watchListArr: array of company ticker symbols
     function getWatchListQuotes(watchListArr) {
-      // var url = "https://api.iextrading.com/1.0/stock/market/batch?symbols=" + watchListArr.join(",") + "&types=quote";
-      // console.log(url);
+      // console.log("https://api.iextrading.com/1.0/stock/market/batch?symbols=" + watchListArr.join(",") + "&types=quote");
       return Promise.resolve(
         // get the batch quote for whole watch list
         fetch("https://api.iextrading.com/1.0/stock/market/batch?symbols=" + watchListArr.join(",") + "&types=quote")
@@ -42,18 +143,44 @@ class WatchListsMainContainer extends Component {
     }
 
     var batchQuoteObj = {};
-    Promise.all(Object.keys(watchListsArrsObj).map(key =>
-      // console.log("key:" + key);
-      // console.log(watchListsArrsObj[key]);
-      getWatchListQuotes(watchListsArrsObj[key])
-    )).then(result => {
-        // console.log(result);
-        for (var i=0; i<result.length; i++) {
-          // console.log(result[i]);
-          batchQuoteObj[Object.keys(watchListsArrsObj)[i]] = result[i];
+    var notEmptyLists = [];
+    var emptyLists = []; // watch lists that are empty
+    Object.keys(watchListsObj).map((watchList) => {
+      if (watchListsObj[watchList].length > 0) {
+        // console.log(watchListsObj[watchList]);
+        if (watchListsObj[watchList][0] === '') {
+          emptyLists.push(watchList);
         }
-      return
-    }).then(result => this.setState( {batchObj: batchQuoteObj }))
+        else {
+          notEmptyLists.push(watchList);
+        }
+      }
+      else {
+        emptyLists.push(watchList);
+      }
+      return 0;
+    })
+    // console.log("notempty: " + notEmptyLists);
+    // console.log("empty: " + emptyLists);
+
+    Promise.all(notEmptyLists.map(watchList => {
+      // console.log("key: " + watchList);
+      // console.log(watchListsObj[watchList]);
+      return getWatchListQuotes(watchListsObj[watchList])
+    })).then(result => {
+
+        // append the watch list quotes
+        for (var i=0; i<result.length; i++) {
+          batchQuoteObj[notEmptyLists[i]] = result[i];
+        }
+
+        // append the empty watch lists
+        for (i=0; i<emptyLists.length; i++) {
+          // console.log(emptyLists[i]);
+          batchQuoteObj[emptyLists[i]] = {};
+        }
+      return 0;
+    }).then(result => { this.setState( {batchObj: batchQuoteObj }) })
   }
 
   // returns an array of objects containing 3 watchlists each
@@ -67,28 +194,49 @@ class WatchListsMainContainer extends Component {
     for (var i=0; i<batchObjLength; i++) {
       watchListName = Object.keys(this.state.batchObj)[i];
       tempObj[watchListName] = this.state.batchObj[watchListName];
-      console.log(tempObj);
+      // console.log("tempObj: ");
+      // console.log(tempObj);
       count++;
       if (count === 3 || i === batchObjLength-1) {
-        watchListArr.append(<WatchListsRowContainer key={i} batchObj={tempObj} handleRemove={this.props.handleRemove} />);
+        watchListArr.push(<WatchListsRowContainer key={i} batchObj={tempObj} handleRemove={this.props.handleRemove} />);
         tempObj = {};
         count = 0;
       }
     }
+    // console.log(watchListArr[0]);
     return watchListArr;
   }
 
   render() {
-    return (
-      <div className="watchListContainer">
-        <h3 id="inline">Watch List</h3>
-        <Button id="refreshButton" onClick={this.handleRefresh}><i className="fa refresh-icon">&#xf021;</i></Button>
-        {this.watchListsRows().map((rowObj) => {
-          return rowObj
-        })}
-      </div>
-    )
+    console.log("watchListsMainContainer component");
+    // console.log("batchObj: ");
+    // console.log(this.state.batchObj);
+    if (Object.keys(this.state.batchObj).length > 0) {
+      return (
+        <div className="watchListContainer">
+          <h3 id="inline">Watch Lists</h3>
+          <Button id="refreshButton" onClick={this.handleRefresh}><i className="fa refresh-icon">&#xf021;</i></Button>
+          <div>
+            {this.watchListsRows().map((watchListObj, i) => {return <div key={i}>{watchListObj}</div> })}
+          </div>
+        </div>
+      )
+    }
+    else {
+      return (<div></div>)
+    }
   }
 }
 
 export default WatchListsMainContainer;
+
+
+// <div>
+//   {this.watchListsRows().map((watchListObj, i) => {return <div key={i}>{watchListObj}</div> })}
+// </div>
+
+// {Object.keys(this.state.batchObj).map((watchList, i) => {
+//   let watchListObj = {};
+//   watchListObj[watchList] = this.state.batchObj[watchList];
+//   return <WatchListsRowContainer key={i} batchObj={watchListObj} handleRemove={this.props.handleRemove} /> }
+// )}
