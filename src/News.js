@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import cookie from "react-cookies";
-import xml2js from "xml2js";
-import NewsList from "./NewsList";
-import NewsModal from "./NewsModal";
-import NewsCompanyModal from "./NewsCompanyModal";
+import NewsContainer from "./NewsContainer";
 import NewsFooter from "./NewsFooter";
 import './styles.css';
 
@@ -13,148 +10,62 @@ class News extends Component {
   constructor() {
     super();
     this.state = {
-      watchlist: cookie.load('watchlist'), // ex.: "aapl,amz,tsl"
-      // companies: cookie.load('companies'), // user saved companies to display news
-      // industriesToHide: cookie.load('industriesToHide'), // "true" to display industry news or "false" to hide
-      // companiesToHide: cookie.load('companiesToHide'), // "true" to display company news or "false" to hide
-      industriesNewsObj: {}, // rss feed containing news from industries of all companies in watch list
-      companiesNewsObjArr: [], // list of company news for all user saved companies
-      currentCompanyNewsObj: {} // news object of the company that is currently being viewed in Company News section
+      watchListsArrsObj: {}, // ex.: "aapl,amz,tsl"
+      watchListsArr: [], // ex.: ["technology list", "retail watch list", "weed", "misc list"]
     }
-    this.updateIndustryNews = this.updateIndustryNews.bind(this);
-    this.updateCompanyNews = this.updateCompanyNews.bind(this);
-    this.maxNumSampleArticles = 3;
-    this.maxNumArticles = 20;
   }
 
   componentDidMount() {
-    this.updateIndustryNews();
-    this.updateCompanyNews();
+    this.getWatchLists();
   }
 
 
-  updateIndustryNews() {
+  // get watch lists from cookie and reformat to like { technology list: ["aapl", "amzn"], energy list: ["enb"] }
+  getWatchLists() {
+    // cookies object with watch list names as entries; ex.: {cookie: { technology list: "aapl,amzn", energy: "enb" } }
+    let watchListsObj = cookie.loadAll();
+    // console.log("watchListsObj: ");
+    // console.log(watchListsObj);
 
-    let industriesString;
-    if (typeof this.state.watchlist === 'undefined' || this.state.watchlist === '') {
-      industriesString = "aapl,cgc,amzn,wmt,gs,wfc";
-    }
-    else {
-      industriesString = this.state.watchlist;
-    }
-    // let url = "https://finance.yahoo.com/rss/industry?s=" + industriesString;
-    // var tempNewsObj = {};
-    // fetch(url)
-    // .then(response => { console.log(response); return response.text() })
-    // .then((xmlText) => {
-    //   var parseString = require('xml2js').parseString;
-    //   parseString(xmlText, function(err, result) {
-    //
-    //     // strip out the html tags in description field of each news article
-    //     result["rss"]["channel"][0]["item"].map(article => {
-    //       var regex = /(?<=<p><a.*<\/a>).*(?=<p><br)/gi;
-    //       article["description"] = article["description"][0].match(regex);
-    //       tempNewsObj = result;
-    //     });
-    //   });
-    //
-    //   this.setState( {industriesNewsObj: tempNewsObj} );
-    // });
-
-    var tempNewsObj = {};
-    // fetch('/api/news/industry/' + industriesString)
-    fetch('/api/industry/rss/industry?s=' + industriesString)
-    .then(response => { return response.text() })
-    .then((xmlText) => {
-      var parseString = xml2js.parseString;
-      parseString(xmlText, function(err, result) {
-
-        // strip out the html tags in description field of each news article
-        result["rss"]["channel"][0]["item"].map(article => {
-          var regex = /(?<=<p><a.*<\/a>).*(?=<p><br)/gi;
-          article["description"] = article["description"][0].match(regex);
-          tempNewsObj = result;
-          return 0;
-        });
-      });
-
-      this.setState( {industriesNewsObj: tempNewsObj} );
-    });
-  }
-
-  updateCompanyNews() {
-
-    // if (typeof this.state.companies === 'undefined' || this.state.companies == '') {
-    //   return;
-    // }
-    // console.log(this.state.companies);
-    // var symbolArr = this.state.companies.split(",");
-    if (typeof this.state.watchlist === 'undefined' || this.state.watchlist === '') {
+    // check if watchlists cookie is empty
+    if (watchListsObj === undefined || Object.keys(watchListsObj).length === 0) {
       return;
     }
-    console.log(this.state.watchlist);
-    var symbolArr = this.state.watchlist.split(",");
 
-    // fetch news about selected companies
-    function getNewsForCompany(symbol) {
-      // return Promise.resolve(
-      //   fetch("https://finance.yahoo.com/rss/headline?s=" + symbol)
-      //   .then(response => { return response.text() })
-      //   .then((xmlText) => {
-      //     let temp;
-      //     var parseString = require('xml2js').parseString;
-      //     parseString(xmlText, function(err, result) {
-      //       result["rss"]["channel"]["description"] = symbol.toUpperCase();
-      //       temp = result;
-      //     })
-      //     return temp;
-      //   })
-      // )
-      return Promise.resolve(
-        // fetch("/api/news/company/" + symbol)
-        fetch("/api/company/rss/2.0/headline?s=" + symbol)
-        .then(response => { return response.text() })
-        .then((xmlText) => {
-          let temp;
-          var parseString = xml2js.parseString;
-          parseString(xmlText, function(err, result) {
-            result["rss"]["channel"]["description"] = symbol.toUpperCase();
-            temp = result;
-          })
-          return temp;
-        })
-      )
+    // if there are multiple watch lists, there exists an outter 'cookie' property that needs to be removed
+    if (Object.keys(watchListsObj)[0] === 'cookies') {
+      watchListsObj = watchListsObj["cookies"]; // format like: { technology list: "aapl,amzn", energy list: "enb" }
+    }
+    // console.log("OBJ: ");
+    // console.log(watchListsObj);
+
+    // convert watchlistsObj into format like: { technology: ["aapl", "amzn"], energy: ["enb"] }
+    let watchListsArrsObj = {};
+    for (var i=0; i<Object.keys(watchListsObj).length; i++) {
+      let watchList = Object.keys(watchListsObj)[i];
+      // console.log(watchList);
+      let watchListString = watchListsObj[watchList];
+      // console.log(watchListString);
+      watchListsArrsObj[watchList] = watchListString.split(",");
+      // console.log("should be object of arrays:");
+      // console.log(watchListsArrsObj);
     }
 
-    // fetch all the news articles for every saved company simultaneously
-    var companiesNewsObjArr = [];
-    Promise.all(symbolArr.map(symbol =>
-      getNewsForCompany(symbol)
-    ))
-      .then(result => { return (
-        result.map(companyObj => { return (
-          companiesNewsObjArr.push(companyObj)
-        )})
-      )})
-      .then(result => { this.setState( {companiesNewsObjArr: companiesNewsObjArr} ) })
+    this.setState( {watchListsArrsObj: watchListsArrsObj,
+                    watchListsArr: Object.keys(watchListsObj)} );
   }
 
-
   render() {
+    // console.log("News component");
+    // console.log(this.state.watchListsArr);
+    // console.log(this.state.watchListsArrsObj);
 
     return (
       <div>
         <h2>News</h2>
         <br/>
         <div className="outter-div">
-          <h3>Suggested News</h3>
-          <div className="suggested-news">
-            <NewsList newsObj={this.state.industriesNewsObj} sliceLimit={this.maxNumSampleArticles} />
-            <NewsModal newsObj={this.state.industriesNewsObj} sliceLimit={this.maxNumArticles} />
-          </div>
-          <br/>
-          <h3>Company News</h3>
-          <NewsCompanyModal newsObjArr={this.state.companiesNewsObjArr} sliceLimit={this.maxNumArticles} />
+          <NewsContainer watchListsArr={this.state.watchListsArr} watchListsArrsObj={this.state.watchListsArrsObj} />
         </div>
         <NewsFooter />
       </div>
@@ -163,3 +74,6 @@ class News extends Component {
 }
 
 export default News;
+
+
+// <NewsList newsObj={this.state.industriesNewsObj} sliceLimit={this.maxNumSampleArticles} />
