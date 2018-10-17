@@ -56,6 +56,7 @@ class WatchListsMainContainer extends Component {
     // }
 
     console.log("rendering");
+    console.log(nextProps.watchListsObj);
     this.fetchWatchListQuotes(nextProps.watchListsObj);
   }
 
@@ -129,6 +130,9 @@ class WatchListsMainContainer extends Component {
   fetchWatchListQuotes(watchListsObj) {
 
     if (Object.keys(watchListsObj).length === 0) {
+      this.setState({
+        batchObj: {}
+      });
       return;
     }
     // fetch quotes for a watch List
@@ -208,7 +212,7 @@ class WatchListsMainContainer extends Component {
   }
 
   render() {
-    console.log("watchListsMainContainer component");
+    // console.log("watchListsMainContainer component");
     // console.log("batchObj: ");
     // console.log(this.state.batchObj);
     if (Object.keys(this.state.batchObj).length > 0) {

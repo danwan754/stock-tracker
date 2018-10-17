@@ -15,7 +15,6 @@ class Main extends Component {
           <NaviBar />
           <div className="content">
             <Route exact path="/" component={Home}/>
-            <Route path="/watchlists" component={WatchLists}/>
             <Route path="/quote" component={Quote}/>
             <Route path="/news" component={News}/>
             <Route path="/contact" component={Contact}/>

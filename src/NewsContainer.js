@@ -19,7 +19,8 @@ class NewsContainer extends Component {
     this.numNewsArticles = 10;
   }
 
-  // fetch news about selected companies
+  /* development */
+  // fetch news about selected companies from Yahoo! Finance RSS
   getNewsForCompany(symbol) {
     return Promise.resolve(
       fetch("https://finance.yahoo.com/rss/headline?s=" + symbol)
@@ -39,6 +40,7 @@ class NewsContainer extends Component {
       })
     )
 
+    /* production */
     // return Promise.resolve(
     //   // fetch("/api/news/company/" + symbol)
     //   fetch("/api/company/rss/2.0/headline?s=" + symbol)
@@ -74,11 +76,19 @@ class NewsContainer extends Component {
   }
 
   render() {
+    // console.log(this.props.watchListsArrsObj);
+    // console.log(this.props.watchListsArrsObj[this.state.currentWatchList].length);
     return (
       <div>
-        <WatchListTabs watchListsArr={this.props.watchListsArr} selectWatchList={this.handleSelectWatchList} />
+        {this.props.watchListsArrsObj ?
+          <WatchListTabs watchListsArr={this.props.watchListsArr} selectWatchList={this.handleSelectWatchList} />
+          : <p>Create a watch list and add stocks to it to view news.</p>
+        }
         {this.state.currentWatchList ?
-          <SymbolListTabs symbolListArr={this.props.watchListsArrsObj[this.state.currentWatchList]} selectSymbol={this.handleSelectCompany} /> : false
+          this.props.watchListsArrsObj[this.state.currentWatchList].length > 0 ?
+            <SymbolListTabs symbolListArr={this.props.watchListsArrsObj[this.state.currentWatchList]} selectSymbol={this.handleSelectCompany} />
+            : <p>This watch list is empty.</p>
+          : ''
         }
         {this.state.currentCompanyNewsObj ?
           <NewsList newsObj={this.state.currentCompanyNewsObj} sliceLimit={this.numNewsArticles} /> : false

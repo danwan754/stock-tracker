@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Tab from "react-bootstrap/lib/Tab";
 import Tabs from "react-bootstrap/lib/Tabs";
-import './styles.css';
+// import './styles.css';
 
 
 
@@ -25,17 +25,20 @@ class SymbolListTabs extends Component {
 
   render() {
     return (
-      <Tabs
-        activeKey={this.state.key}
-        onSelect={this.handleSelect}
-        id="controlled-tab-example"
-      >
-        {this.props.symbolListArr.length > 0?
-          this.props.symbolListArr.map((symbol, i) => { return (
-            <Tab key={i} eventKey={symbol} title={symbol}></Tab>
-          )}) : false
-        }
-      </Tabs>
+      <div id="symbolTabs">
+        <Tabs
+          activeKey={this.state.key}
+          onSelect={this.handleSelect}
+          id="controlled-tab-example"
+          className="newsTab"
+        >
+          {this.props.symbolListArr.length > 0?
+            this.props.symbolListArr.map((symbol, i) => { return (
+              <Tab key={i} eventKey={symbol} title={symbol.toUpperCase()}></Tab>
+            )}) : false
+          }
+        </Tabs>
+      </div>
     );
   }
 

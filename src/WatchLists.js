@@ -3,24 +3,14 @@ import React, { Component } from "react";
 class WatchLists extends Component {
 
 
-  // shouldComponentUpdate() {
-  //   console.log(this.props.toAdd);
-  //   if (this.props.toAdd) {
-  //     this.handleAdd(this.props.symbol);
-  //   }
-  //   return true;
-  // }
 
 
   render() {
-    // console.log("batchObj: " + this.props.batchObj);
+    console.log("watch lists component");
 
     var batchObj = this.props.batchObj;
 
     if (typeof batchObj != "undefined") {
-
-      // {Object.keys(batchObj)
-      // .map((symbol, value) => { console.log(batchObj[symbol]["quote"]["symbol"]) }) }
 
       return (
         <div>

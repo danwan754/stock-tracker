@@ -4,14 +4,10 @@ class NewsFooter extends Component {
 
   render() {
     return (
-      <div id="quoteFooter">
-        <br />
-        <hr />
-        <br />
+      <footer id="quoteFooter">
         <p>News provided for free by <a href="https://ca.finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Yahoo! Finance</a>.
         </p>
-        <br/>
-      </div>
+      </footer>
     )
   }
 }

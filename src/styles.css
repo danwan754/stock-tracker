@@ -1,5 +1,11 @@
 html * {
   font-family: sans-serif;
+
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
 }
 
 div.inline {
@@ -84,6 +90,16 @@ div.alignRow {
   /* width: 100%; */
 }
 
+.newsContainer {
+  height: 100%;
+  width: 100%;
+}
+
+/* keep news footer at bottom of page */
+.newsContainerWrapper {
+  min-height: calc(100vh - 150px);
+}
+
 .double-down-arrow {
   font-size: 24px;
 }
@@ -105,10 +121,15 @@ div.alignRow {
 
 #newsFooter {
   width: 100%;
+  bottom: 30px;
 }
 
 .quote {
   width: 40%;
+}
+
+.quoteContainer {
+  min-height: calc(100vh - 150px);
 }
 
 
@@ -228,6 +249,10 @@ table.quoteTable {
   vertical-align: top;
 }
 
+.watch-list-remove {
+  margin-left: 20px;
+}
+
 .watchList {
   width: 33%;
 }
@@ -332,4 +357,26 @@ table.quoteTable {
 #home-notice-p {
   font-size: 18px;
   text-align: center;
+}
+
+
+
+
+/* Inactive tab */
+.newsTab ul > li > a {
+    /* background-color: white; */
+    color: #3399ff;
+}
+.newsTab ul > li > a:hover {
+    background-color: #99ccff;
+}
+
+/* Active tab */
+.newsTab ul > li.active > a:focus {
+    background-color: #3399ff;
+    color: white;
+}
+
+#symbolTabs {
+  margin-left: 50px;
 }

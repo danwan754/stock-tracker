@@ -18,9 +18,6 @@ class NaviBar extends Component {
             <LinkContainer exact to="/">
               <NavItem>Home</NavItem>
             </LinkContainer>
-            <LinkContainer to="/watchlists">
-              <NavItem>Watch Lists</NavItem>
-            </LinkContainer>
             <LinkContainer to="/quote">
               <NavItem>Quote</NavItem>
             </LinkContainer>

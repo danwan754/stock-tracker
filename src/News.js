@@ -10,15 +10,14 @@ class News extends Component {
   constructor() {
     super();
     this.state = {
-      watchListsArrsObj: {}, // ex.: "aapl,amz,tsl"
-      watchListsArr: [], // ex.: ["technology list", "retail watch list", "weed", "misc list"]
+      watchListsArrsObj: {}, // ex.: {technology list: ["aapl", "amz"], weed: ["cgc", "tlry"]}
+      watchListsArr: [], // ex.: ["technology list", "weed"]
     }
   }
 
   componentDidMount() {
     this.getWatchLists();
   }
-
 
   // get watch lists from cookie and reformat to like { technology list: ["aapl", "amzn"], energy list: ["enb"] }
   getWatchLists() {
@@ -49,6 +48,11 @@ class News extends Component {
       watchListsArrsObj[watchList] = watchListString.split(",");
       // console.log("should be object of arrays:");
       // console.log(watchListsArrsObj);
+
+      // if the watch list contains empty string, then assign it as an empty list
+      if (watchListsArrsObj[watchList][0] === '') {
+        watchListsArrsObj[watchList] = [];
+      }
     }
 
     this.setState( {watchListsArrsObj: watchListsArrsObj,
@@ -56,15 +60,15 @@ class News extends Component {
   }
 
   render() {
-    // console.log("News component");
+    console.log("News component");
     // console.log(this.state.watchListsArr);
-    // console.log(this.state.watchListsArrsObj);
+    console.log(this.state.watchListsArrsObj);
 
     return (
-      <div>
-        <h2>News</h2>
-        <br/>
-        <div className="outter-div">
+      <div className="newsContainer">
+        <div className="newsContainerWrapper">
+          <h2>News</h2>
+          <br/>
           <NewsContainer watchListsArr={this.state.watchListsArr} watchListsArrsObj={this.state.watchListsArrsObj} />
         </div>
         <NewsFooter />

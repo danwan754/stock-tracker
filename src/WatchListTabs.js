@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Tab from "react-bootstrap/lib/Tab";
 import Tabs from "react-bootstrap/lib/Tabs";
-import './styles.css';
+// import './styles.css';
 
 
 
@@ -12,7 +12,7 @@ class WatchListTabs extends Component {
     this.handleSelect = this.handleSelect.bind(this);
 
     this.state = {
-      key: 1
+      key: 0
     };
   }
 
@@ -29,9 +29,10 @@ class WatchListTabs extends Component {
         activeKey={this.state.key}
         onSelect={this.handleSelect}
         id="controlled-tab-example"
+        className="newsTab"
       >
         {this.props.watchListsArr.length > 0? this.props.watchListsArr.map((watchList, i) => { return (
-          <Tab key={i} eventKey={watchList} title={watchList}></Tab>
+          <Tab key={i} eventKey={watchList} title={watchList}><br/></Tab>
           )}) : false
         }
       </Tabs>
