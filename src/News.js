@@ -49,9 +49,13 @@ class News extends Component {
       // console.log("should be object of arrays:");
       // console.log(watchListsArrsObj);
 
+      // console.log("watchListsArrsObj[watchList]:");
+      // console.log(watchListsArrsObj[watchList]);
       // if the watch list contains empty string, then assign it as an empty list
       if (watchListsArrsObj[watchList][0] === '') {
         watchListsArrsObj[watchList] = [];
+        // console.log("remove ''");
+        // console.log(watchListsArrsObj);
       }
     }
 
@@ -60,9 +64,9 @@ class News extends Component {
   }
 
   render() {
-    console.log("News component");
+    // console.log("News component");
     // console.log(this.state.watchListsArr);
-    console.log(this.state.watchListsArrsObj);
+    // console.log(this.state.watchListsArrsObj);
 
     return (
       <div className="newsContainer">

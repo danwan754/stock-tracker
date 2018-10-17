@@ -10,9 +10,9 @@ class NewsContainer extends Component {
     super();
     this.state = {
       currentWatchList: '',
-      currentCompanyNewsObj: {}
+      currentCompanyNewsObj: {},
+      toShow: false
     }
-    // this.updateCompanyNews = this.updateCompanyNews.bind(this);
     this.handleSelectWatchList = this.handleSelectWatchList.bind(this);
     this.handleSelectCompany = this.handleSelectCompany.bind(this);
     this.getNewsForCompany = this.getNewsForCompany.bind(this);
@@ -35,7 +35,8 @@ class NewsContainer extends Component {
         return temp;
       }).then(result => {
         this.setState({
-          currentCompanyNewsObj: result
+          currentCompanyNewsObj: result,
+          toShow: false
         });
       })
     )
@@ -65,8 +66,16 @@ class NewsContainer extends Component {
 
   // update the most recently viewed watch list
   handleSelectWatchList(watchList) {
+
+    // switching to a different watch list will clear the currently displayed news
+    let toShow = true;
+    if (watchList === this.state.currentWatchList) {
+      toShow = false;
+    }
+
     this.setState({
-      currentWatchList: watchList
+      currentWatchList: watchList,
+      toShow: toShow
     });
   }
 
@@ -90,8 +99,11 @@ class NewsContainer extends Component {
             : <p>This watch list is empty.</p>
           : ''
         }
-        {this.state.currentCompanyNewsObj ?
-          <NewsList newsObj={this.state.currentCompanyNewsObj} sliceLimit={this.numNewsArticles} /> : false
+        {!this.state.toShow ?
+          this.state.currentCompanyNewsObj ?
+            <NewsList newsObj={this.state.currentCompanyNewsObj} sliceLimit={this.numNewsArticles} />
+            : ''
+          : ''
         }
       </div>
     )

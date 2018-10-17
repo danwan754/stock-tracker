@@ -34,8 +34,6 @@ class Quote extends Component {
   getWatchLists() {
     // cookies object with watch list names as entries; ex.: {cookie: { technology list: "aapl,amzn", energy: "enb" } }
     let watchListsObj = cookie.loadAll();
-    // console.log("watchListsObj: ");
-    // console.log(watchListsObj);
 
     // check if watchlists cookie is empty
     if (watchListsObj === undefined || Object.keys(watchListsObj).length === 0) {
@@ -46,8 +44,6 @@ class Quote extends Component {
     if (Object.keys(watchListsObj)[0] === 'cookies') {
       watchListsObj = watchListsObj["cookies"]; // format like: { technology list: "aapl,amzn", energy list: "enb" }
     }
-    // console.log("OBJ: ");
-    // console.log(watchListsObj);
 
     // convert watchlistsObj into format like: { technology: ["aapl", "amzn"], energy: ["enb"] }
     let watchListsArrsObj = {};
@@ -75,8 +71,9 @@ class Quote extends Component {
 
       // if watch list does not exist, create it and add symbol to it
       if (!this.state.watchListsArr.includes(watchList)) {
-        console.log("created new watchlist: " + watchList);
         cookie.save(watchList, symbol, {path: "/"});
+        console.log("created new watchlist: " + watchList);
+        console.log("also added symbol: " + symbol + " to " + watchList);
         let tempObj = this.state.watchListsArrsObj;
         let tempArr = this.state.watchListsArr;
         tempObj[watchList] = [symbol];
@@ -88,8 +85,6 @@ class Quote extends Component {
         })
         return;
       }
-
-      console.log("Adding symbol: " + watchListAndSymbolObj.symbol + " to " + watchList);
 
       // do not add symbol to watch list if it is already there
       if (this.state.watchListsArrsObj[watchList].includes(symbol)) {
@@ -110,12 +105,13 @@ class Quote extends Component {
         symbolArr.push(symbol);
         symbolString = symbolArr.toString();
       }
-      // console.log("symbolString: " + symbolString);
       cookie.save(watchList, symbolString, {path: "/"});
+      console.log("Added symbol: " + watchListAndSymbolObj.symbol + " to " + watchList);
 
       let tempObj = JSON.parse(JSON.stringify(this.state.watchListsArrsObj));
-      let tempArr = JSON.parse(JSON.stringify(symbolArr));
-      tempObj[watchList] = tempArr;
+      // let tempArr = JSON.parse(JSON.stringify(symbolArr));
+      // tempObj[watchList] = tempArr;
+      tempObj[watchList] = symbolArr;
       this.setState({
         watchListsArrsObj: tempObj,
         toHide: true, // hides add to watchlist button
@@ -130,9 +126,10 @@ class Quote extends Component {
     let symbol = watchListAndSymbolObj.symbol.toLowerCase();
     let watchList = watchListAndSymbolObj.watchList;
 
+    /* remove the watch list and its content */
     if (symbol === '') {
-      console.log("Removing watch list: " + watchList);
       cookie.remove(watchList, { path: '/' });
+      console.log("Removed watch list: " + watchList);
 
       let tempObj = JSON.parse(JSON.stringify(this.state.watchListsArrsObj));
       delete tempObj[watchList];
@@ -150,9 +147,9 @@ class Quote extends Component {
       return;
     }
 
-    console.log("symbol to remove: " + symbol);
+    // console.log("symbol to remove: " + symbol);
     let symbolArr = this.state.watchListsArrsObj[watchList];
-    console.log("symbols in " + watchList + ": " + symbolArr);
+    // console.log("symbols in " + watchList + ": " + symbolArr);
     var index = symbolArr.indexOf(symbol);
     if (index > -1) {
       symbolArr.splice(index, 1);
@@ -180,25 +177,26 @@ class Quote extends Component {
   handleSelectedCompany(symbol) {
     this.setState( {symbol: symbol} );
 
-    let isInList = false;
-    for (var key in this.state.watchListsArrsObj) {
-      // console.log(key, this.state.watchListsArrsObj[key]);
-      if (this.state.watchListsArrsObj[key].includes(symbol.toUpperCase())) {
-        isInList = true;
-        break;
-      }
-   }
-
-    if (isInList) {
-      // hide the 'add to watchlist' button
-      this.setState( {toHide: true});
-      console.log(symbol + " already in list, dont show ADD Button");
-    }
-    else {
-      // reveal the 'add to watchlist' button
-      this.setState( {toHide: false});
-      console.log(symbol + " not in list, show ADD Button");
-    }
+    /* determine whether add-to-watch-list button should appear */
+   //  let isInList = false;
+   //  for (var key in this.state.watchListsArrsObj) {
+   //    // console.log(key, this.state.watchListsArrsObj[key]);
+   //    if (this.state.watchListsArrsObj[key].includes(symbol.toUpperCase())) {
+   //      isInList = true;
+   //      break;
+   //    }
+   // }
+   //
+   //  if (isInList) {
+   //    // hide the 'add to watchlist' button
+   //    this.setState( {toHide: true});
+   //    console.log(symbol + " already in list, dont show ADD Button");
+   //  }
+   //  else {
+   //    // reveal the 'add to watchlist' button
+   //    this.setState( {toHide: false});
+   //    console.log(symbol + " not in list, show ADD Button");
+   //  }
   }
 
 
