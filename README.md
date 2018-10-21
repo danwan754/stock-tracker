@@ -32,5 +32,5 @@ User can create lists and add stocks to track. This is useful if the user like t
 User can view stock ratings from analysts to see how well a stock is expected to do.
 
 #### News
-User can read general market news, industry news, or news articles related to their stocks.
+User can read general market news, industry news, or news articles related to their stocks. News are fetched from IEX and Yahoo! Finance RSS Feeds.
 
