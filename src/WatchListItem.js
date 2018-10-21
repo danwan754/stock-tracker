@@ -58,9 +58,6 @@ class WatchListItem extends Component {
             <p className={priceMovement}>{changePrice}  ({changePercent})</p>
             <p id="watchlistDateStamp">{latestUpdate}</p>
           </div>
-          <div className="watchListItemRemove">
-            <input type="submit" value="X" id={this.props.watchListName + "-" + symbol} onClick={this.handleClick} />
-          </div>
         </div>
       )
     }

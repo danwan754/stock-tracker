@@ -55,8 +55,8 @@ class WatchListsMainContainer extends Component {
     //   return;
     // }
 
-    console.log("rendering");
-    console.log(nextProps.watchListsObj);
+    // console.log("rendering");
+    // console.log(nextProps.watchListsObj);
     this.fetchWatchListQuotes(nextProps.watchListsObj);
   }
 
@@ -135,6 +135,9 @@ class WatchListsMainContainer extends Component {
       });
       return;
     }
+    // console.log("watchListsObj in watchListsMainContainer: ");
+    // console.log(watchListsObj);
+
     // fetch quotes for a watch List
     // param: watchListArr: array of company ticker symbols
     function getWatchListQuotes(watchListArr) {
@@ -217,7 +220,7 @@ class WatchListsMainContainer extends Component {
     // console.log(this.state.batchObj);
     if (Object.keys(this.state.batchObj).length > 0) {
       return (
-        <div className="watchListContainer">
+        <div className="watchListsMainContainer">
           <h3 id="inline">Watch Lists</h3>
           <Button id="refreshButton" onClick={this.handleRefresh}><i className="fa refresh-icon">&#xf021;</i></Button>
           <div>

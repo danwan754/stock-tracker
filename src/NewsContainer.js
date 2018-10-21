@@ -85,13 +85,14 @@ class NewsContainer extends Component {
   }
 
   render() {
+    // console.log("newscontainer");
     // console.log(this.props.watchListsArrsObj);
-    // console.log(this.props.watchListsArrsObj[this.state.currentWatchList].length);
+
     return (
       <div>
-        {this.props.watchListsArrsObj ?
+        {this.props.watchListsArr.length > 0 ?
           <WatchListTabs watchListsArr={this.props.watchListsArr} selectWatchList={this.handleSelectWatchList} />
-          : <p>Create a watch list and add stocks to it to view news.</p>
+          : <p>Create a watch list and add stocks to it to view stock headlines. Begin by quoting for stocks and adding them to a new watch list.</p>
         }
         {this.state.currentWatchList ?
           this.props.watchListsArrsObj[this.state.currentWatchList].length > 0 ?

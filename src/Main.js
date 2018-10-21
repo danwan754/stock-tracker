@@ -2,12 +2,19 @@ import React, { Component } from "react";
 import { Route, BrowserRouter } from "react-router-dom";
 import NaviBar from "./NaviBar";
 import Home from "./Home";
-import WatchLists from "./WatchLists";
 import Quote from "./Quote";
 import News from "./News";
 import Contact from "./Contact";
 
 class Main extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      hasCookies: 'false'
+    }
+  }
+
   render() {
     return (
       <BrowserRouter>
