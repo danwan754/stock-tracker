@@ -2,14 +2,14 @@
 
 This web-app will allow users to track their stocks. The UI is minimal and only show basic stock information. All market data are fetched from IEX.
 
-Working demo (as of September 5, 2018):
+Demo:
 https://stocktracker1324.herokuapp.com
 
 ## Main Functionalities
 * quotes (complete)
-* watch lists (in progress)
-* analyst ratings (not implemented)
-* news (in progress)
+* watch lists (complete)
+* analyst ratings (in progress)
+* news (complete)
 
 ### Functionalities in detail
 #### Quote
