@@ -22,7 +22,6 @@ class Quote extends Component {
     this.handleSelectedCompany = this.handleSelectedCompany.bind(this);
     this.handleAddToWatchlist = this.handleAddToWatchlist.bind(this);
     this.handleRemoveFromWatchList = this.handleRemoveFromWatchList.bind(this);
-    // this.handleRefresh = this.handleRefresh.bind(this);
     this.getWatchLists = this.getWatchLists.bind(this);
   }
 
@@ -168,11 +167,6 @@ class Quote extends Component {
       watchListsArrsObj: tempObj
     })
   }
-
-  // handleRefresh(event) {
-  //   event.target.blur(); // get rid of focus on button
-  //   this.fetchWatchListQuotes();
-  // }
 
   handleSelectedCompany(symbol) {
     this.setState( {symbol: symbol} );

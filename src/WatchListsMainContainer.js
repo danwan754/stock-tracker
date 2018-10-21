@@ -12,6 +12,7 @@ class WatchListsMainContainer extends Component {
     }
     this.watchListsRows = this.watchListsRows.bind(this);
     this.compareObjects = this.compareObjects.bind(this);
+    this.handleRefresh = this.handleRefresh.bind(this);
   }
 
   componentDidMount() {
@@ -190,6 +191,12 @@ class WatchListsMainContainer extends Component {
     }).then(result => { this.setState( {batchObj: batchQuoteObj }) })
   }
 
+
+  handleRefresh(event) {
+    event.target.blur(); // get rid of focus on button
+    this.fetchWatchListQuotes(this.props.watchListsObj);
+  }
+
   // returns an array of objects containing 3 watchlists each
   watchListsRows() {
     let tempObj = {};
@@ -236,14 +243,3 @@ class WatchListsMainContainer extends Component {
 }
 
 export default WatchListsMainContainer;
-
-
-// <div>
-//   {this.watchListsRows().map((watchListObj, i) => {return <div key={i}>{watchListObj}</div> })}
-// </div>
-
-// {Object.keys(this.state.batchObj).map((watchList, i) => {
-//   let watchListObj = {};
-//   watchListObj[watchList] = this.state.batchObj[watchList];
-//   return <WatchListsRowContainer key={i} batchObj={watchListObj} handleRemove={this.props.handleRemove} /> }
-// )}
