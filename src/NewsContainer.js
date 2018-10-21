@@ -19,11 +19,33 @@ class NewsContainer extends Component {
     this.numNewsArticles = 10;
   }
 
-  /* development */
-  // fetch news about selected companies from Yahoo! Finance RSS
+  /* fetch news about selected companies from Yahoo! Finance RSS */
   getNewsForCompany(symbol) {
+
+    /* development */
+    // return Promise.resolve(
+    //   fetch("https://finance.yahoo.com/rss/headline?s=" + symbol)
+    //   .then(response => { return response.text() })
+    //   .then((xmlText) => {
+    //     let temp;
+    //     var parseString = require('xml2js').parseString;
+    //     parseString(xmlText, function(err, result) {
+    //       result["rss"]["channel"]["description"] = symbol.toUpperCase();
+    //       temp = result;
+    //     })
+    //     return temp;
+    //   }).then(result => {
+    //     this.setState({
+    //       currentCompanyNewsObj: result,
+    //       toShow: false
+    //     });
+    //   })
+    // )
+
+    /* production */
     return Promise.resolve(
-      fetch("https://finance.yahoo.com/rss/headline?s=" + symbol)
+      // fetch("/api/news/company/" + symbol)
+      fetch("/api/company/rss/2.0/headline?s=" + symbol)
       .then(response => { return response.text() })
       .then((xmlText) => {
         let temp;
@@ -40,26 +62,6 @@ class NewsContainer extends Component {
         });
       })
     )
-
-    /* production */
-    // return Promise.resolve(
-    //   // fetch("/api/news/company/" + symbol)
-    //   fetch("/api/company/rss/2.0/headline?s=" + symbol)
-    //   .then(response => { return response.text() })
-    //   .then((xmlText) => {
-    //     let temp;
-    //     var parseString = xml2js.parseString;
-    //     parseString(xmlText, function(err, result) {
-    //       result["rss"]["channel"]["description"] = symbol.toUpperCase();
-    //       temp = result;
-    //     })
-    //     return temp;
-    //   }).then(result => {
-    //     this.setState({
-    //       currentCompanyNewsObj: result
-    //     });
-    //   })
-    // )
 
   }
 
