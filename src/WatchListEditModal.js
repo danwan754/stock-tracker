@@ -29,11 +29,11 @@ class WatchListEditModal extends Component {
 
   render() {
 
-    console.log("watchListEditModal component:");
+    // console.log("watchListEditModal component:");
     // console.log(this.props.watchListObj);
 
     return (
-      <div className="inline">
+      <div className="watch-list-options inline">
       <Button id={this.props.watchList} onClick={this.handleShow}><i className="fa fa-ellipsis-v"></i></Button>
       <ButtonToolbar>
         <Modal

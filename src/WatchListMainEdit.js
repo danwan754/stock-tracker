@@ -25,7 +25,7 @@ class WatchListMainEdit extends Component {
 
 
   render() {
-    console.log("watchListMainEdit component: ");
+    // console.log("watchListMainEdit component: ");
     // console.log(this.props.watchListObj);
     // console.log(this.props.watchListName);
     // console.log(this.props.watchListObj["WMT"]["quote"]);

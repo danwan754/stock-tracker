@@ -255,9 +255,14 @@ table.quoteTable {
   /* margin-right: 30px; */
 }
 
+.watch-list-options {
+  margin-left: 10px;
+}
+
 .watchList {
   width: 33%;
   margin-bottom: 50px;
+  vertical-align: top;
 }
 
 .watchListContainer {
