@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import '/styles.css';
+import './watch-list-styles.css';
 import WatchListMainEdit from './WatchListMainEdit';
 
 
@@ -33,7 +33,7 @@ class WatchListEditModal extends Component {
     // console.log(this.props.watchListObj);
 
     return (
-      <div className="watch-list-options inline">
+      <div className="watch-list-options">
       <Button id={this.props.watchList} onClick={this.handleShow}><i className="fa fa-ellipsis-v"></i></Button>
       <ButtonToolbar>
         <Modal
@@ -47,8 +47,8 @@ class WatchListEditModal extends Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="inline watchList">
-              <div className="inline watch-list-left-side">
+            <div className="watchList">
+              <div className="watch-list-left-side">
                 <WatchListMainEdit watchListName={this.props.watchListName} watchListObj={this.props.watchListObj} handleRemove={this.props.handleRemove} />
               </div>
             </div>

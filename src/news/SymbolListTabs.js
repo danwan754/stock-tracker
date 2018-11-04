@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Tab from "react-bootstrap/lib/Tab";
 import Tabs from "react-bootstrap/lib/Tabs";
-// import './styles.css';
-
 
 
 class SymbolListTabs extends Component {
@@ -29,7 +27,6 @@ class SymbolListTabs extends Component {
         <Tabs
           activeKey={this.state.key}
           onSelect={this.handleSelect}
-          id="controlled-tab-example"
           className="newsTab"
         >
           {this.props.symbolListArr.length > 0?

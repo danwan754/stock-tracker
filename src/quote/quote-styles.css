@@ -1,0 +1,113 @@
+
+
+.quoteContainer {
+  min-height: calc(100vh - 150px);
+}
+
+.period {
+  display: inline-block;
+  margin: 8px;
+  padding: 2px;
+  border-style: solid;
+  text-align: center;
+}
+.period:hover {
+  background-color: #e6e6e6;
+}
+
+.period:active {
+  background-color: #bfbfbf;
+}
+
+.inline {
+  display: inline-block;
+}
+
+div.alignRow {
+  display: flex;
+  flex-direction: row;
+}
+
+div.verticalCenter {
+  display: flex;
+  align-items: center;
+}
+
+div.verticalCenter p {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+.currentPrice {
+  display: inline;
+  color: #1a8cff;
+}
+
+.gain {
+  color: #00cc00;
+  font-size: 16px;
+  display: inline;
+  margin-left: 10px;
+}
+
+.loss {
+  color: #ff3300;
+  font-size: 16px;
+  display: inline;
+  margin-left: 10px;
+}
+
+table.quoteTable {
+  text-align: left;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 1em;
+  /* border-style: solid; */
+}
+
+
+.suggestion {
+  border-style: solid;
+  border-width: thin;
+  padding: 5px 10px 5px 10px;
+}
+
+.suggestion:hover {
+  background-color: #a6a6a6;
+}
+
+.suggestion:active {
+  background-color: #bfbfbf;
+}
+
+.custom-modal {
+  /* text-align: center; */
+  white-space: nowrap;
+}
+
+.quote {
+  width: 40%;
+  vertical-align: top;
+}
+
+.news {
+  width: 60%;
+}
+
+.news p {
+  font-size: 12px;
+  display: inline-block;
+  width: 50%;
+}
+
+.submitAdd {
+  width: 100%;
+}
+
+.modal-quote-results {
+  width: 90%;
+}
+
+.footer {
+  text-align: center;
+}

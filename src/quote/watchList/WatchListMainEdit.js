@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import '/styles.css';
 import WatchListEditItem from './WatchListEditItem';
 
 class WatchListMainEdit extends Component {
@@ -32,10 +31,10 @@ class WatchListMainEdit extends Component {
 
     return (
       <div>
-        <p className="watchListName inline">
+        <p className="watchListName">
           {this.props.watchListName}
         </p>
-        <div className="inline watch-list-remove">
+        <div className="watch-list-remove">
           <input type="submit" value="X" id={this.props.watchListName} onClick={this.handleConfirmRemove} />
         </div>
         {Object.keys(this.props.watchListObj).map((company, i) => { return (

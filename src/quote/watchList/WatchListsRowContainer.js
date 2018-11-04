@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import '/styles.css';
 import WatchList from './WatchList';
 // import Button from "react-bootstrap/lib/Button";
 
@@ -14,8 +13,8 @@ class WatchListsRowContainer extends Component {
       <div>
         {Object.keys(this.props.batchObj).map((watchList) => {
           return (
-            <div className="inline watchList" key={watchList}>
-              <div className="inline watch-list-left-side">
+            <div className="watchList" key={watchList}>
+              <div className="watch-list-left-side">
                 <WatchList watchListName={watchList} watchListObj={this.props.batchObj[watchList]} handleRemove={this.props.handleRemove} />
               </div>
             </div>

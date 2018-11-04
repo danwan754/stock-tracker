@@ -18,7 +18,7 @@ class NewsList extends Component {
               <div key={news.title} className="newsItem">
                 <a href={news.link} className="newsLink" target="_blank" rel="noopener noreferrer">
                 <span style={{display: "block"}}>
-                  <p id="newsDate">{new Date(news.pubDate).toLocaleString()}</p>
+                  <p className="newsDate">{new Date(news.pubDate).toLocaleString()}</p>
                   <p className="newsTitle">{news.title}</p>
                   <p className="newsDescription">{news.description}</p>
                 </span>

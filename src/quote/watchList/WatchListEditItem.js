@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import '/styles.css';
+import './watch-list-styles.css';
 
 class WatchListEditItem extends Component {
 
@@ -22,10 +22,10 @@ class WatchListEditItem extends Component {
     let quoteObj = this.props.quoteObj["quote"];
     return (
       <div className="watch-list-edit-item">
-        <p className="symbolName inline">
+        <p className="symbolName">
           {quoteObj.symbol} :  {quoteObj.companyName}
         </p>
-        <div className="watchListItemRemove inline">
+        <div className="watchListItemRemove">
           <input type="submit" value="X" id={this.props.watchListName + "-" + quoteObj.symbol} onClick={this.handleClick} />
         </div>
       </div>

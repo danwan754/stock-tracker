@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import '/styles.css';
+import './watch-list-styles.css';
 import Button from "react-bootstrap/lib/Button";
 import WatchListsRowContainer from "./WatchListsRowContainer";
 

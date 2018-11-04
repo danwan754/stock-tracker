@@ -43,7 +43,7 @@ class NewsCompanyModal extends Component {
     }
     return (
       <div>
-        <table className="news-table">
+        <table>
           <tbody>
             {this.props.newsObjArr.length > 0? this.props.newsObjArr.map(newsObj => { return (
               <tr key={newsObj.rss.channel.description.toUpperCase()}>
