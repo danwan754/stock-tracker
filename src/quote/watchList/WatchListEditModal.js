@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './styles.css';
+import '/styles.css';
 import WatchListMainEdit from './WatchListMainEdit';
 
 

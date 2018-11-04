@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import QuoteSearchBar from "./QuoteSearchBar";
-import WatchListsMainContainer from "./WatchListsMainContainer";
+import WatchListsMainContainer from "./watchList/WatchListsMainContainer";
 import QuoteFooter from "./QuoteFooter";
 import cookie from "react-cookies";
-import './styles.css'
+import './quote-styles.css'
 
 
 class Quote extends Component {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import cookie from "react-cookies";
 import NewsContainer from "./NewsContainer";
 import NewsFooter from "./NewsFooter";
-import './styles.css';
+import '/styles.css';
 
 
 class News extends Component {

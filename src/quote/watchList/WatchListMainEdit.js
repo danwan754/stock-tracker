@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './styles.css';
+import '/styles.css';
 import WatchListEditItem from './WatchListEditItem';
 
 class WatchListMainEdit extends Component {
