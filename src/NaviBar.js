@@ -8,7 +8,7 @@ class NaviBar extends Component {
 
   render() {
     return (
-      <Navbar inverse collapseOnSelect>
+      <Navbar inverse collapseOnSelect className="navbar-custom">
         <Navbar.Header>
           <Link to='/' className='navbar-brand'>StockTracker</Link>
           <Navbar.Toggle />

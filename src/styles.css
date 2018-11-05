@@ -102,3 +102,22 @@ body {
   font-size: 18px;
   text-align: center;
 }
+
+/*
+.navbar-custom {
+  background-color: #0099cc;
+  color:#ffffff;
+}
+
+.navbar-custom: hover {
+  background-color: #00bfff;
+}
+
+.navbar-custom: active {
+  background-color: #00bfff;
+}
+
+.navbar-custom .navbar-nav > li > a {
+  	color:#fff;
+}
+*/
