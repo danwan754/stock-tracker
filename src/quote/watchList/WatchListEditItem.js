@@ -3,12 +3,10 @@ import './watch-list-styles.css';
 
 class WatchListEditItem extends Component {
 
-
   constructor() {
     super();
     this.handleClick = this.handleClick.bind(this);
   }
-
 
   handleClick(event) {
     let arr = event.target.id.split("-");
@@ -22,7 +20,7 @@ class WatchListEditItem extends Component {
     let quoteObj = this.props.quoteObj["quote"];
     return (
       <div className="watch-list-edit-item">
-        <p className="symbolName">
+        <p className="symbolName inline-block">
           {quoteObj.symbol} :  {quoteObj.companyName}
         </p>
         <div className="watchListItemRemove">
