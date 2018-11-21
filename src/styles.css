@@ -16,15 +16,9 @@ body {
 
 .outter-div {
   width: 90%;
+  height: 100%;
   margin-left: auto;
   margin-right: auto;
-}
-
-#logo {
-  /* opacity: 0.8; */
-  max-width: 110px;
-  max-height: 100px;
-  margin: 0 0 0 0;
 }
 
 
@@ -98,7 +92,12 @@ body {
   text-align: center;
 }
 
-#home-notice-p {
+.footer {
+  margin-top: 100px;
+  margin-bottom: 50px;
+}
+
+.footer p {
   font-size: 18px;
   text-align: center;
 }
@@ -121,3 +120,28 @@ body {
   	color:#fff;
 }
 */
+
+
+/* style the bootstrap carousel */
+.custom-carousel {
+  /* width: 100% !important; */
+  /* width: 1000px !important; */
+  /* width: 100% !important; */
+  /* text-align: center; */
+
+}
+
+.home-carousel-div {
+  width: 100%;
+}
+
+.carousel-img {
+  max-width: 800px;
+  max-height: 500px;
+  margin: auto;
+}
+
+/* keep news footer at bottom of page */
+.main-content-wrapper {
+  min-height: calc(100vh - 150px);
+}

@@ -111,3 +111,10 @@ table.quoteTable {
 .footer {
   text-align: center;
 }
+
+#logo {
+  /* opacity: 0.8; */
+  max-width: 110px;
+  max-height: 100px;
+  margin: 0 0 0 0;
+}
