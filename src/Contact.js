@@ -21,13 +21,13 @@ class Contact extends Component {
         <br/><br/>
         <form action="/feedback" method="post">
           Name (optional):<br/>
-          <input type="text" placeholder="" />
+          <input type="text" placeholder="" name="name"/>
           <br/><br/>
           Email (optional):<br/>
-          <input type="text" placeholder="" />
+          <input type="text" placeholder="" name="email"/>
           <br/><br/>
           Comment:<br/>
-          <textarea rows="10" cols="50" name="comment">
+          <textarea rows="10" cols="50" name="body">
           </textarea>
           <br/><br/>
           <input type="submit" value="Submit" />

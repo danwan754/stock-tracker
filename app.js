@@ -3,11 +3,12 @@ const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser')
 const path = require('path');
+const nodemailer = require('nodemailer');
 const app = express();
 
 app.use(express.static(path.join(__dirname, './dist')));
 app.use(bodyParser.json());
-app.use(cors());
+// app.use(cors());
 
 // app.all('*', function (req, res, next) {
 //   res.header('Access-Control-Allow-Origin', '*')
@@ -42,6 +43,30 @@ app.get('/', function (req, res) {
 //   });
 // });
 
+app.post('/feedback', function(req, res) {
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.STOCKTRACKER_EMAIL_USER,
+      pass: process.env.STOCKTRACKER_EMAIL_PASSWORD
+    }
+  });
+
+  var mailOptions = {
+    from: req.body.email || "ANONYMOUS",
+    to: process.env.STOCKTRACKER_EMAIL_USER,
+    // subject: req.body.subject || "No subject provided.",
+    text: req.body.body
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+})
 
 
 app.listen(process.env.PORT || 8080);
