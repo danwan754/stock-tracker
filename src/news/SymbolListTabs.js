@@ -23,11 +23,12 @@ class SymbolListTabs extends Component {
 
   render() {
     return (
-      <div id="symbolTabs">
+      <div id="symbolTabsDiv">
         <Tabs
           activeKey={this.state.key}
           onSelect={this.handleSelect}
           className="newsTab"
+          id="symbolTabs"
         >
           {this.props.symbolListArr.length > 0?
             this.props.symbolListArr.map((symbol, i) => { return (

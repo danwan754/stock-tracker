@@ -24,7 +24,6 @@ class NewsContainer extends Component {
 
     var url = "/api/news/company?symbol=" + symbol;
     fetch(url)
-    // fetch("/api/company/rss/2.0/headline?s=" + symbol)
     .then(response => { return response.text() })
     .then((xmlText) => {
       let temp;
@@ -64,9 +63,6 @@ class NewsContainer extends Component {
   }
 
   render() {
-    // console.log("newscontainer");
-    // console.log(this.props.watchListsArrsObj);
-
     return (
       <div>
         {this.props.watchListsArr.length > 0 ?

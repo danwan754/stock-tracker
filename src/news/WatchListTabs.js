@@ -27,6 +27,7 @@ class WatchListTabs extends Component {
         activeKey={this.state.key}
         onSelect={this.handleSelect}
         className="newsTab"
+        id="watchListTabs"
       >
         {this.props.watchListsArr.length > 0? this.props.watchListsArr.map((watchList, i) => { return (
           <Tab key={i} eventKey={watchList} title={watchList}><br/></Tab>
