@@ -45,34 +45,40 @@ class QuoteSearchBar extends Component {
   handleClick(event) {
     let symbol = event.target.textContent.match(".*:")[0].trim().replace(":", '').toLowerCase();
 
-    var baseUrl = "https://api.iextrading.com/1.0/stock/" + symbol;
-
     // fetch quote data
     function getQuote() {
-      var url =  baseUrl + "/quote";
+      // var url =  baseUrl + "/quote" + token;
+      var url = "/api/quote?symbol=" + symbol;
+      // console.log(url);
       return fetch(url)
         .then(response => { return response.json() })
     }
 
     // fetch news about Company
     function getNews() {
-      var url = baseUrl + "/news/last/2";
+      // var url = baseUrl + "/news/last/2" + token;
+      var url = "/api/news/analysis?symbol=" + symbol;
+      // console.log(url);
       return fetch(url)
         .then(response => { return response.json() })
     }
 
     // fetch company logo and return url
     function getLogo() {
-      var url = baseUrl + "/logo";
+      // var url = baseUrl + "/logo" + token;
+      var url = "/api/logo?symbol=" + symbol;
+      // console.log(url);
       return fetch(url)
         .then(response => { return response.json() })
         .then(data => { return data["url"] });
     }
 
-    // fetch graph data (default range is intraday data (minute by minute))
-    // default period of 1 month
+    // fetch historic stock price data for chart
     function getChart() {
-      var url = baseUrl + "/chart/1m";
+      // var url = baseUrl + "/chart/1m" + token;
+
+      var defaultPeriod = '1m';
+      var url = "/api/chart?period=" + defaultPeriod + "&symbol=" + symbol;
       return fetch(url)
         .then(response => { return response.json() })
     }

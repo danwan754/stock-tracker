@@ -54,8 +54,7 @@ class QuoteGraph extends Component {
 
     // console.log(this.props.symbol);
     if (this.props.symbol ) {
-      var url = "https://api.iextrading.com/1.0/stock/" + this.props.symbol.toLowerCase() + "/chart/" + period;
-      // console.log(url);
+      var url = "/api/chart?period=" + period + "&symbol=" + this.props.symbol;
       fetch(url)
       .then(response => { return response.json() })
       .then(data => { this.setState({ graphObj: data,
