@@ -145,3 +145,17 @@ body {
 .main-content-wrapper {
   min-height: calc(100vh - 150px);
 }
+
+
+/* container for message returned by submitting feedback form */
+#form-message {
+  display: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #009900;
+  color: white;
+  border-radius: 15px;
+  text-align: center;
+}

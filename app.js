@@ -1,15 +1,17 @@
 const request = require('request');
-const cors = require('cors');
+// const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const axios = require('axios');
-// const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 const app = express();
 
 app.use(express.static(path.join(__dirname, './dist')));
+
 app.use(bodyParser.json());
-// app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 var secretToken = "token=sk_772e822c4d8e48d98d552e693c0e7d93";
 var baseURL = "https://cloud.iexapis.com/v1/stock/";
@@ -102,30 +104,33 @@ app.get('/api/quote/batch', (req, res) => {
   });
 })
 
-// app.post('/feedback', function(req, res) {
-//   var transporter = nodemailer.createTransport({
-//     service: 'gmail',
-//     auth: {
-//       user: process.env.STOCKTRACKER_EMAIL_USER,
-//       pass: process.env.STOCKTRACKER_EMAIL_PASSWORD
-//     }
-//   });
-//
-//   var mailOptions = {
-//     from: req.body.email || "ANONYMOUS",
-//     to: process.env.STOCKTRACKER_EMAIL_USER,
-//     // subject: req.body.subject || "No subject provided.",
-//     text: req.body.body
-//   };
-//
-//   transporter.sendMail(mailOptions, function(error, info){
-//     if (error) {
-//       console.log(error);
-//     } else {
-//       console.log('Email sent: ' + info.response);
-//     }
-//   });
-// })
+// post a feedback form
+app.post('/api/feedback', function(req, res) {
+  var from = req.body.email || "ANONYMOUS";
+  var message = "From: " + from + "\n\n" + req.body.body;
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.STOCKTRACKER_EMAIL_USER,
+      pass: process.env.STOCKTRACKER_EMAIL_PASSWORD
+    }
+  });
+
+  var mailOptions = {
+    to: process.env.STOCKTRACKER_EMAIL_USER,
+    subject: req.body.subject || req.body.email || "No subject",
+    text: message
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+  res.send({message: "Thank you for the feedback."});
+})
 
 
 app.listen(process.env.PORT || 3001);
