@@ -23,8 +23,6 @@ class News extends Component {
   getWatchLists() {
     // cookies object with watch list names as entries; ex.: {cookie: { technology list: "aapl,amzn", energy: "enb" } }
     let watchListsObj = cookie.loadAll();
-    // console.log("watchListsObj: ");
-    // console.log(watchListsObj);
 
     // check if watchlists cookie is empty
     if (watchListsObj === undefined || Object.keys(watchListsObj).length === 0) {
@@ -35,27 +33,17 @@ class News extends Component {
     if (Object.keys(watchListsObj)[0] === 'cookies') {
       watchListsObj = watchListsObj["cookies"]; // format like: { technology list: "aapl,amzn", energy list: "enb" }
     }
-    // console.log("OBJ: ");
-    // console.log(watchListsObj);
 
     // convert watchlistsObj into format like: { technology: ["aapl", "amzn"], energy: ["enb"] }
     let watchListsArrsObj = {};
     for (var i=0; i<Object.keys(watchListsObj).length; i++) {
       let watchList = Object.keys(watchListsObj)[i];
-      // console.log(watchList);
       let watchListString = watchListsObj[watchList];
-      // console.log(watchListString);
       watchListsArrsObj[watchList] = watchListString.split(",");
-      // console.log("should be object of arrays:");
-      // console.log(watchListsArrsObj);
 
-      // console.log("watchListsArrsObj[watchList]:");
-      // console.log(watchListsArrsObj[watchList]);
       // if the watch list contains empty string, then assign it as an empty list
       if (watchListsArrsObj[watchList][0] === '') {
         watchListsArrsObj[watchList] = [];
-        // console.log("remove ''");
-        // console.log(watchListsArrsObj);
       }
     }
 
@@ -64,10 +52,6 @@ class News extends Component {
   }
 
   render() {
-    // console.log("News component");
-    // console.log(this.state.watchListsArr);
-    // console.log(this.state.watchListsArrsObj);
-
     return (
       <div className="newsContainer">
         <div className="newsContainerWrapper">
@@ -82,6 +66,3 @@ class News extends Component {
 }
 
 export default News;
-
-
-// <NewsList newsObj={this.state.industriesNewsObj} sliceLimit={this.maxNumSampleArticles} />
