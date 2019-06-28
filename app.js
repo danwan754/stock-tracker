@@ -11,21 +11,9 @@ app.use(express.static(path.join(__dirname, './dist')));
 app.use(bodyParser.json());
 // app.use(cors());
 
-var secretToken = "?token=sk_772e822c4d8e48d98d552e693c0e7d93";
+var secretToken = "token=sk_772e822c4d8e48d98d552e693c0e7d93";
 var baseURL = "https://cloud.iexapis.com/v1/stock/";
 
-
-// app.all('*', function (req, res, next) {
-//   res.header('Access-Control-Allow-Origin', '*')
-//   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
-//   res.header('Access-Control-Allow-Headers', 'Content-Type')
-//   next()
-// })
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
 
 // return the symbol or error message for missing symbol query param
 function checkSymbolParam(symbol, res) {
@@ -55,7 +43,7 @@ app.get('/', function (req, res) {
 // get stock quote
 app.get('/api/quote', function(req, res) {
   var symbol = checkSymbolParam(req.query.symbol, res);
-  var url = baseURL + symbol + "/quote" + secretToken;
+  var url = baseURL + symbol + "/quote" + "?" + secretToken;
   axios.get(url)
   .then(response => {
     res.send(response.data);
@@ -65,7 +53,7 @@ app.get('/api/quote', function(req, res) {
 // get quote news
 app.get('/api/news/analysis', (req, res) => {
   var symbol = checkSymbolParam(req.query.symbol, res);
-  var url = baseURL + symbol + "/news/last/2" + secretToken;
+  var url = baseURL + symbol + "/news/last/2" + "?" + secretToken;
   axios.get(url)
   .then(response => {
     res.send(response.data);
@@ -75,7 +63,7 @@ app.get('/api/news/analysis', (req, res) => {
 // get company logo
 app.get('/api/logo', (req, res) => {
   var symbol = checkSymbolParam(req.query.symbol, res);
-  var url = baseURL + symbol + "/logo" + secretToken;
+  var url = baseURL + symbol + "/logo" + "?" + secretToken;
   axios.get(url)
   .then(response => {
     res.send(response.data);
@@ -86,21 +74,12 @@ app.get('/api/logo', (req, res) => {
 app.get('/api/chart', (req, res) => {
   var symbol = checkSymbolParam(req.query.symbol, res);
   var period = validatePeriodParam(req.query.period, res);
-  var url = baseURL + symbol + "/chart/" + period + secretToken;
+  var url = baseURL + symbol + "/chart/" + period + "?" + secretToken;
   axios.get(url)
   .then(response => {
     res.send(response.data);
   });
 })
-
-
-// // get industry news
-// app.get('/api/news/industry/:symbols', function (req, res) {
-//   let url = "https://finance.yahoo.com/rss/industry?s=" + req.params.symbols;
-//   request(url, function (error, response, body) {
-//     res.send(body);
-//   });
-// });
 
 // get company news
 app.get('/api/news/company', (req, res) => {
@@ -108,6 +87,18 @@ app.get('/api/news/company', (req, res) => {
   var url = "https://feeds.finance.yahoo.com/rss/2.0/headline?s=" + symbol;
   request(url, function (error, response, body) {
     res.send(body);
+  });
+})
+
+
+// get batch quote
+app.get('/api/quote/batch', (req, res) => {
+  // console.log(req.query.symbols);
+  var symbols = checkSymbolParam(req.query.symbols, res);
+  var url = baseURL + "market/batch?symbols=" + symbols + "&types=quote&" + secretToken;
+  axios.get(url)
+  .then(response => {
+    res.send(response.data);
   });
 })
 
