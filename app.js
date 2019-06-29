@@ -1,5 +1,4 @@
 const request = require('request');
-// const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -19,10 +18,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve any static files
 app.use(express.static(path.join(__dirname, './build')));
 
-// Handle React routing, return all requests to React app
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, './build', 'index.html'));
-});
+// // Handle React routing, return all requests to React app
+// app.get('*', function(req, res) {
+//   res.sendFile(path.join(__dirname, './build', 'index.html'));
+// });
 
 var secretToken = "token=sk_772e822c4d8e48d98d552e693c0e7d93";
 var baseURL = "https://cloud.iexapis.com/v1/stock/";
@@ -96,12 +95,15 @@ app.get('/api/news/company', (req, res) => {
   request(url, function (error, response, body) {
     res.send(body);
   });
+  // axios.get(url)
+  // .then(response => {
+  //   res.send(reponse.data);
+  // });
 })
 
 
 // get batch quote
 app.get('/api/quote/batch', (req, res) => {
-  // console.log(req.query.symbols);
   var symbols = checkSymbolParam(req.query.symbols, res);
   var url = baseURL + "market/batch?symbols=" + symbols + "&types=quote&" + secretToken;
   axios.get(url)
