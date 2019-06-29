@@ -20,7 +20,6 @@ class QuoteSearchBar extends Component {
       selectedSymbol: '',
       quoteObj: {},
       graphObj: [],
-      // newsObj: [], // for IEX news
       newsObj: {}, // for Yahoo news
       logoURL: '',
       period: ''
@@ -37,8 +36,6 @@ class QuoteSearchBar extends Component {
     fetch("https://api.iextrading.com/1.0/ref-data/symbols")
     .then(response => { return response.json() })
     .then(data => { this.setState({ companies: data });
-      // console.log("company 1: " + this.state.companies[1].symbol);
-
     })
   }
 
@@ -137,8 +134,6 @@ class QuoteSearchBar extends Component {
   }
 
   render() {
-    // console.log("quoteSearchBar");
-
     var companies = this.state.companies;
     var searchString = this.state.searchString.trim().toLowerCase();
 
@@ -153,13 +148,16 @@ class QuoteSearchBar extends Component {
       companies = [];
     }
 
-    // console.log("watchListsArr in QuoteSearchBar: ");
-    // console.log(this.props.watchListsArr);
-
     return (
         <div>
           <input type="text" name="company" className="submitAdd" value={this.state.searchString} onChange={this.handleChange} placeholder="Company name"/>
-          { companies.map(company => { return <div className="suggestion" key={company.symbol} name={company.symbol} onClick={this.handleClick}>{company.symbol + ": " + company.name} </div> }) }
+          { companies.map(company => {
+            return (
+              <div className="suggestion" key={company.symbol} name={company.symbol} onClick={this.handleClick}>
+                {company.symbol + ": " + company.name}
+              </div>
+            )
+          })}
 
           <ButtonToolbar>
             <Modal
@@ -191,20 +189,3 @@ class QuoteSearchBar extends Component {
 }
 
 export default QuoteSearchBar;
-
-// {this.props.toHideButton? "" : <WatchListDropDown watchListsArr={this.props.watchListsArr} watchListAndSymbol={this.watchListAndSymbol} />}
-
-
-// // fetch quote data and append it to batchObj
-// var symbol = this.state.symbol.toLowerCase();
-// var url = "https://api.iextrading.com/1.0/stock/" + symbol + "/quote";
-// fetch(url)
-// .then(response => { return response.json() })
-// .then(data => {
-//   var batchObj = this.state.batchObj;
-//   var symbolCaps = symbol.toUpperCase();
-//   batchObj[symbolCaps] = {};
-//   batchObj[symbolCaps]["quote"] = data;
-//   // console.log(batchObj);
-//   return this.setState( {batchObj: batchObj} );
-// });

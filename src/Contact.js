@@ -11,6 +11,11 @@ class Contact extends Component {
   onSubmit(event) {
     event.preventDefault();
     var contactForm = document.getElementById("feedback-form");
+    var formMessage = document.getElementById("form-message");
+    if (!document.getElementById("feedback-textarea").value) {
+      formMessage.style.display = "none";
+      return;
+    }
     const formData = new URLSearchParams(new FormData(contactForm));
     fetch('/api/feedback', {
       method: 'POST',
@@ -20,7 +25,6 @@ class Contact extends Component {
     .then(result => {
       var message = result.message;
       contactForm.reset();
-      var formMessage = document.getElementById("form-message");
       formMessage.style.display = "block";
       formMessage.innerHTML = message;
     })
@@ -43,7 +47,7 @@ class Contact extends Component {
             <input type="text" placeholder="" name="subject"/>
             <br/><br/>
             Comment:<br/>
-            <textarea rows="10" cols="50" name="body">
+            <textarea id="feedback-textarea" rows="10" cols="50" name="body">
             </textarea>
             <br/><br/>
             <input type="submit" value="Submit" />
