@@ -24,7 +24,6 @@ class QuoteGraph extends Component {
   handleChartChange(event) {
     var selectedPeriod = event.target.textContent;
     var period;
-    // console.log(selectedPeriod);
     switch(selectedPeriod) {
       case "1 Day":
         period = "1d";
@@ -52,7 +51,6 @@ class QuoteGraph extends Component {
         break;
     }
 
-    // console.log(this.props.symbol);
     if (this.props.symbol ) {
       var url = "/api/chart?period=" + period + "&symbol=" + this.props.symbol;
       fetch(url)
@@ -65,9 +63,6 @@ class QuoteGraph extends Component {
   }
 
   render() {
-
-    // console.log("quoteGraph");
-
 
     var graphObj;
     if (this.props.graphObj === undefined || this.props.graphObj.length === 0) {
