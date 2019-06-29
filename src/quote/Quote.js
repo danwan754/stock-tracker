@@ -12,7 +12,6 @@ class Quote extends Component {
     super();
     this.state = {
       symbol: '',
-      // watchlist: cookie.load('watchlist'), // string of symbols; ex.: "aapl,amzn,tsl"
       watchListsArrsObj: {},
       watchListsArr: [],
       toHide: true,
@@ -48,12 +47,8 @@ class Quote extends Component {
     let watchListsArrsObj = {};
     for (var i=0; i<Object.keys(watchListsObj).length; i++) {
       let watchList = Object.keys(watchListsObj)[i];
-      // console.log(watchList);
       let watchListString = watchListsObj[watchList];
-      // console.log(watchListString);
       watchListsArrsObj[watchList] = watchListString.split(",");
-      // console.log("should be object of arrays:");
-      // console.log(watchListsArrsObj);
     }
 
     this.setState( {watchListsArrsObj: watchListsArrsObj,
@@ -71,8 +66,6 @@ class Quote extends Component {
       // if watch list does not exist, create it and add symbol to it
       if (!this.state.watchListsArr.includes(watchList)) {
         cookie.save(watchList, symbol, {path: "/"});
-        console.log("created new watchlist: " + watchList);
-        console.log("also added symbol: " + symbol + " to " + watchList);
         let tempObj = this.state.watchListsArrsObj;
         let tempArr = this.state.watchListsArr;
         tempObj[watchList] = [symbol];
@@ -87,7 +80,6 @@ class Quote extends Component {
 
       // do not add symbol to watch list if it is already there
       if (this.state.watchListsArrsObj[watchList].includes(symbol)) {
-        console.log(symbol + " already in " + watchList + " so was not added again");
         return;
       }
 
@@ -99,17 +91,11 @@ class Quote extends Component {
       }
       else {
         symbolArr = this.state.watchListsArrsObj[watchList];
-        // console.log("should be array:");
-        // console.log(symbolArr);
         symbolArr.push(symbol);
         symbolString = symbolArr.toString();
       }
       cookie.save(watchList, symbolString, {path: "/"});
-      console.log("Added symbol: " + watchListAndSymbolObj.symbol + " to " + watchList);
-
       let tempObj = JSON.parse(JSON.stringify(this.state.watchListsArrsObj));
-      // let tempArr = JSON.parse(JSON.stringify(symbolArr));
-      // tempObj[watchList] = tempArr;
       tempObj[watchList] = symbolArr;
       this.setState({
         watchListsArrsObj: tempObj,
@@ -128,8 +114,6 @@ class Quote extends Component {
     /* remove the watch list and its content */
     if (symbol === '') {
       cookie.remove(watchList, { path: '/' });
-      console.log("Removed watch list: " + watchList);
-
       let tempObj = JSON.parse(JSON.stringify(this.state.watchListsArrsObj));
       delete tempObj[watchList];
       let tempArr = JSON.parse(JSON.stringify(this.state.watchListsArr));
@@ -137,8 +121,6 @@ class Quote extends Component {
       if (index > -1) {
         tempArr.splice(index, 1);
       }
-      // console.log(tempObj);
-      // console.log(tempArr);
       this.setState({
         watchListsArrsObj: tempObj,
         watchListsArr: tempArr
@@ -146,21 +128,15 @@ class Quote extends Component {
       return;
     }
 
-    // console.log("symbol to remove: " + symbol);
     let symbolArr = this.state.watchListsArrsObj[watchList];
-    // console.log("symbols in " + watchList + ": " + symbolArr);
     var index = symbolArr.indexOf(symbol);
     if (index > -1) {
       symbolArr.splice(index, 1);
     }
-    else {
-      console.log(symbol + " is not in " + watchList + "; no need to remove");
-    }
-    // console.log(symbolArr);
+
     let symbolString = symbolArr.toString();
     cookie.save(watchList, symbolString, {path: "/"});
 
-    // this.getWatchLists();
     let tempObj = this.state.watchListsArrsObj;
     tempObj[watchList] = symbolArr;
     this.setState({
@@ -170,35 +146,10 @@ class Quote extends Component {
 
   handleSelectedCompany(symbol) {
     this.setState( {symbol: symbol} );
-
-    /* determine whether add-to-watch-list button should appear */
-   //  let isInList = false;
-   //  for (var key in this.state.watchListsArrsObj) {
-   //    // console.log(key, this.state.watchListsArrsObj[key]);
-   //    if (this.state.watchListsArrsObj[key].includes(symbol.toUpperCase())) {
-   //      isInList = true;
-   //      break;
-   //    }
-   // }
-   //
-   //  if (isInList) {
-   //    // hide the 'add to watchlist' button
-   //    this.setState( {toHide: true});
-   //    console.log(symbol + " already in list, dont show ADD Button");
-   //  }
-   //  else {
-   //    // reveal the 'add to watchlist' button
-   //    this.setState( {toHide: false});
-   //    console.log(symbol + " not in list, show ADD Button");
-   //  }
   }
 
 
   render() {
-    // console.log("quote component");
-    // console.log("watchListsArrsObj: ");
-    // console.log(this.state.watchListsArrsObj);
-    // console.log(this.state.newWatchListAndSymbolObj);
     return (
       <div>
         <div className="quoteContainer">
