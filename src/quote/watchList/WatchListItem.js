@@ -17,15 +17,6 @@ class WatchListItem extends Component {
   }
 
   render() {
-
-    // if (Object.keys(this.props.quoteObj).length === 0) {
-    //   return (<div></div>)
-    // }
-
-
-    // console.log("quoteObj in WatchListItem component: ");
-    // console.log(this.props.quoteObject);
-
     var quoteObj = this.props.quoteObject;
     var symbol = quoteObj.symbol;
     var companyName = quoteObj.companyName;
@@ -46,8 +37,6 @@ class WatchListItem extends Component {
     changePercent = changePercent + "%";
 
     if (Object.keys(quoteObj).length > 0) {
-      // console.log("quoteObj not empty");
-      // console.log("name : " + quoteObj["companyName"]);
       return (
         <div>
           <div className="watchListItemQuote">

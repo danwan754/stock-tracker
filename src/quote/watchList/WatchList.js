@@ -7,9 +7,6 @@ import Panel from 'react-bootstrap/lib/Panel';
 class WatchList extends Component {
 
   render() {
-    // console.log("batchObj in WatchList component: ");
-    // console.log(this.props.watchListObj);
-    // console.log(this.props.watchListObj[Object.keys(this.props.watchListObj)[0]]["quote"])
     return (
       <Panel>
         <Panel.Heading>

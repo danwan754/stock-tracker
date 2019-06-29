@@ -15,7 +15,6 @@ class WatchListsMainContainer extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.watchListsObj);
     this.fetchWatchListQuotes(this.props.watchListsObj);
   }
 
@@ -47,7 +46,6 @@ class WatchListsMainContainer extends Component {
     var emptyLists = []; // watch lists that are empty
     Object.keys(watchListsObj).map((watchList) => {
       if (watchListsObj[watchList].length > 0) {
-        // console.log(watchListsObj[watchList]);
         if (watchListsObj[watchList][0] === '') {
           emptyLists.push(watchList);
         }

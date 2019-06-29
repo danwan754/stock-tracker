@@ -55,5 +55,3 @@ class NewsModal extends Component {
 }
 
 export default NewsModal;
-
-// <div className='suggestion more-news-button' onClick={this.handleShow}>

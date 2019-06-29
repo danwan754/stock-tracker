@@ -6,13 +6,8 @@ class WatchListMainEdit extends Component {
 
   constructor() {
     super();
-    // this.handleClick = this.handleClick.bind(this);
     this.handleConfirmRemove = this.handleConfirmRemove.bind(this);
   }
-
-  // handleClick(event) {
-  //   let watchList = event.target.id;
-  // }
 
   handleConfirmRemove(event) {
     let watchListObj = {
@@ -24,11 +19,6 @@ class WatchListMainEdit extends Component {
 
 
   render() {
-    // console.log("watchListMainEdit component: ");
-    // console.log(this.props.watchListObj);
-    // console.log(this.props.watchListName);
-    // console.log(this.props.watchListObj["WMT"]["quote"]);
-
     return (
       <Panel>
         <Panel.Heading>
