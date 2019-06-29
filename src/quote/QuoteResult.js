@@ -20,43 +20,6 @@ class QuoteResult extends Component {
     }
     else {
 
-      // // include commas for thousands and strip down decimal places to a max of 2
-      // function includeCommasAndTrimDecimalPlaces(number) {
-      //   if (number != null) {
-      //
-      //     var charLength = number.length;
-      //
-      //     /* count the number of digits before a decimal point */
-      //     var count = 0;
-      //     for (var i=0; i<charLength; i++) {
-      //       if (number[i] != ".") {
-      //         count++;
-      //       }
-      //       else {
-      //         break;
-      //       }
-      //     }
-      //
-      //     // include commas
-      //     //// NEGATIVE????????????
-      //     if (count > 3) {
-      //       var wholeNumber = number.slice(0, count);
-      //       var numCommas = (count - 1) / 3
-      //       var newArr = new Array(count);
-      //       var countThree = 0;
-      //       for (var i=count-1; i>0; i--) {
-      //         newArr[i] = number[count - i];
-      //       }
-      //     }
-      //
-      //     var decimalNumber = number.slice(count, count + 2);
-      //     }
-      //
-      //     // number = number.toFixed(2);
-      //     return number.toLocaleString();
-      //   }
-      // }
-
       function includeCommas(number) {
         if (number != null) {
           return number.toLocaleString();
@@ -72,10 +35,7 @@ class QuoteResult extends Component {
       var name = quoteObj.companyName;
       var symbol = quoteObj.symbol;
       var latestPrice = trimDecimalPlaces(quoteObj.latestPrice);
-      // var latestUpdate = new Date(quoteObj.latestUpdate).toLocaleTimeString();
-      // var latestUpdate = new Date(quoteObj.latestUpdate).toTimeString();
       var latestUpdate = new Date(quoteObj.latestUpdate).toLocaleString();
-      // var exchange = quoteObj.primaryExchange;
       var dayHigh = trimDecimalPlaces(quoteObj.high);
       var dayLow = trimDecimalPlaces(quoteObj.low);
       var changePrice = trimDecimalPlaces(quoteObj.change);
@@ -85,7 +45,6 @@ class QuoteResult extends Component {
       var latestVolume = includeCommas(quoteObj.latestVolume)
       var week52High = trimDecimalPlaces(quoteObj.week52High);
       var week52Low = trimDecimalPlaces(quoteObj.week52Low);
-      // var ytdChange = trimDecimalPlaces(quoteObj.ytdChange);
       var logoURL = this.props.logoURL;
 
       var priceMovement = "loss";
