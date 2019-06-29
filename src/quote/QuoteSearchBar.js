@@ -44,27 +44,21 @@ class QuoteSearchBar extends Component {
 
     // fetch quote data
     function getQuote() {
-      // var url =  baseUrl + "/quote" + token;
       var url = "/api/quote?symbol=" + symbol;
-      // console.log(url);
       return fetch(url)
         .then(response => { return response.json() })
     }
 
     // fetch news about Company
     function getNews() {
-      // var url = baseUrl + "/news/last/2" + token;
       var url = "/api/news/analysis?symbol=" + symbol;
-      // console.log(url);
       return fetch(url)
         .then(response => { return response.json() })
     }
 
     // fetch company logo and return url
     function getLogo() {
-      // var url = baseUrl + "/logo" + token;
       var url = "/api/logo?symbol=" + symbol;
-      // console.log(url);
       return fetch(url)
         .then(response => { return response.json() })
         .then(data => { return data["url"] });
@@ -72,8 +66,6 @@ class QuoteSearchBar extends Component {
 
     // fetch historic stock price data for chart
     function getChart() {
-      // var url = baseUrl + "/chart/1m" + token;
-
       var defaultPeriod = '1m';
       var url = "/api/chart?period=" + defaultPeriod + "&symbol=" + symbol;
       return fetch(url)
@@ -107,7 +99,6 @@ class QuoteSearchBar extends Component {
 
     // need to check for special regex characters and remove them from input string
     var currentString = event.target.value;
-    // var illegalChars = "\[\]\\\^\$\.\|\?\*\+\(\)";
     var illegalChars = "[]\\^$.|?*+()";
     if (illegalChars.includes(currentString[currentString.length - 1])) {
       this.setState({searchString: currentString.slice(0, currentString.length - 1)})
@@ -128,8 +119,6 @@ class QuoteSearchBar extends Component {
       watchList: watchList,
       symbol: this.state.selectedSymbol
     }
-    console.log("watchListAndSymbol object: ")
-    console.log(watchListAndSymbolObj);
     this.props.addToList(watchListAndSymbolObj);
   }
 
