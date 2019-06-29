@@ -1,5 +1,5 @@
 {
-  "name": "stock_quoter",
+  "name": "stock-tracker-express",
   "version": "1.0.0",
   "engines": {
     "npm": "6.4.1",
@@ -7,43 +7,15 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
-  "author": "Dan Wan",
-  "license": "ISC",
-  "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "css-loader": "^1.0.1",
-    "html-webpack-plugin": "^3.2.0",
-    "style-loader": "^0.22.1",
-    "webpack-cli": "^3.1.0"
-  },
+  "devDependencies": {},
   "dependencies": {
+    "body-parser": "^1.18.3",
     "axios": "^0.19.0",
-    "cors": "^2.8.5",
     "express": "^4.16.4",
-    "font-awesome": "^4.7.0",
     "nodemailer": "^6.2.1",
-    "react": "^16.6.3",
-    "react-bootstrap": "^0.32.4",
-    "react-cookies": "^0.1.0",
-    "react-dom": "^16.6.3",
-    "react-google-charts": "^3.0.10",
-    "react-router-bootstrap": "^0.24.4",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.1",
-    "request": "^2.88.0",
-    "xml2js": "^0.4.19"
-  },
-  "keywords": [],
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "proxy": "http://localhost:3001"
+    "request": "^2.88.0"
+  }
 }
