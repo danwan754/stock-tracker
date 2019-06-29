@@ -28,26 +28,28 @@ class Contact extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Contact</h2>
-        <br/>
-        <p>Have suggestions on how to improve the site? Leave some feedback below.</p>
-        <div id="form-message"></div>
-        <br/><br/>
-        <form id="feedback-form" onSubmit={this.onSubmit}>
-          Email (optional):<br/>
-          <input type="text" placeholder="" name="email"/>
+      <div className="contact-page-outter-container">
+        <div className="contact-page-inner-container">
+          <h2>Contact</h2>
+          <br/>
+          <p>Leave any feedback below.</p>
+          <div id="form-message"></div>
           <br/><br/>
-          Subject (optional):<br/>
-          <input type="text" placeholder="" name="subject"/>
-          <br/><br/>
-          Comment:<br/>
-          <textarea rows="10" cols="50" name="body">
-          </textarea>
-          <br/><br/>
-          <input type="submit" value="Submit" />
-          <br/><br/>
-        </form>
+          <form id="feedback-form" onSubmit={this.onSubmit}>
+            Email (optional):<br/>
+            <input type="text" placeholder="" name="email"/>
+            <br/><br/>
+            Subject (optional):<br/>
+            <input type="text" placeholder="" name="subject"/>
+            <br/><br/>
+            Comment:<br/>
+            <textarea rows="10" cols="50" name="body">
+            </textarea>
+            <br/><br/>
+            <input type="submit" value="Submit" />
+            <br/><br/>
+          </form>
+        </div>
       </div>
     );
   }
