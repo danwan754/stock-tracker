@@ -10,18 +10,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-// // send the react app
-// app.get('/', function (req, res) {
-//   res.sendFile(path.join(__dirname, './build', 'index.html'));
-// });
-
-// Serve any static files
-app.use(express.static(path.join(__dirname, 'client/build')));
-
-// Handle React routing, return all requests to React app
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, '.client/build', 'index.html'));
+// send the react app
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
+
+//// Serve any static files
+//app.use(express.static(path.join(__dirname, 'client/build')));
+
+//// Handle React routing, return all requests to React app
+//app.get('*', function(req, res) {
+//  res.sendFile(path.join(__dirname, '.client/build', 'index.html'));
+//});
 
 var secretToken = "token=sk_772e822c4d8e48d98d552e693c0e7d93";
 var baseURL = "https://cloud.iexapis.com/v1/stock/";
