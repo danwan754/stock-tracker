@@ -18,12 +18,7 @@ app.get('/', function (req, res) {
 // Serve any static files
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-// // Handle React routing, return all requests to React app
-// app.get('*', function(req, res) {
-//   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-// });
-
-var secretToken = "token=sk_772e822c4d8e48d98d552e693c0e7d93";
+var secretToken = "token=" + process.env.IEX_SECRET_KEY;
 var baseURL = "https://cloud.iexapis.com/v1/stock/";
 
 
@@ -119,13 +114,14 @@ app.post('/api/feedback', function(req, res) {
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.STOCKTRACKER_EMAIL_USER,
-      pass: process.env.STOCKTRACKER_EMAIL_PASSWORD
+      user: process.env.STOCKTRACKER_EMAIL_SENDER_USER,
+      pass: process.env.STOCKTRACKER_EMAIL_SENDER_PASSWORD
     }
   });
 
   var mailOptions = {
-    to: process.env.STOCKTRACKER_EMAIL_USER,
+    from: process.env.STOCKTRACKER_EMAIL_SENDER_USER,
+    to: process.env.STOCKTRACKER_EMAIL_RECEIVER_USER,
     subject: req.body.subject || req.body.email || "No subject",
     text: message
   };
